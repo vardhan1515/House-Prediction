@@ -16,7 +16,10 @@ feature_names = joblib.load('feature_names.pkl')
 with open("image.png", "rb") as img_file:
     encoded_string = base64.b64encode(img_file.read()).decode()
 
-# Custom CSS for styling
+# Add theme toggle
+theme = st.sidebar.radio("Choose Theme", ["Light Mode", "Dark Mode"])
+
+# Custom CSS for styling with black text
 custom_css = f"""
 <style>
 [data-testid="stAppViewContainer"] {{
@@ -28,8 +31,8 @@ custom_css = f"""
 }}
 
 [data-testid="stSidebar"] {{
-    background-color: rgba(245, 245, 245, 0.95);
-    color: #333333;
+    background-color: rgba(245, 245, 245, 0.95) if theme == "Light Mode" else rgba(40, 40, 40, 0.95);
+    color: black;
     border-radius: 10px;
     padding: 10px;
 }}
@@ -62,29 +65,6 @@ div.stButton > button {{
 div.stButton > button:hover {{
     background-color: #45a049;
     transition: all 0.3s ease;
-}}
-
-/* Tooltip color correction */
-[data-testid="stTooltipIcon"] svg {{
-    color: black !important; /* Ensures the tooltip (?) is black */
-}}
-
-/* Plus/Minus button color correction */
-button.step-up {{
-    background-color: #ADD8E6 !important; /* Light blue for plus */
-    color: black !important;
-    border-radius: 5px;
-}}
-
-button.step-down {{
-    background-color: #ADD8E6 !important; /* Light blue for minus */
-    color: black !important;
-    border-radius: 5px;
-}}
-
-/* Checkbox text color */
-input[type="checkbox"] + span {{
-    color: black !important; /* Change "Show Prediction History" text to black */
 }}
 </style>
 """
@@ -189,3 +169,37 @@ if st.button("🏡 Predict House Price"):
     ax.set_xlabel("Importance", fontsize=14)
     ax.set_ylabel("Feature", fontsize=14)
     st.pyplot(fig)
+
+# Feature Explanation Section
+st.markdown("### 🔍 Feature Explanation")
+with st.expander("Click to Learn About Key Features"):
+    st.markdown(
+        """
+        - **Overall Quality**: Rates the overall material and finish of the house (Range: 1-10).
+        - **Above Ground Living Area**: Total square feet of living area above ground.
+        - **Garage Area**: Size of the garage in square feet.
+        - **Lot Area**: Total size of the lot in square feet.
+        - **Neighborhood**: Location of the property, which significantly influences price.
+        """
+    )
+    st.markdown("#### Example: Impact of Overall Quality on Predicted Price")
+    quality_values = list(range(1, 11))
+    predicted_prices = [model.predict(pd.DataFrame([{**inputs, 'OverallQual': q}]))[0] for q in quality_values]
+
+    fig, ax = plt.subplots(figsize=(8, 4))
+    sns.barplot(x=quality_values, y=predicted_prices, palette="coolwarm", ax=ax)
+    ax.set_title("Predicted Price vs. Overall Quality")
+    ax.set_xlabel("Overall Quality")
+    ax.set_ylabel("Predicted Price ($)")
+    st.pyplot(fig)
+
+# Show Prediction History
+if show_history and len(st.session_state["history"]) > 0:
+    st.markdown("### 🕒 Prediction History")
+    df_history = pd.DataFrame(st.session_state["history"])
+    st.dataframe(df_history)
+
+    # Save Predictions
+    if st.button("💾 Save Predictions to CSV"):
+        df_history.to_csv("predictions_history.csv", index=False)
+        st.success("Prediction history saved successfully!")
