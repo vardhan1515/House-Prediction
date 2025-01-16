@@ -6,54 +6,51 @@ import seaborn as sns
 import base64
 
 # Set page configuration
-st.set_page_config(page_title="House Price Predictor", page_icon="🏡", layout="wide")
+st.set_page_config(page_title="AI-Powered House Price Predictor", page_icon="🏡", layout="wide")
 
 # Load the optimized model and feature names
 model = joblib.load('optimized_house_price_model.pkl')
 feature_names = joblib.load('feature_names.pkl')
 
 # Encode the uploaded background image
-with open("image.png", "rb") as img_file:
+with open("—Pngtree—2 5d buy a house_930567.jpg", "rb") as img_file:
     encoded_string = base64.b64encode(img_file.read()).decode()
 
-# Add theme toggle
-theme = st.sidebar.radio("Choose Theme", ["Light Mode", "Dark Mode"])
-
-# Custom CSS for styling with black text
+# Custom CSS for styling
 custom_css = f"""
 <style>
 [data-testid="stAppViewContainer"] {{
-    background-image: url("data:image/png;base64,{encoded_string}");
+    background-image: url("data:image/jpeg;base64,{encoded_string}");
     background-size: cover;
     background-position: center;
+    color: #333333;
     font-family: 'Arial', sans-serif;
-    color: #000000;
 }}
 
 [data-testid="stSidebar"] {{
-    background-color: rgba(245, 245, 245, 0.95) if theme == "Light Mode" else rgba(40, 40, 40, 0.95);
-    color: black;
+    background-color: rgba(0, 0, 0, 0.8);
+    color: #FFFFFF;
     border-radius: 10px;
     padding: 10px;
 }}
 
 h1, h2, h3 {{
-    color: black;
+    color: #FFFFFF;
     font-weight: bold;
 }}
 
 label {{
-    color: black !important;
+    color: #FFFFFF !important;
     font-size: 14px;
     font-weight: bold;
 }}
 
 .stSlider > div {{
-    color: black !important;
+    color: #FFFFFF !important;
 }}
 
 div.stButton > button {{
-    background-color: #4CAF50;
+    background-color: #008CBA;
     color: white;
     border: none;
     padding: 10px 20px;
@@ -63,8 +60,31 @@ div.stButton > button {{
 }}
 
 div.stButton > button:hover {{
-    background-color: #45a049;
+    background-color: #005F73;
     transition: all 0.3s ease;
+}}
+
+/* Tooltip color correction */
+[data-testid="stTooltipIcon"] svg {{
+    color: #FFFFFF !important; /* Ensures the tooltip (?) is black */
+}}
+
+/* Plus/Minus button color correction */
+button.step-up {{
+    background-color: #008CBA !important; /* Light blue for plus */
+    color: white !important;
+    border-radius: 5px;
+}}
+
+button.step-down {{
+    background-color: #008CBA !important; /* Light blue for minus */
+    color: white !important;
+    border-radius: 5px;
+}}
+
+/* Checkbox text color */
+input[type="checkbox"] + span {{
+    color: #FFFFFF !important; /* Change "Show Prediction History" text to white */
 }}
 </style>
 """
@@ -75,13 +95,13 @@ if "history" not in st.session_state:
     st.session_state["history"] = []
 
 # Header Section
-st.title("🏡 Advanced House Price Predictor")
+st.title("🏡 AI-Powered House Price Predictor")
 st.markdown(
     """
-    ## Your Real Estate Hub for Intelligent Predictions 🌟  
-    - **Accurately estimate property prices** using AI-based models.  
-    - **Customize property details** to fine-tune predictions.  
-    - **Visualize how features impact price predictions.**  
+    ## Your Real Estate Insights Hub 🌟  
+    - **Accurately estimate property prices** using AI-powered algorithms.  
+    - **Customize property details** for precise predictions.  
+    - **Visualize key factors driving price estimates.**  
     """
 )
 
@@ -147,8 +167,12 @@ for col in feature_names:
 inputs['MoSold'] = mo_sold
 inputs['YrSold'] = yr_sold
 
-# Convert to DataFrame
-input_data = pd.DataFrame([inputs])[feature_names]
+# Validate DataFrame Matches Model Input
+input_data = pd.DataFrame([inputs])
+missing_cols = set(feature_names) - set(input_data.columns)
+for col in missing_cols:
+    input_data[col] = 0
+input_data = input_data[feature_names]
 
 # Predict Price
 if st.button("🏡 Predict House Price"):
@@ -169,37 +193,3 @@ if st.button("🏡 Predict House Price"):
     ax.set_xlabel("Importance", fontsize=14)
     ax.set_ylabel("Feature", fontsize=14)
     st.pyplot(fig)
-
-# Feature Explanation Section
-st.markdown("### 🔍 Feature Explanation")
-with st.expander("Click to Learn About Key Features"):
-    st.markdown(
-        """
-        - **Overall Quality**: Rates the overall material and finish of the house (Range: 1-10).
-        - **Above Ground Living Area**: Total square feet of living area above ground.
-        - **Garage Area**: Size of the garage in square feet.
-        - **Lot Area**: Total size of the lot in square feet.
-        - **Neighborhood**: Location of the property, which significantly influences price.
-        """
-    )
-    st.markdown("#### Example: Impact of Overall Quality on Predicted Price")
-    quality_values = list(range(1, 11))
-    predicted_prices = [model.predict(pd.DataFrame([{**inputs, 'OverallQual': q}]))[0] for q in quality_values]
-
-    fig, ax = plt.subplots(figsize=(8, 4))
-    sns.barplot(x=quality_values, y=predicted_prices, palette="coolwarm", ax=ax)
-    ax.set_title("Predicted Price vs. Overall Quality")
-    ax.set_xlabel("Overall Quality")
-    ax.set_ylabel("Predicted Price ($)")
-    st.pyplot(fig)
-
-# Show Prediction History
-if show_history and len(st.session_state["history"]) > 0:
-    st.markdown("### 🕒 Prediction History")
-    df_history = pd.DataFrame(st.session_state["history"])
-    st.dataframe(df_history)
-
-    # Save Predictions
-    if st.button("💾 Save Predictions to CSV"):
-        df_history.to_csv("predictions_history.csv", index=False)
-        st.success("Prediction history saved successfully!")
