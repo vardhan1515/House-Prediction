@@ -75,17 +75,21 @@ div.stButton > button:hover {{
 }}
 
 svg {{
-    color: blue !important; /* Change tooltip icon color to blue */
+    color: black !important; /* Change tooltip icon to black */
 }}
 
 button.step-up {{
-    background-color: white !important; /* Change plus button to white */
+    background-color: #ADD8E6 !important; /* Change plus button to light blue */
     color: black;
 }}
 
 button.step-down {{
-    background-color: white !important; /* Change minus button to white */
+    background-color: #ADD8E6 !important; /* Change minus button to light blue */
     color: black;
+}}
+
+input[type="checkbox"] + span {{
+    color: black !important; /* Change "Show Prediction History" to black */
 }}
 </style>
 """
