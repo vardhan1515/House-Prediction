@@ -8,6 +8,19 @@ import base64
 # Set page configuration
 st.set_page_config(page_title="AI-Powered House Price Predictor", page_icon="🏡", layout="wide")
 
+# Add this CSS snippet at the beginning to modify the sidebar icons
+st.markdown(
+    """
+    <style>
+    .stSidebar div[data-testid="stMarkdownContainer"] svg {
+        color: white !important;
+    }
+    </style>
+    """,
+    unsafe_allow_html=True,
+)
+
+
 # Load the optimized model and feature names
 model = joblib.load('optimized_house_price_model.pkl')
 feature_names = joblib.load('feature_names.pkl')
