@@ -62,29 +62,23 @@ div.stButton > button:hover {
 
 /* Tooltip Icon Styling */
 [data-testid="stTooltipIcon"] {
-    color: black !important; /* Tooltip icon color */
+    color: black !important; /* Ensure the question mark is visible */
     cursor: pointer;
     position: relative;
 }
 
-/* Tooltip Icon Styling */
-[data-testid="stTooltipIcon"] {
-    color: black !important; /* Tooltip icon color */
-    cursor: pointer;
-    position: relative;
-}
-
-/* Tooltip Display on Hover */
+/* Tooltip Text Styling on Hover */
 [data-testid="stTooltipIcon"]:hover::after {
     content: attr(aria-label); /* Display the tooltip text */
     display: block;
     position: absolute;
-    top: -45px; /* Position above the icon */
-    left: 0;
-    background-color: rgba(0, 0, 0, 0.8); /* Dark background for tooltip */
-    color: white; /* White text for visibility */
-    padding: 8px 12px;
-    border-radius: 6px;
+    top: -35px; /* Position above the icon */
+    left: 50%;
+    transform: translateX(-50%); /* Center the tooltip horizontally */
+    background-color: rgba(0, 0, 0, 0.9); /* Dark background for the tooltip */
+    color: white; /* White text for readability */
+    padding: 6px 10px;
+    border-radius: 4px;
     font-size: 14px;
     z-index: 1000;
     white-space: nowrap;
@@ -94,11 +88,12 @@ div.stButton > button:hover {
 [data-testid="stTooltipIcon"]:hover::before {
     content: "";
     position: absolute;
-    top: -10px; /* Position arrow below tooltip box */
-    left: 10px; /* Center the arrow under the tooltip */
+    top: -5px; /* Position arrow below tooltip box */
+    left: 50%;
+    transform: translateX(-50%); /* Center the arrow under the tooltip */
     border-width: 6px;
     border-style: solid;
-    border-color: transparent transparent rgba(0, 0, 0, 0.8) transparent; /* Arrow pointing up */
+    border-color: transparent transparent rgba(0, 0, 0, 0.9) transparent; /* Arrow pointing up */
     z-index: 999;
 }
 
