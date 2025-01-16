@@ -91,10 +91,10 @@ div.stButton > button:hover {
 
 /* Tooltip Icon Styling */
 [data-testid="stTooltipIcon"] {
-    color: #007BFF !important; /* Make the question mark icon blue for visibility */
+    color: #007BFF !important; /* Blue color for better visibility */
     cursor: pointer;
     position: relative;
-    font-size: 16px;
+    font-size: 18px; /* Slightly larger for better focus */
 }
 
 /* Tooltip Text Styling on Hover */
@@ -102,33 +102,35 @@ div.stButton > button:hover {
     content: attr(aria-label); /* Display the tooltip text */
     display: block;
     position: absolute;
-    top: -40px; /* Position above the icon */
+    top: -45px; /* Position above the icon */
     left: 50%;
-    transform: translateX(-50%); /* Center the tooltip horizontally */
-    background-color: rgba(0, 0, 0, 0.9); /* Dark background for tooltip */
-    color: white; /* White text for readability */
-    padding: 8px 12px;
-    border-radius: 6px;
+    transform: translateX(-50%); /* Center horizontally */
+    background-color: rgba(0, 0, 0, 0.95); /* Slightly darker for contrast */
+    color: #ffffff; /* Brighter white text */
+    padding: 10px 14px;
+    border-radius: 8px;
     font-size: 14px;
     z-index: 1000;
     white-space: nowrap;
-    line-height: 1.2;
+    line-height: 1.3;
     font-family: 'Poppins', sans-serif;
     text-align: center;
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.2); /* Subtle shadow for depth */
 }
 
 /* Tooltip Arrow */
 [data-testid="stTooltipIcon"]:hover::before {
     content: "";
     position: absolute;
-    top: -10px; /* Position arrow below the tooltip box */
+    top: -10px; /* Position arrow below tooltip box */
     left: 50%;
     transform: translateX(-50%);
     border-width: 6px;
     border-style: solid;
-    border-color: transparent transparent rgba(0, 0, 0, 0.9) transparent; /* Arrow pointing up */
+    border-color: transparent transparent rgba(0, 0, 0, 0.95) transparent; /* Match background color */
     z-index: 999;
 }
+
 
 /* Headers and Subheaders */
 h1, h2, h3, h4, h5, h6 {
