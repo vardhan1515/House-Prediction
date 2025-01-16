@@ -13,12 +13,9 @@ if "background_image" not in st.session_state:
     with open("image.png", "rb") as img_file:
         st.session_state["background_image"] = base64.b64encode(img_file.read()).decode()
 
-# Pass background image to CSS
-background_image = st.session_state["background_image"]
-
 # Link the external CSS
 with open("styles.css", "r") as css_file:
-    css = css_file.read().replace("{background_image}", background_image)
+    css = css_file.read().replace("{background_image}", st.session_state["background_image"])
     st.markdown(f"<style>{css}</style>", unsafe_allow_html=True)
 
 # Load the optimized model and feature names
@@ -54,13 +51,30 @@ if st.sidebar.button("🔄 Reset All Inputs"):
 if st.sidebar.button("🗑 Clear Prediction History"):
     st.session_state["history"] = []
 
+# Feature Explanation Section
+with st.expander("ℹ️ About the Features", expanded=False):
+    st.markdown("""
+    - **MSSubClass**: Identifies the type of dwelling involved in the sale. For example, 20 = 1-story, 1946 & newer.
+    - **LotFrontage**: Linear feet of street connected to the property.
+    - **LotArea**: Lot size in square feet.
+    - **OverallQual**: Rates the overall material and finish of the house on a scale of 1 (poor) to 10 (excellent).
+    - **OverallCond**: Rates the overall condition of the house on a scale of 1 (poor) to 10 (excellent).
+    - **GrLivArea**: Above-ground (living) area in square feet.
+    - **FullBath**: Number of full bathrooms (with a sink, toilet, and shower/tub) above ground.
+    - **HalfBath**: Number of half bathrooms (sink and toilet only) above ground.
+    - **BedroomAbvGr**: Number of bedrooms above ground.
+    - **GarageArea**: Size of the garage in square feet.
+    - **Neighborhood**: Location within the city.
+    - **SaleCondition**: Condition of the sale, such as "Normal" or "Abnormal."
+    """)
+
 # Main Input Section
 st.markdown("### Enter Property Details")
 col1, col2 = st.columns(2)
 
 with col1:
     inputs = {
-        'MSSubClass': st.number_input("🏠 Building Class (MSSubClass)", value=20.0, help="E.g., 20 = 1-story 1946 & newer."),
+        'MSSubClass': st.number_input("🏠 Building Class (MSSubClass)", value=20.0, help="E.g., 20 = 1-story, 1946 & newer."),
         'LotFrontage': st.number_input("📏 Lot Frontage (ft)", value=70.0, help="Length of the street connected to the property."),
         'LotArea': st.number_input("📐 Lot Area (sq. ft.)", value=8500.0, help="Total property area in square feet."),
         'BedroomAbvGr': st.number_input("🛌 Bedrooms Above Ground", value=3, help="Number of bedrooms above ground."),
