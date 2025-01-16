@@ -60,23 +60,39 @@ div.stButton > button:hover {
     font-weight: bold;
 }
 
-/* Tooltip Styling */
-[data-testid="stTooltipIcon"] svg {
+/* Tooltip Icon Styling */
+[data-testid="stTooltipIcon"] {
     color: black !important; /* Tooltip icon color */
     cursor: pointer;
+    position: relative;
 }
 
+/* Tooltip Display on Hover */
 [data-testid="stTooltipIcon"]:hover::after {
-    content: attr(aria-label);
+    content: attr(aria-label); /* Display the tooltip text */
     display: block;
     position: absolute;
-    background-color: rgba(0, 0, 0, 0.8);
-    color: white;
+    top: -35px; /* Position above the icon */
+    left: 0;
+    background-color: rgba(0, 0, 0, 0.8); /* Dark background for tooltip */
+    color: white; /* White text for visibility */
     padding: 5px 10px;
     border-radius: 5px;
     font-size: 14px;
     z-index: 1000;
     white-space: nowrap;
+}
+
+/* Tooltip Arrow */
+[data-testid="stTooltipIcon"]:hover::before {
+    content: "";
+    position: absolute;
+    top: -10px;
+    left: 10px;
+    border-width: 5px;
+    border-style: solid;
+    border-color: transparent transparent rgba(0, 0, 0, 0.8) transparent;
+    z-index: 1001;
 }
 
 /* Markdown Text Styling */
