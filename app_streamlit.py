@@ -26,10 +26,15 @@ custom_css = f"""
     font-family: 'Arial', sans-serif;
 }}
 
+/* Main Page Text Styling */
+h1, h2, h3, h4, h5, h6, p, li {{
+    color: black !important; /* Keep all text on the main page black */
+}}
+
 /* Sidebar Styling */
 [data-testid="stSidebar"] {{
     background-color: rgba(0, 0, 0, 0.8);
-    color: white !important; /* Sidebar text is white */
+    color: white !important; /* Sidebar text remains white */
     border-radius: 10px;
     padding: 10px;
 }}
@@ -79,6 +84,7 @@ button.step-down {{
 </style>
 """
 st.markdown(custom_css, unsafe_allow_html=True)
+
 
 
 
