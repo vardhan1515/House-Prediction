@@ -75,7 +75,17 @@ div.stButton > button:hover {{
 }}
 
 svg {{
-    color: #333333 !important; /* Dark icon color for all SVG elements, including the tooltip icon */
+    color: blue !important; /* Change tooltip icon color to blue */
+}}
+
+button.step-up {{
+    background-color: white !important; /* Change plus button to white */
+    color: black;
+}}
+
+button.step-down {{
+    background-color: white !important; /* Change minus button to white */
+    color: black;
 }}
 </style>
 """
