@@ -34,30 +34,18 @@ custom_css = f"""
     padding: 10px;
 }}
 
-/* Main Content Text */
-h1, h2, h3, label {{
-    color: black !important; /* Main content headings and labels set to black */
+/* Sidebar Text Styling */
+label, div.stSlider > div, input[type="number"], [data-testid="stNumberInput"] > div {{
+    color: white !important; /* Set all text in sidebar to white */
 }}
 
-/* Introductory Section (Text) */
-p, ul > li {{
-    font-size: 14px;
-    font-weight: 500;
-    color: black !important; /* Ensure intro text and bullet points are black */
-}}
-
-/* Month Sold and Year Sold Styling */
-.stSlider > div, input[type="number"], [data-testid="stNumberInput"] > div {{
-    color: white !important; /* Set text in sliders and inputs to white */
-}}
-
-label {{
-    color: white !important; /* Set labels in sidebar to white */
+input[type="checkbox"] + span {{
+    color: white !important; /* Checkbox text in white */
 }}
 
 /* Tooltip Styling */
 [data-testid="stTooltipIcon"] svg {{
-    color: black !important; /* Tooltip (?) icons are black */
+    color: white !important; /* Tooltip (?) icons are white */
 }}
 
 /* Buttons */
@@ -88,14 +76,10 @@ button.step-down {{
     color: white !important;
     border-radius: 5px;
 }}
-
-/* Sidebar Checkbox Labels */
-input[type="checkbox"] + span {{
-    color: white !important; /* Sidebar checkbox text in white */
-}}
 </style>
 """
 st.markdown(custom_css, unsafe_allow_html=True)
+
 
 
 
