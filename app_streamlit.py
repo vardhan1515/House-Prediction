@@ -8,14 +8,18 @@ import seaborn as sns
 # Set page configuration
 st.set_page_config(page_title="AI-Powered House Price Predictor", page_icon="🏡", layout="wide")
 
-# Link the external CSS
-with open("styles.css") as css_file:
-    st.markdown(f"<style>{css_file.read()}</style>", unsafe_allow_html=True)
-
 # Load background image and encode it
 if "background_image" not in st.session_state:
     with open("image.png", "rb") as img_file:
         st.session_state["background_image"] = base64.b64encode(img_file.read()).decode()
+
+# Pass background image to CSS
+background_image = st.session_state["background_image"]
+
+# Link the external CSS
+with open("styles.css", "r") as css_file:
+    css = css_file.read().replace("{background_image}", background_image)
+    st.markdown(f"<style>{css}</style>", unsafe_allow_html=True)
 
 # Load the optimized model and feature names
 model = joblib.load('optimized_house_price_model.pkl')
