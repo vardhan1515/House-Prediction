@@ -13,7 +13,7 @@ model = joblib.load('optimized_house_price_model.pkl')
 feature_names = joblib.load('feature_names.pkl')
 
 # Encode the uploaded background image
-with open("—Pngtree—2 5d buy a house_930567.jpg", "rb") as img_file:
+with open("image.png", "rb") as img_file:
     encoded_string = base64.b64encode(img_file.read()).decode()
 
 # Custom CSS for styling
