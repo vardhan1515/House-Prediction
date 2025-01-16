@@ -22,12 +22,25 @@ with open("styles.css", "r") as css_file:
 try:
     model = joblib.load('optimized_house_price_model.pkl')
     feature_names = joblib.load('feature_names.pkl')
-except Exception as e:
-    st.error("Error loading model or feature names. Please ensure the files are in the correct location.")
+except Exception:
+    st.error("Error loading model or feature names. Ensure the required files are available.")
     st.stop()
 
-# Initialize prediction history
+# Initialize session state
+if "reset_triggered" not in st.session_state:
+    st.session_state.reset_triggered = False
 if "history" not in st.session_state:
+    st.session_state["history"] = []
+
+# Reset and Clear Buttons
+def reset_inputs():
+    st.session_state.clear()  # Clear all session state
+    st.session_state.reset_triggered = True
+
+if st.sidebar.button("🔄 Reset All Inputs"):
+    reset_inputs()
+
+if st.sidebar.button("🗑 Clear Prediction History"):
     st.session_state["history"] = []
 
 # Header Section
@@ -40,24 +53,6 @@ st.markdown(
     - **Visualize key factors driving price estimates.**  
     """
 )
-
-# Sidebar Section
-st.sidebar.title("⚙️ Customize Your Property")
-mo_sold = st.sidebar.slider("📅 Month Sold", min_value=1, max_value=12, value=1, help="When was the house sold?")
-yr_sold = st.sidebar.number_input("📅 Year Sold", min_value=2000, max_value=2025, value=2025, help="Year of sale.")
-show_history = st.sidebar.checkbox("📜 Show Prediction History")
-
-# Reset and Clear Buttons
-if st.sidebar.button("🔄 Reset All Inputs"):
-    # Reset all session state variables to their default values
-    st.session_state.clear()  # Clears all session state variables
-    
-    # Optional: Add default values to session state if necessary
-    st.session_state["history"] = []
-    st.session_state["some_other_input"] = "default_value"  # Example for a specific input
-
-    # Force a page rerun
-    st.experimental_rerun()
 
 # Feature Explanation Section
 with st.expander("ℹ️ About the Features", expanded=False):
@@ -80,14 +75,14 @@ with st.expander("ℹ️ About the Features", expanded=False):
 st.markdown("### Enter Property Details")
 col1, col2 = st.columns(2)
 
+# Input fields
+inputs = {}
 with col1:
-    inputs = {
-        'MSSubClass': st.number_input("🏠 Building Class (MSSubClass)", value=20.0, help="E.g., 20 = 1-story, 1946 & newer."),
-        'LotFrontage': st.number_input("📏 Lot Frontage (ft)", value=70.0, help="Length of the street connected to the property."),
-        'LotArea': st.number_input("📐 Lot Area (sq. ft.)", value=8500.0, help="Total property area in square feet."),
-        'BedroomAbvGr': st.number_input("🛌 Bedrooms Above Ground", value=3, help="Number of bedrooms above ground."),
-        'GarageArea': st.number_input("🚗 Garage Area (sq. ft.)", value=400.0, help="Total area of the garage."),
-    }
+    inputs['MSSubClass'] = st.number_input("🏠 Building Class (MSSubClass)", value=20.0, help="E.g., 20 = 1-story, 1946 & newer.")
+    inputs['LotFrontage'] = st.number_input("📏 Lot Frontage (ft)", value=70.0, help="Length of the street connected to the property.")
+    inputs['LotArea'] = st.number_input("📐 Lot Area (sq. ft.)", value=8500.0, help="Total property area in square feet.")
+    inputs['BedroomAbvGr'] = st.number_input("🛌 Bedrooms Above Ground", value=3, help="Number of bedrooms above ground.")
+    inputs['GarageArea'] = st.number_input("🚗 Garage Area (sq. ft.)", value=400.0, help="Total area of the garage.")
 
 with col2:
     inputs['OverallQual'] = st.slider("🌟 Overall Quality", min_value=1, max_value=10, value=5, help="1 = Very Poor, 10 = Excellent.")
@@ -99,17 +94,14 @@ with col2:
 # Neighborhood and Sale Information
 st.markdown("### Neighborhood and Sale Details")
 col3, col4 = st.columns(2)
-
 neighborhoods = ['Blueste', 'CollgCr', 'Edwards', 'Gilbert', 'NWAmes', 'OldTown', 'Sawyer', 'Somerst']
 sale_conditions = ['Normal', 'Abnorml', 'AdjLand', 'Alloca', 'Family', 'Partial']
 
 with col3:
     neighborhood = st.selectbox("🏘 Neighborhood", neighborhoods, help="Location of the property.")
-
 with col4:
     sale_condition = st.selectbox("📄 Sale Condition", sale_conditions, help="Condition under which the sale was made.")
 
-# Encode categorical variables dynamically
 categorical_inputs = {f'Neighborhood_{neighborhood}': 1, f'SaleCondition_{sale_condition}': 1}
 
 # Combine inputs
@@ -130,7 +122,6 @@ input_data = input_data[feature_names]
 if st.button("🏡 Predict House Price"):
     prediction = model.predict(input_data)[0]
     st.session_state["history"].append({"Inputs": inputs, "Prediction": prediction})
-
     st.markdown(f"### 🎯 Predicted Price: **${prediction:,.2f}**")
 
     # Feature Importance Chart
@@ -138,7 +129,6 @@ if st.button("🏡 Predict House Price"):
     importance_df = pd.DataFrame(
         {"Feature": feature_names, "Importance": model.feature_importances_}
     ).sort_values(by="Importance", ascending=False)
-
     fig, ax = plt.subplots(figsize=(10, 6))
     sns.barplot(data=importance_df.head(10), x="Importance", y="Feature", palette="viridis")
     ax.set_title("Top 10 Features Influencing Prediction", fontsize=16)
