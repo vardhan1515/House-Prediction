@@ -1,62 +1,49 @@
-/* Background Styling */
-[data-testid="stAppViewContainer"] {
-    background-image: url("background.jpg");
-    background-size: cover;
-    background-position: center;
-    font-family: 'Arial', sans-serif;
+/* Theme Variables */
+:root {
+    --background-dark: rgba(0, 0, 0, 0.8);
+    --background-light: white;
+    --text-dark: white;
+    --text-light: black;
 }
 
-/* Main Page Text Styling */
-h1, h2, h3, h4, h5, h6, p, li {
-    color: black !important;
+[data-theme="dark"] {
+    --background: var(--background-dark);
+    --text-color: var(--text-dark);
+}
+
+[data-theme="light"] {
+    --background: var(--background-light);
+    --text-color: var(--text-light);
+}
+
+/* App Container Styling */
+[data-testid="stAppViewContainer"] {
+    background-image: url("data:image/png;base64,{background_image}");
+    background-color: var(--background);
+    color: var(--text-color);
+    background-size: cover;
+    background-position: center;
 }
 
 /* Sidebar Styling */
 [data-testid="stSidebar"] {
-    background-color: rgba(0, 0, 0, 0.8);
+    background-color: var(--background);
+    color: var(--text-color);
     border-radius: 10px;
     padding: 10px;
-}
-
-/* Sidebar Text Styling */
-[data-testid="stSidebar"] label, 
-[data-testid="stSidebar"] div.stSlider > div, 
-[data-testid="stSidebar"] input[type="number"], 
-[data-testid="stSidebar"] [data-testid="stNumberInput"] > div, 
-[data-testid="stSidebar"] input[type="checkbox"] + span {
-    color: white !important;
-}
-
-/* Tooltip Styling */
-[data-testid="stSidebar"] [data-testid="stTooltipIcon"] svg {
-    color: white !important;
 }
 
 /* Buttons */
 div.stButton > button {
     background-color: #008CBA;
     color: white;
-    border: none;
     padding: 10px 20px;
-    font-size: 16px;
-    cursor: pointer;
     border-radius: 10px;
+    cursor: pointer;
+    border: none;
 }
 
 div.stButton > button:hover {
     background-color: #005F73;
     transition: all 0.3s ease;
-}
-
-/* Plus/Minus Buttons */
-button.step-up {
-    background-color: #ADD8E6 !important;
-    color: white !important;
-    border-radius: 5px;
-}
-
-button.step-down {
-    background-color: #ADD8E6 !important;
-    color: white !important;
-    border-radius: 5px;
 }
