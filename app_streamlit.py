@@ -16,7 +16,6 @@ feature_names = joblib.load('feature_names.pkl')
 with open("image.png", "rb") as img_file:
     encoded_string = base64.b64encode(img_file.read()).decode()
 
-# CSS to set all property detail labels to black
 custom_css = f"""
 <style>
 [data-testid="stAppViewContainer"] {{
@@ -26,28 +25,25 @@ custom_css = f"""
     font-family: 'Arial', sans-serif;
 }}
 
+/* Sidebar styling */
 [data-testid="stSidebar"] {{
     background-color: rgba(0, 0, 0, 0.8);
-    color: #FFFFFF;
+    color: white !important; /* Ensure sidebar text is white */
     border-radius: 10px;
     padding: 10px;
 }}
 
-h1, h2, h3 {{
-    color: #FFFFFF;
-    font-weight: bold;
+/* Main content text color */
+h1, h2, h3, label, p {{
+    color: black !important; /* Set all main text to black */
 }}
 
-label {{
-    color: #000000 !important; /* Set all property detail labels to black */
-    font-size: 14px;
-    font-weight: bold;
-}}
-
+/* Sliders text */
 .stSlider > div {{
-    color: #000000 !important;
+    color: black !important;
 }}
 
+/* Buttons styling */
 div.stButton > button {{
     background-color: #008CBA;
     color: white;
@@ -63,31 +59,32 @@ div.stButton > button:hover {{
     transition: all 0.3s ease;
 }}
 
-/* Tooltip color correction */
+/* Tooltip icon */
 [data-testid="stTooltipIcon"] svg {{
-    color: #000000 !important; /* Ensures the tooltip (?) is black */
+    color: black !important; /* Tooltip icon set to black */
 }}
 
-/* Plus/Minus button color correction */
+/* Plus/Minus button colors */
 button.step-up {{
-    background-color: #008CBA !important; /* Light blue for plus */
+    background-color: #ADD8E6 !important; /* Light blue for plus */
     color: white !important;
     border-radius: 5px;
 }}
 
 button.step-down {{
-    background-color: #008CBA !important; /* Light blue for minus */
+    background-color: #ADD8E6 !important; /* Light blue for minus */
     color: white !important;
     border-radius: 5px;
 }}
 
-/* Checkbox text color */
+/* Sidebar checkbox and labels */
 input[type="checkbox"] + span {{
-    color: #000000 !important; /* Change "Show Prediction History" text to black */
+    color: white !important; /* Sidebar text stays white */
 }}
 </style>
 """
 st.markdown(custom_css, unsafe_allow_html=True)
+
 
 
 # Initialize prediction history
