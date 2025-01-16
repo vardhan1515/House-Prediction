@@ -64,32 +64,22 @@ div.stButton > button:hover {{
     transition: all 0.3s ease;
 }}
 
-[data-testid="stArrowIcon"] {{
-    color: black !important;
+/* Tooltip color correction */
+[data-testid="stTooltipIcon"] > svg {{
+    color: black !important; /* Ensures the tooltip (?) is black */
 }}
 
-[data-testid="tooltip"] {{
-    background-color: #333333 !important;
-    color: white !important;
-    font-size: 12px;
-}}
-
-svg {{
-    color: black !important; /* Change tooltip icon to black */
-}}
-
+/* Plus/Minus button color correction */
 button.step-up {{
-    background-color:rgb(104, 175, 199) !important; /* Change plus button to light blue */
-    color: black;
+    background-color: #ADD8E6 !important; /* Light blue for plus */
+    color: black !important;
+    border-radius: 5px;
 }}
 
 button.step-down {{
-    background-color:rgb(104, 175, 199) !important; /* Change minus button to light blue */
-    color: black;
-}}
-
-input[type="checkbox"] + span {{
-    color: black !important; /* Change "Show Prediction History" to black */
+    background-color: #ADD8E6 !important; /* Light blue for minus */
+    color: black !important;
+    border-radius: 5px;
 }}
 </style>
 """
@@ -194,27 +184,3 @@ if st.button("🏡 Predict House Price"):
     ax.set_xlabel("Importance", fontsize=14)
     ax.set_ylabel("Feature", fontsize=14)
     st.pyplot(fig)
-
-# Feature Explanation Section
-st.markdown("### 🔍 Feature Explanation")
-with st.expander("Click to Learn About Key Features"):
-    st.markdown(
-        """
-        - **Overall Quality**: Rates the overall material and finish of the house (Range: 1-10).
-        - **Above Ground Living Area**: Total square feet of living area above ground.
-        - **Garage Area**: Size of the garage in square feet.
-        - **Lot Area**: Total size of the lot in square feet.
-        - **Neighborhood**: Location of the property, which significantly influences price.
-        """
-    )
-
-# Show Prediction History
-if show_history and len(st.session_state["history"]) > 0:
-    st.markdown("### 🕒 Prediction History")
-    df_history = pd.DataFrame(st.session_state["history"])
-    st.dataframe(df_history)
-
-    # Save Predictions
-    if st.button("💾 Save Predictions to CSV"):
-        df_history.to_csv("predictions_history.csv", index=False)
-        st.success("Prediction history saved successfully!")
