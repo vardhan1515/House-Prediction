@@ -79,12 +79,12 @@ svg {{
 }}
 
 button.step-up {{
-    background-color: #ADD8E6 !important; /* Change plus button to light blue */
+    background-color:rgb(104, 175, 199) !important; /* Change plus button to light blue */
     color: black;
 }}
 
 button.step-down {{
-    background-color: #ADD8E6 !important; /* Change minus button to light blue */
+    background-color:rgb(104, 175, 199) !important; /* Change minus button to light blue */
     color: black;
 }}
 
