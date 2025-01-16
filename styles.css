@@ -4,8 +4,7 @@
     background-size: cover;
     background-position: center;
     font-family: 'Poppins', sans-serif; /* Modern font */
-    color: #333333; /* Main text color for readability */
-    transition: background-color 0.3s ease-in-out;
+    color: #333333; /* Main text color */
 }
 
 /* Sidebar Styling */
@@ -13,16 +12,7 @@
     background-color: rgba(255, 255, 255, 0.85); /* Light transparency for sidebar */
     border-radius: 12px;
     padding: 20px;
-    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2); /* Deep shadow for depth */
-}
-
-[data-testid="stSidebar"] h1, [data-testid="stSidebar"] h2, [data-testid="stSidebar"] h3 {
-    color: #0056b3; /* Deep blue for sidebar headers */
-    font-weight: 600;
-}
-
-[data-testid="stSidebar"] label {
-    color: #0056b3; /* Deep blue for labels in sidebar */
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2); /* Slight shadow for depth */
 }
 
 /* Buttons Styling */
@@ -58,14 +48,45 @@ div.stButton > button:hover {
     box-shadow: inset 0px 2px 4px rgba(0, 0, 0, 0.1);
     font-family: 'Poppins', sans-serif;
     margin-bottom: 10px;
-    transition: all 0.2s ease;
+    transition: border-color 0.2s ease; /* Removed blue shadow effect */
 }
 
 [data-testid="stNumberInput"]:focus, 
 [data-testid="stTextInput"]:focus, 
 [data-testid="stSelectbox"]:focus {
     border: 1px solid #007BFF !important; /* Highlight border on focus */
-    box-shadow: 0px 0px 6px rgba(0, 123, 255, 0.5); /* Glow effect */
+}
+
+/* Tooltip Styling */
+[data-testid="stTooltipIcon"] {
+    color: #007BFF !important;
+    cursor: pointer;
+    font-size: 18px;
+    position: relative;
+    transition: transform 0.2s ease;
+}
+
+[data-testid="stTooltipIcon"]:hover {
+    transform: scale(1.1); /* Slight scaling effect */
+}
+
+[data-testid="stTooltipIcon"]:hover::after {
+    content: attr(aria-label); /* Tooltip content */
+    position: absolute;
+    top: -40px;
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: rgba(0, 0, 0, 0.85); /* Dark background for visibility */
+    color: #ffffff; /* White text for readability */
+    padding: 8px 12px;
+    border-radius: 6px;
+    font-size: 14px;
+    text-align: center;
+    z-index: 1000;
+    white-space: nowrap;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
+    visibility: visible;
+    opacity: 1;
 }
 
 /* Dropdown Styling */
@@ -94,25 +115,17 @@ h1, h2, h3, h4, h5, h6 {
     font-family: 'Poppins', sans-serif;
     color: #1A1A1A;
     font-weight: 600;
-    transition: color 0.3s ease-in-out;
 }
 
 h1 {
     font-size: 2.8rem; /* Main title */
     font-weight: 700;
     color: #0056b3; /* Deep blue */
-    text-shadow: 1px 1px 4px rgba(0, 0, 0, 0.15);
 }
 
 h2 {
     font-size: 2.2rem; /* Subtitles */
     color: #333333;
-}
-
-h3 {
-    font-size: 1.8rem;
-    font-weight: 500;
-    color: #555555;
 }
 
 /* Paragraphs and Text */
@@ -132,34 +145,13 @@ code {
     font-size: 14px;
 }
 
-/* Tooltip Styling */
-[data-testid="stTooltipIcon"] {
-    color: #007BFF !important;
-    cursor: pointer;
-    font-size: 18px;
-    position: relative;
-    transition: transform 0.2s ease;
+/* Inputs Hover Highlight */
+[data-testid*="st"] {
+    transition: all 0.2s ease;
 }
 
-[data-testid="stTooltipIcon"]:hover {
-    transform: scale(1.2); /* Subtle scaling effect */
-}
-
-[data-testid="stTooltipIcon"]:hover::after {
-    content: attr(aria-label);
-    position: absolute;
-    top: -40px;
-    left: 50%;
-    transform: translateX(-50%);
-    background-color: rgba(0, 0, 0, 0.85);
-    color: #ffffff;
-    padding: 8px 12px;
-    border-radius: 6px;
-    font-size: 14px;
-    text-align: center;
-    z-index: 1000;
-    white-space: nowrap;
-    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
+[data-testid*="st"]:hover {
+    border: 1px solid #007BFF; /* Subtle highlight instead of blue shadow */
 }
 
 /* Expandable Section Styling */
@@ -174,22 +166,4 @@ code {
 [data-testid="stExpander"] > div:first-child {
     font-weight: 600;
     color: #0056b3;
-}
-
-/* Feature Importance Chart Styling */
-div[class*="chart-container"] {
-    margin: 20px 0;
-    padding: 15px;
-    background-color: #ffffff;
-    border-radius: 8px;
-    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
-}
-
-/* Inputs Hover Highlight */
-[data-testid*="st"] {
-    transition: all 0.2s ease;
-}
-
-[data-testid*="st"]:hover {
-    box-shadow: 0px 0px 8px rgba(0, 123, 255, 0.5);
 }
