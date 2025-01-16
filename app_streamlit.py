@@ -12,7 +12,7 @@ st.set_page_config(page_title="House Price Prediction App", page_icon="🏡", la
 with open("image.png", "rb") as img_file:
     encoded_string = base64.b64encode(img_file.read()).decode()
 
-# Custom CSS for enhanced styling with the background image
+# Custom CSS for enhanced styling with a background image
 page_bg_img = f'''
 <style>
 [data-testid="stAppViewContainer"] {{
@@ -21,7 +21,6 @@ page_bg_img = f'''
     background-position: center;
     background-attachment: fixed;
     font-family: 'Arial', sans-serif;
-    color: white;
 }}
 
 [data-testid="stSidebar"] {{
@@ -35,8 +34,9 @@ page_bg_img = f'''
 }}
 
 h1, h2, h3 {{
-    color: #FFD700;
-    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.6);
+    color: white;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.8);
+    font-weight: bold;
 }}
 
 div.stButton > button {{
@@ -48,13 +48,23 @@ div.stButton > button {{
     margin: 4px 2px;
     cursor: pointer;
     border-radius: 10px;
-    box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.3);
+    box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.5);
 }}
 
 div.stButton > button:hover {{
     background-color: #45a049;
     transform: scale(1.05);
     transition: all 0.3s ease;
+}}
+
+.stSlider > div {{
+    color: white !important;
+}}
+
+label {{
+    color: white !important;
+    font-size: 14px;
+    font-weight: bold;
 }}
 </style>
 '''
@@ -134,9 +144,9 @@ if st.button("🏡 Predict House Price"):
     st.markdown("### 🔍 Key Factors Affecting the Price")
     importance_df = pd.DataFrame({"Feature": feature_names, "Importance": model.feature_importances_}).sort_values(by="Importance", ascending=False)
 
-    # Violin plot for feature importance
+    # Bar chart for feature importance
     fig, ax = plt.subplots(figsize=(12, 7))
-    sns.violinplot(data=importance_df.head(10), x="Importance", y="Feature", scale="width", palette="coolwarm")
+    sns.barplot(data=importance_df.head(10), x="Importance", y="Feature", palette="coolwarm")
     ax.set_title("Top 10 Features Influencing Prediction", fontsize=16, color='white')
     ax.set_xlabel("Importance", fontsize=14, color='white')
     ax.set_ylabel("Feature", fontsize=14, color='white')
