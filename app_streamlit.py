@@ -3,26 +3,14 @@ import pandas as pd
 import joblib
 import matplotlib.pyplot as plt
 
+# Set page configuration (MUST be the first Streamlit command)
+st.set_page_config(page_title="House Price Prediction App", page_icon="🏡")
+
 # Load the optimized model and feature names
 model = joblib.load('optimized_house_price_model.pkl')
 feature_names = joblib.load('feature_names.pkl')  # Load saved feature names
 
-# Custom styles using HTML
-page_bg = """
-<style>
-[data-testid="stAppViewContainer"] {
-    background-color: #f7f3f0;
-    font-family: Arial, sans-serif;
-}
-[data-testid="stHeader"] {
-    background-color: #f7f3f0;
-}
-</style>
-"""
-st.markdown(page_bg, unsafe_allow_html=True)
-
 # Page title and introduction
-st.set_page_config(page_title="House Price Prediction App", page_icon="🏡")
 st.title("🏡 House Price Prediction App")
 st.markdown(
     """
