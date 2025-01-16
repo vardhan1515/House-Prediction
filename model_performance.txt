@@ -1,0 +1,4 @@
+Base Model RMSE: 28318.733182939854
+Base Model R-squared: 0.8954476475413643
+Optimized Model RMSE: 27998.455761623547
+Optimized Model R-squared: 0.8977991934292102
