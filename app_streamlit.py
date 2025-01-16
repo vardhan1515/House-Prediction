@@ -2,22 +2,30 @@ import streamlit as st
 import pandas as pd
 import joblib
 import base64
+import numpy as np
 import matplotlib.pyplot as plt
 import seaborn as sns
-import numpy as np
 
 # Set page configuration
 st.set_page_config(page_title="AI-Powered House Price Predictor", page_icon="🏡", layout="wide")
 
 # Load background image and encode it
 if "background_image" not in st.session_state:
-    with open("image.png", "rb") as img_file:
-        st.session_state["background_image"] = base64.b64encode(img_file.read()).decode()
+    try:
+        with open("image.png", "rb") as img_file:
+            st.session_state["background_image"] = base64.b64encode(img_file.read()).decode()
+    except FileNotFoundError:
+        st.error("Background image not found. Please ensure 'image.png' exists in the app directory.")
+        st.stop()
 
 # Link the external CSS
-with open("styles.css", "r") as css_file:
-    css = css_file.read().replace("{background_image}", st.session_state["background_image"])
-    st.markdown(f"<style>{css}</style>", unsafe_allow_html=True)
+try:
+    with open("styles.css", "r") as css_file:
+        css = css_file.read().replace("{background_image}", st.session_state["background_image"])
+        st.markdown(f"<style>{css}</style>", unsafe_allow_html=True)
+except FileNotFoundError:
+    st.error("CSS file not found. Please ensure 'styles.css' exists in the app directory.")
+    st.stop()
 
 # Load the optimized model, feature names, and imputers
 try:
@@ -58,18 +66,16 @@ st.markdown(
 )
 
 # Feature Explanation Section
-with st.expander("ℹ️ About the Features", expanded=True):
+with st.expander("ℹ️ Key Features and Their Meanings", expanded=False):
     st.markdown("""
-    ### **Key Features and Their Meanings**
-    - **MSSubClass**: Identifies the type of dwelling involved in the sale.  
-      - Example: `20` = 1-Story, 1946 & newer; `30` = 1-Story, 1945 & older.  
-    - **MSZoning**: General zoning classification (e.g., RL = Residential Low Density).  
-    - **LotFrontage**: Linear feet of street connected to the property.  
-    - **OverallQual**: Rates the overall material and finish of the house (1 to 10).  
-    - **OverallCond**: Rates the overall condition of the house (1 to 10).  
-    - **GrLivArea**: Above-ground living area in square feet.  
-    - **Neighborhood**: Physical location within Ames city limits (e.g., `Blueste`, `CollgCr`).  
-    - **SaleCondition**: Condition of the sale (e.g., `Normal`, `Abnorml`).  
+    - **MSSubClass**: Identifies the type of dwelling involved in the sale (e.g., `20 = 1-Story, 1946 & newer`).
+    - **LotFrontage**: Linear feet of street connected to the property.
+    - **LotArea**: Lot size in square feet.
+    - **OverallQual**: Rates the overall material and finish of the house (1 to 10).
+    - **OverallCond**: Rates the overall condition of the house (1 to 10).
+    - **GrLivArea**: Above-ground living area in square feet.
+    - **Neighborhood**: Physical location within Ames city limits (e.g., Blueste, CollgCr).
+    - **SaleCondition**: Condition of the sale (e.g., Normal, Abnorml).
     """)
 
 # Sidebar Section
