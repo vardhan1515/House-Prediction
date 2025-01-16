@@ -1,23 +1,23 @@
-/* Force all text to be black on the background */
+/* General App Styling */
 [data-testid="stAppViewContainer"] {
     background-image: url("data:image/png;base64,{background_image}");
     background-size: cover;
     background-position: center;
-    color: black !important; /* Ensure all text is black */
+    color: black !important;
 }
 
 /* Sidebar Styling */
 [data-testid="stSidebar"] {
-    background-color: rgba(255, 255, 255, 0.8); /* Light semi-transparent sidebar background */
-    color: black !important; /* Sidebar text in black */
+    background-color: rgba(255, 255, 255, 0.8); /* Semi-transparent sidebar */
+    color: black !important;
     border-radius: 10px;
     padding: 10px;
 }
 
 /* Buttons */
 div.stButton > button {
-    background-color: #008CBA; /* Button background */
-    color: white; /* Button text in white */
+    background-color: #008CBA;
+    color: white;
     padding: 10px 20px;
     border-radius: 10px;
     cursor: pointer;
@@ -29,25 +29,67 @@ div.stButton > button:hover {
     transition: all 0.3s ease;
 }
 
-/* Slider Styling */
-[data-testid="stSlider"] > div > div > span {
-    color: black !important; /* Slider labels in black */
+/* Expandable Section Styling */
+[data-testid="stExpander"] {
+    background-color: rgba(0, 0, 0, 0.1) !important; /* Light gray background for better visibility */
+    border: 1px solid #ddd !important;
+    border-radius: 10px;
+    padding: 10px;
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
 }
 
-/* Text Inputs and Labels */
+[data-testid="stExpander"] > div:first-child {
+    background-color: rgba(255, 255, 255, 0.9) !important; /* Background for header text */
+    font-weight: bold;
+    color: black !important;
+    border-radius: 10px;
+}
+
+/* Input Labels and Tooltips */
 [data-testid="stNumberInput"] label,
 [data-testid="stTextInput"] label,
 [data-testid="stSelectbox"] label,
 [data-testid="stCheckbox"] label {
-    color: black !important; /* Input labels in black */
+    color: black !important;
+    font-size: 16px;
+    font-weight: bold;
+}
+
+[data-testid="stSlider"] > div > div > span {
+    color: black !important;
+    font-weight: bold;
+}
+
+/* Tooltip Styling */
+[data-testid="stTooltipIcon"] svg {
+    color: black !important; /* Tooltip icon color */
+    cursor: pointer;
+}
+
+[data-testid="stTooltipIcon"]:hover::after {
+    content: attr(aria-label);
+    display: block;
+    position: absolute;
+    background-color: rgba(0, 0, 0, 0.8);
+    color: white;
+    padding: 5px 10px;
+    border-radius: 5px;
+    font-size: 14px;
+    z-index: 1000;
+    white-space: nowrap;
 }
 
 /* Markdown Text Styling */
 h1, h2, h3, h4, h5, h6, p, li, span {
-    color: black !important; /* Markdown text in black */
+    color: black !important;
 }
 
-/* Tooltip Styling */
-[data-testid="stSidebar"] [data-testid="stTooltipIcon"] svg {
-    color: black !important; /* Tooltip icons in black */
+/* Highlight Background for Input Sections */
+[data-testid="stNumberInput"], 
+[data-testid="stTextInput"], 
+[data-testid="stSelectbox"] {
+    background-color: rgba(255, 255, 255, 0.9) !important; /* Bright input fields */
+    border: 1px solid #ddd !important;
+    border-radius: 5px;
+    padding: 5px;
 }
