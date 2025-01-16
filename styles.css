@@ -4,12 +4,12 @@
     background-size: cover;
     background-position: center;
     font-family: 'Poppins', sans-serif;
-    color: #333333; /* Main text color */
+    color: #333333;
 }
 
 /* Sidebar Styling */
 [data-testid="stSidebar"] {
-    background-color: rgba(255, 255, 255, 0.9); /* Light transparency */
+    background-color: rgba(255, 255, 255, 0.95); /* Light transparency */
     border-radius: 12px;
     padding: 20px;
     box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
@@ -27,12 +27,11 @@ div.stButton > button {
     cursor: pointer;
     box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.15);
     font-family: 'Poppins', sans-serif;
-    transition: all 0.3s ease;
 }
 
-div.stButton > button:hover {
+div.stButton > button:active {
     background-color: #0056b3;
-    box-shadow: 0px 6px 12px rgba(0, 0, 0, 0.25);
+    box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
 }
 
 /* Input Fields */
@@ -45,39 +44,25 @@ div.stButton > button:hover {
     padding: 10px;
     font-size: 16px;
     color: #333333 !important;
-    box-shadow: inset 0px 2px 4px rgba(0, 0, 0, 0.1);
     font-family: 'Poppins', sans-serif;
     margin-bottom: 10px;
-    transition: border-color 0.2s ease;
-}
-
-[data-testid="stNumberInput"]:focus, 
-[data-testid="stTextInput"]:focus, 
-[data-testid="stSelectbox"]:focus {
-    border: 1px solid #555555 !important; /* Subtle border highlight */
 }
 
 /* Tooltip Styling */
 [data-testid="stTooltipIcon"] {
     color: #007BFF !important;
-    cursor: pointer;
     font-size: 18px;
     position: relative;
-    transition: transform 0.2s ease;
 }
 
-[data-testid="stTooltipIcon"]:hover {
-    transform: scale(1.1);
-}
-
-[data-testid="stTooltipIcon"]:hover::after {
-    content: attr(aria-label); /* Tooltip content */
+[data-testid="stTooltipIcon"]::after {
+    content: attr(aria-label);
     position: absolute;
-    top: -40px; /* Adjusted for better visibility */
+    top: -40px;
     left: 50%;
     transform: translateX(-50%);
-    background-color: rgba(0, 0, 0, 0.85); /* Dark background */
-    color: #ffffff; /* White text */
+    background-color: rgba(0, 0, 0, 0.85);
+    color: #ffffff;
     padding: 8px 12px;
     border-radius: 6px;
     font-size: 14px;
@@ -85,17 +70,14 @@ div.stButton > button:hover {
     z-index: 1000;
     white-space: nowrap;
     box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
+    visibility: hidden;
+    opacity: 0;
+    transition: opacity 0.2s ease, visibility 0.2s ease;
+}
+
+[data-testid="stTooltipIcon"]:hover::after {
     visibility: visible;
     opacity: 1;
-}
-
-/* Remove Blue Shadow */
-[data-testid*="st"] {
-    transition: all 0.2s ease;
-}
-
-[data-testid*="st"]:hover {
-    border: 1px solid #ccc; /* Neutral hover border */
 }
 
 /* Headers and Titles */
@@ -108,7 +90,7 @@ h1, h2, h3, h4, h5, h6 {
 h1 {
     font-size: 2.8rem;
     font-weight: 700;
-    color: #0056b3; /* Deep blue */
+    color: #0056b3;
 }
 
 h2 {
