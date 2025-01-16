@@ -28,29 +28,28 @@ custom_css = f"""
 
 /* Main Page Text Styling */
 h1, h2, h3, h4, h5, h6, p, li {{
-    color: black !important; /* Keep all text on the main page black */
+    color: black !important; /* Ensure main page text stays black */
 }}
 
 /* Sidebar Styling */
 [data-testid="stSidebar"] {{
-    background-color: rgba(0, 0, 0, 0.8);
-    color: white !important; /* Sidebar text remains white */
+    background-color: rgba(0, 0, 0, 0.8); /* Sidebar background remains dark */
     border-radius: 10px;
     padding: 10px;
 }}
 
 /* Sidebar Text Styling */
-label, div.stSlider > div, input[type="number"], [data-testid="stNumberInput"] > div {{
-    color: white !important; /* Set all text in sidebar to white */
-}}
-
-input[type="checkbox"] + span {{
-    color: white !important; /* Checkbox text in white */
+[data-testid="stSidebar"] label, 
+[data-testid="stSidebar"] div.stSlider > div, 
+[data-testid="stSidebar"] input[type="number"], 
+[data-testid="stSidebar"] [data-testid="stNumberInput"] > div, 
+[data-testid="stSidebar"] input[type="checkbox"] + span {{
+    color: white !important; /* Sidebar text remains white */
 }}
 
 /* Tooltip Styling */
-[data-testid="stTooltipIcon"] svg {{
-    color: white !important; /* Tooltip (?) icons are white */
+[data-testid="stSidebar"] [data-testid="stTooltipIcon"] svg {{
+    color: white !important; /* Tooltip icons in the sidebar remain white */
 }}
 
 /* Buttons */
