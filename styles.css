@@ -93,3 +93,25 @@ h1, h2, h3, h4, h5, h6, p, li, span {
     border-radius: 5px;
     padding: 5px;
 }
+
+/* Dropdown Styling */
+[data-testid="stSelectbox"] div[role="listbox"] {
+    background-color: rgba(255, 255, 255, 0.9) !important; /* Light background for dropdown */
+    color: black !important; /* Dropdown text in black */
+    border: 1px solid #ddd !important;
+    border-radius: 5px;
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+/* Dropdown Option Styling */
+[data-testid="stSelectbox"] div[role="listbox"] > div {
+    color: black !important; /* Options text in black */
+    background-color: rgba(255, 255, 255, 0.9) !important;
+    padding: 5px;
+}
+
+/* Hover Effect for Dropdown Options */
+[data-testid="stSelectbox"] div[role="listbox"] > div:hover {
+    background-color: #f0f0f0 !important; /* Light gray on hover */
+    color: black !important; /* Ensure text remains black */
+}
