@@ -16,82 +16,138 @@ feature_names = joblib.load('feature_names.pkl')
 with open("image.png", "rb") as img_file:
     encoded_string = base64.b64encode(img_file.read()).decode()
 
-# Custom CSS for styling with black text
-black_text_css = f"""
-<style>
-[data-testid="stAppViewContainer"] {{
-    background-image: url("data:image/png;base64,{encoded_string}");
-    background-size: cover;
-    background-position: center;
-    font-family: 'Arial', sans-serif;
-    color: #000000;
-}}
+# Add theme toggle
+theme = st.sidebar.radio("Choose Theme", ["Light Mode", "Dark Mode"])
 
-[data-testid="stSidebar"] {{
-    background-color: rgba(245, 245, 245, 0.95);
-    color: black;
-    border-radius: 10px;
-    padding: 10px;
-}}
+# Custom CSS for styling based on theme
+if theme == "Dark Mode":
+    custom_css = f"""
+    <style>
+    [data-testid="stAppViewContainer"] {{
+        background-image: url("data:image/png;base64,{encoded_string}");
+        background-size: cover;
+        background-position: center;
+        font-family: 'Arial', sans-serif;
+        color: #FFFFFF;
+    }}
 
-h1, h2, h3 {{
-    color: #000000;
-    font-weight: bold;
-}}
+    [data-testid="stSidebar"] {{
+        background-color: rgba(40, 40, 40, 0.95);
+        color: white;
+        border-radius: 10px;
+        padding: 10px;
+    }}
 
-label {{
-    color: #000000 !important;
-    font-size: 14px;
-    font-weight: bold;
-}}
+    h1, h2, h3 {{
+        color: white;
+        font-weight: bold;
+    }}
 
-.stSlider > div {{
-    color: #000000 !important;
-}}
+    label {{
+        color: white !important;
+        font-size: 14px;
+        font-weight: bold;
+    }}
 
-div.stButton > button {{
-    background-color: #4CAF50;
-    color: white;
-    border: none;
-    padding: 10px 20px;
-    font-size: 16px;
-    cursor: pointer;
-    border-radius: 10px;
-}}
+    .stSlider > div {{
+        color: white !important;
+    }}
 
-div.stButton > button:hover {{
-    background-color: #45a049;
-    transition: all 0.3s ease;
-}}
-</style>
-"""
-st.markdown(black_text_css, unsafe_allow_html=True)
+    div.stButton > button {{
+        background-color: #4CAF50;
+        color: white;
+        border: none;
+        padding: 10px 20px;
+        font-size: 16px;
+        cursor: pointer;
+        border-radius: 10px;
+    }}
+
+    div.stButton > button:hover {{
+        background-color: #45a049;
+        transition: all 0.3s ease;
+    }}
+    </style>
+    """
+else:
+    custom_css = f"""
+    <style>
+    [data-testid="stAppViewContainer"] {{
+        background-image: url("data:image/png;base64,{encoded_string}");
+        background-size: cover;
+        background-position: center;
+        font-family: 'Arial', sans-serif;
+        color: #000000;
+    }}
+
+    [data-testid="stSidebar"] {{
+        background-color: rgba(245, 245, 245, 0.95);
+        color: black;
+        border-radius: 10px;
+        padding: 10px;
+    }}
+
+    h1, h2, h3 {{
+        color: black;
+        font-weight: bold;
+    }}
+
+    label {{
+        color: black !important;
+        font-size: 14px;
+        font-weight: bold;
+    }}
+
+    .stSlider > div {{
+        color: black !important;
+    }}
+
+    div.stButton > button {{
+        background-color: #4CAF50;
+        color: white;
+        border: none;
+        padding: 10px 20px;
+        font-size: 16px;
+        cursor: pointer;
+        border-radius: 10px;
+    }}
+
+    div.stButton > button:hover {{
+        background-color: #45a049;
+        transition: all 0.3s ease;
+    }}
+    </style>
+    """
+st.markdown(custom_css, unsafe_allow_html=True)
 
 # Initialize prediction history
 if "history" not in st.session_state:
     st.session_state["history"] = []
 
 # Header Section
-st.title("🏡 Enhanced House Price Predictor")
+st.title("🏡 Advanced House Price Predictor")
 st.markdown(
     """
-    ## Welcome to Your Real Estate Insights Hub 🌟  
-    - **Estimate property prices** using AI-based models.  
-    - **Visualize key factors driving house pricing.**  
-    - **Customize and save predictions** for further analysis.  
+    ## Your Real Estate Hub for Intelligent Predictions 🌟  
+    - **Accurately estimate property prices** using AI-based models.  
+    - **Customize property details** to fine-tune predictions.  
+    - **Explore feature explanations** to understand influencing factors.  
     """
 )
 
 # Sidebar Section
-st.sidebar.title("⚙️ Configure Your Settings")
+st.sidebar.title("⚙️ Customize Your Property")
 mo_sold = st.sidebar.slider("📅 Month Sold", min_value=1, max_value=12, value=1, help="When was the house sold?")
 yr_sold = st.sidebar.number_input("📅 Year Sold", min_value=2000, max_value=2025, value=2025, help="Year of sale.")
 show_history = st.sidebar.checkbox("📜 Show Prediction History")
 
-# Reset Button
+# Reset and Clear Buttons
 if st.sidebar.button("🔄 Reset All Inputs"):
     st.session_state["history"] = []
     st.experimental_rerun()
+
+if st.sidebar.button("🗑 Clear Prediction History"):
+    st.session_state["history"] = []
 
 # Main Input Section
 st.markdown("### Enter Property Details")
@@ -151,18 +207,18 @@ if st.button("🏡 Predict House Price"):
 
     st.markdown(f"### 🎯 Predicted Price: **${prediction:,.2f}**")
 
-    # Top Influential Features
-    st.markdown("### 🔍 Top Influential Features")
-    importance_df = pd.DataFrame(
-        {"Feature": feature_names, "Importance": model.feature_importances_}
-    ).sort_values(by="Importance", ascending=False)
-
-    fig, ax = plt.subplots(figsize=(10, 6))
-    sns.barplot(data=importance_df.head(10), x="Importance", y="Feature", palette="viridis")
-    ax.set_title("Top 10 Features Influencing Prediction", fontsize=16)
-    ax.set_xlabel("Importance", fontsize=14)
-    ax.set_ylabel("Feature", fontsize=14)
-    st.pyplot(fig)
+# Feature Explanation Section
+st.markdown("### 🔍 Feature Explanation")
+with st.expander("Click to Learn About Key Features"):
+    st.markdown(
+        """
+        - **Overall Quality**: Rates the overall material and finish of the house.
+        - **Above Ground Living Area**: Total square feet of living area above ground.
+        - **Garage Area**: The size of the garage in square feet.
+        - **Lot Area**: Total size of the lot in square feet.
+        - **Neighborhood**: The physical location of the house in Ames, Iowa.
+        """
+    )
 
 # Show Prediction History
 if show_history and len(st.session_state["history"]) > 0:
