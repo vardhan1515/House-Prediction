@@ -1,96 +1,70 @@
-/* Import Google Fonts */
-@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&family=Montserrat:wght@400;600&display=swap');
-
-/* General Styling */
-body, [data-testid="stAppViewContainer"] {
-    font-family: 'Roboto', sans-serif; /* Use Roboto for main text */
+/* General App Styling */
+[data-testid="stAppViewContainer"] {
     background-image: url("data:image/png;base64,{background_image}");
     background-size: cover;
     background-position: center;
-    color: #333 !important; /* Neutral dark gray for text */
+    color: black !important;
 }
 
 /* Sidebar Styling */
 [data-testid="stSidebar"] {
-    background-color: rgba(255, 255, 255, 0.9); /* Semi-transparent sidebar */
-    color: #444 !important;
+    background-color: rgba(255, 255, 255, 0.8); /* Semi-transparent sidebar */
+    color: black !important;
     border-radius: 10px;
-    padding: 15px;
-    font-family: 'Montserrat', sans-serif; /* Use Montserrat for sidebar */
-    font-weight: 500;
-    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
-}
-
-/* Header and Subheader Styling */
-h1, h2, h3, h4, h5, h6 {
-    font-family: 'Montserrat', sans-serif; /* Use Montserrat for headings */
-    font-weight: 600;
-    color: #222 !important;
-}
-
-h1 {
-    font-size: 2.5rem;
-    margin-bottom: 10px;
-}
-
-h2 {
-    font-size: 1.8rem;
-    margin-bottom: 8px;
-}
-
-/* Input Fields */
-[data-testid="stNumberInput"], 
-[data-testid="stTextInput"], 
-[data-testid="stSelectbox"] {
-    background-color: rgba(255, 255, 255, 0.95) !important;
-    border: 1px solid #ddd !important;
-    border-radius: 5px;
-    padding: 8px;
-    font-size: 16px;
-    font-family: 'Roboto', sans-serif;
-    color: #333 !important;
-    box-shadow: inset 0px 2px 4px rgba(0, 0, 0, 0.1);
-}
-
-/* Dropdown Styling */
-[data-testid="stSelectbox"] div[role="listbox"] {
-    background-color: rgba(255, 255, 255, 0.95) !important;
-    color: #333 !important;
-    border: 1px solid #ddd !important;
-    border-radius: 5px;
-    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
-}
-
-[data-testid="stSelectbox"] div[role="listbox"] > div:hover {
-    background-color: #f0f0f0 !important; /* Light gray on hover */
-    color: #333 !important; /* Ensure text remains visible */
+    padding: 10px;
 }
 
 /* Buttons */
 div.stButton > button {
-    background-color: #007BFF; /* Modern blue */
+    background-color: #008CBA;
     color: white;
-    border: none;
     padding: 10px 20px;
-    border-radius: 8px;
-    font-size: 16px;
-    font-family: 'Montserrat', sans-serif;
-    font-weight: 500;
+    border-radius: 10px;
     cursor: pointer;
-    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+    border: none;
 }
 
 div.stButton > button:hover {
-    background-color: #0056b3; /* Darker blue on hover */
+    background-color: #005F73;
     transition: all 0.3s ease;
+}
+
+/* Expandable Section Styling */
+[data-testid="stExpander"] {
+    background-color: rgba(0, 0, 0, 0.1) !important; /* Light gray background for better visibility */
+    border: 1px solid #ddd !important;
+    border-radius: 10px;
+    padding: 10px;
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+[data-testid="stExpander"] > div:first-child {
+    background-color: rgba(255, 255, 255, 0.9) !important; /* Background for header text */
+    font-weight: bold;
+    color: black !important;
+    border-radius: 10px;
+}
+
+/* Input Labels and Tooltips */
+[data-testid="stNumberInput"] label,
+[data-testid="stTextInput"] label,
+[data-testid="stSelectbox"] label,
+[data-testid="stCheckbox"] label {
+    color: black !important;
+    font-size: 16px;
+    font-weight: bold;
+}
+
+[data-testid="stSlider"] > div > div > span {
+    color: black !important;
+    font-weight: bold;
 }
 
 /* Tooltip Icon Styling */
 [data-testid="stTooltipIcon"] {
-    color: #007BFF !important; /* Use the same blue as buttons */
+    color: black !important; /* Ensure the question mark icon is visible */
     cursor: pointer;
     position: relative;
-    font-size: 16px;
 }
 
 /* Tooltip Text Styling on Hover */
@@ -98,53 +72,66 @@ div.stButton > button:hover {
     content: attr(aria-label); /* Display the tooltip text */
     display: block;
     position: absolute;
-    top: -35px;
+    top: -30px; /* Position above the icon */
     left: 50%;
-    transform: translateX(-50%);
-    background-color: rgba(0, 0, 0, 0.9);
-    color: white;
-    padding: 8px 12px;
+    transform: translateX(-50%); /* Center the tooltip horizontally */
+    background-color: rgba(0, 0, 0, 0.9); /* Dark background for tooltip */
+    color: white; /* White text for readability */
+    padding: 8px 10px;
     border-radius: 5px;
     font-size: 14px;
-    font-family: 'Roboto', sans-serif;
     z-index: 1000;
     white-space: nowrap;
+    line-height: 1.2;
 }
 
 /* Tooltip Arrow */
 [data-testid="stTooltipIcon"]:hover::before {
     content: "";
     position: absolute;
-    top: -5px;
+    top: -5px; /* Position arrow below the tooltip box */
     left: 50%;
-    transform: translateX(-50%);
+    transform: translateX(-50%); /* Center the arrow under the tooltip */
     border-width: 6px;
     border-style: solid;
-    border-color: transparent transparent rgba(0, 0, 0, 0.9) transparent;
+    border-color: transparent transparent rgba(0, 0, 0, 0.9) transparent; /* Arrow pointing up */
     z-index: 999;
 }
 
-/* Expandable Section Styling */
-[data-testid="stExpander"] {
-    background-color: rgba(0, 0, 0, 0.05) !important;
+
+/* Markdown Text Styling */
+h1, h2, h3, h4, h5, h6, p, li, span {
+    color: black !important;
+}
+
+/* Highlight Background for Input Sections */
+[data-testid="stNumberInput"], 
+[data-testid="stTextInput"], 
+[data-testid="stSelectbox"] {
+    background-color: rgba(255, 255, 255, 0.9) !important; /* Bright input fields */
     border: 1px solid #ddd !important;
-    border-radius: 10px;
-    padding: 12px;
+    border-radius: 5px;
+    padding: 5px;
+}
+
+/* Dropdown Styling */
+[data-testid="stSelectbox"] div[role="listbox"] {
+    background-color: rgba(255, 255, 255, 0.9) !important; /* Light background for dropdown */
+    color: black !important; /* Dropdown text in black */
+    border: 1px solid #ddd !important;
+    border-radius: 5px;
     box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
 }
 
-[data-testid="stExpander"] > div:first-child {
+/* Dropdown Option Styling */
+[data-testid="stSelectbox"] div[role="listbox"] > div {
+    color: black !important; /* Options text in black */
     background-color: rgba(255, 255, 255, 0.9) !important;
-    font-family: 'Montserrat', sans-serif;
-    font-weight: 600;
-    color: #007BFF !important;
-    border-radius: 10px;
+    padding: 5px;
 }
 
-/* Markdown Styling */
-p, li, span {
-    color: #444 !important;
-    font-family: 'Roboto', sans-serif;
-    font-size: 16px;
-    line-height: 1.5;
+/* Hover Effect for Dropdown Options */
+[data-testid="stSelectbox"] div[role="listbox"] > div:hover {
+    background-color: #f0f0f0 !important; /* Light gray on hover */
+    color: black !important; /* Ensure text remains black */
 }
