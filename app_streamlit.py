@@ -3,103 +3,17 @@ import pandas as pd
 import joblib
 import matplotlib.pyplot as plt
 import seaborn as sns
-import base64
 
 # Set page configuration
 st.set_page_config(page_title="AI-Powered House Price Predictor", page_icon="🏡", layout="wide")
 
-# Add this CSS snippet at the beginning to modify the sidebar icons
-st.markdown(
-    """
-    <style>
-    .stSidebar div[data-testid="stMarkdownContainer"] svg {
-        color: white !important;
-    }
-    </style>
-    """,
-    unsafe_allow_html=True,
-)
-
+# Link external CSS
+with open("styles.css") as f:
+    st.markdown(f"<style>{f.read()}</style>", unsafe_allow_html=True)
 
 # Load the optimized model and feature names
 model = joblib.load('optimized_house_price_model.pkl')
 feature_names = joblib.load('feature_names.pkl')
-
-# Encode the uploaded background image
-with open("image.png", "rb") as img_file:
-    encoded_string = base64.b64encode(img_file.read()).decode()
-
-custom_css = f"""
-<style>
-/* Background Styling */
-[data-testid="stAppViewContainer"] {{
-    background-image: url("data:image/jpeg;base64,{encoded_string}");
-    background-size: cover;
-    background-position: center;
-    font-family: 'Arial', sans-serif;
-}}
-
-/* Main Page Text Styling */
-h1, h2, h3, h4, h5, h6, p, li {{
-    color: black !important; /* Ensure main page text stays black */
-}}
-
-/* Sidebar Styling */
-[data-testid="stSidebar"] {{
-    background-color: rgba(0, 0, 0, 0.8); /* Sidebar background remains dark */
-    border-radius: 10px;
-    padding: 10px;
-}}
-
-/* Sidebar Text Styling */
-[data-testid="stSidebar"] label, 
-[data-testid="stSidebar"] div.stSlider > div, 
-[data-testid="stSidebar"] input[type="number"], 
-[data-testid="stSidebar"] [data-testid="stNumberInput"] > div, 
-[data-testid="stSidebar"] input[type="checkbox"] + span {{
-    color: white !important; /* Sidebar text remains white */
-}}
-
-/* Tooltip Styling */
-[data-testid="stSidebar"] [data-testid="stTooltipIcon"] svg {{
-    color: white !important; /* Tooltip icons in the sidebar remain white */
-}}
-
-/* Buttons */
-div.stButton > button {{
-    background-color: #008CBA;
-    color: white;
-    border: none;
-    padding: 10px 20px;
-    font-size: 16px;
-    cursor: pointer;
-    border-radius: 10px;
-}}
-
-div.stButton > button:hover {{
-    background-color: #005F73;
-    transition: all 0.3s ease;
-}}
-
-/* Plus/Minus Buttons */
-button.step-up {{
-    background-color: #ADD8E6 !important; /* Light blue for plus button */
-    color: white !important;
-    border-radius: 5px;
-}}
-
-button.step-down {{
-    background-color: #ADD8E6 !important; /* Light blue for minus button */
-    color: white !important;
-    border-radius: 5px;
-}}
-</style>
-"""
-st.markdown(custom_css, unsafe_allow_html=True)
-
-
-
-
 
 # Initialize prediction history
 if "history" not in st.session_state:
