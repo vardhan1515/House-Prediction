@@ -1,42 +1,23 @@
-/* Theme Variables */
-:root {
-    --background-dark: rgba(0, 0, 0, 0.8);
-    --background-light: white;
-    --text-dark: white;
-    --text-light: black;
-}
-
-[data-theme="dark"] {
-    --background: var(--background-dark);
-    --text-color: var(--text-dark);
-}
-
-[data-theme="light"] {
-    --background: var(--background-light);
-    --text-color: var(--text-light);
-}
-
-/* App Container Styling */
+/* Force all text to be black on the background */
 [data-testid="stAppViewContainer"] {
     background-image: url("data:image/png;base64,{background_image}");
-    background-color: var(--background);
-    color: var(--text-color);
     background-size: cover;
     background-position: center;
+    color: black !important; /* Ensure all text is black */
 }
 
 /* Sidebar Styling */
 [data-testid="stSidebar"] {
-    background-color: var(--background);
-    color: var(--text-color);
+    background-color: rgba(255, 255, 255, 0.8); /* Light semi-transparent sidebar background */
+    color: black !important; /* Sidebar text in black */
     border-radius: 10px;
     padding: 10px;
 }
 
 /* Buttons */
 div.stButton > button {
-    background-color: #008CBA;
-    color: white;
+    background-color: #008CBA; /* Button background */
+    color: white; /* Button text in white */
     padding: 10px 20px;
     border-radius: 10px;
     cursor: pointer;
@@ -46,4 +27,27 @@ div.stButton > button {
 div.stButton > button:hover {
     background-color: #005F73;
     transition: all 0.3s ease;
+}
+
+/* Slider Styling */
+[data-testid="stSlider"] > div > div > span {
+    color: black !important; /* Slider labels in black */
+}
+
+/* Text Inputs and Labels */
+[data-testid="stNumberInput"] label,
+[data-testid="stTextInput"] label,
+[data-testid="stSelectbox"] label,
+[data-testid="stCheckbox"] label {
+    color: black !important; /* Input labels in black */
+}
+
+/* Markdown Text Styling */
+h1, h2, h3, h4, h5, h6, p, li, span {
+    color: black !important; /* Markdown text in black */
+}
+
+/* Tooltip Styling */
+[data-testid="stSidebar"] [data-testid="stTooltipIcon"] svg {
+    color: black !important; /* Tooltip icons in black */
 }
