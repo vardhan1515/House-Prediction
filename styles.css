@@ -3,16 +3,16 @@
     background-image: url("data:image/png;base64,{background_image}");
     background-size: cover;
     background-position: center;
-    font-family: 'Poppins', sans-serif; /* Modern font */
+    font-family: 'Poppins', sans-serif;
     color: #333333; /* Main text color */
 }
 
 /* Sidebar Styling */
 [data-testid="stSidebar"] {
-    background-color: rgba(255, 255, 255, 0.85); /* Light transparency for sidebar */
+    background-color: rgba(255, 255, 255, 0.9); /* Light transparency */
     border-radius: 12px;
     padding: 20px;
-    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2); /* Slight shadow for depth */
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
 }
 
 /* Buttons Styling */
@@ -48,13 +48,13 @@ div.stButton > button:hover {
     box-shadow: inset 0px 2px 4px rgba(0, 0, 0, 0.1);
     font-family: 'Poppins', sans-serif;
     margin-bottom: 10px;
-    transition: border-color 0.2s ease; /* Removed blue shadow effect */
+    transition: border-color 0.2s ease;
 }
 
 [data-testid="stNumberInput"]:focus, 
 [data-testid="stTextInput"]:focus, 
 [data-testid="stSelectbox"]:focus {
-    border: 1px solid #007BFF !important; /* Highlight border on focus */
+    border: 1px solid #555555 !important; /* Subtle border highlight */
 }
 
 /* Tooltip Styling */
@@ -67,17 +67,17 @@ div.stButton > button:hover {
 }
 
 [data-testid="stTooltipIcon"]:hover {
-    transform: scale(1.1); /* Slight scaling effect */
+    transform: scale(1.1);
 }
 
 [data-testid="stTooltipIcon"]:hover::after {
     content: attr(aria-label); /* Tooltip content */
     position: absolute;
-    top: -40px;
+    top: -40px; /* Adjusted for better visibility */
     left: 50%;
     transform: translateX(-50%);
-    background-color: rgba(0, 0, 0, 0.85); /* Dark background for visibility */
-    color: #ffffff; /* White text for readability */
+    background-color: rgba(0, 0, 0, 0.85); /* Dark background */
+    color: #ffffff; /* White text */
     padding: 8px 12px;
     border-radius: 6px;
     font-size: 14px;
@@ -89,25 +89,13 @@ div.stButton > button:hover {
     opacity: 1;
 }
 
-/* Dropdown Styling */
-[data-testid="stSelectbox"] div[role="listbox"] {
-    background-color: rgba(255, 255, 255, 0.9);
-    color: #333333 !important;
-    border: 1px solid #ddd;
-    border-radius: 5px;
-    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+/* Remove Blue Shadow */
+[data-testid*="st"] {
+    transition: all 0.2s ease;
 }
 
-[data-testid="stSelectbox"] div[role="listbox"] > div {
-    padding: 10px;
-    font-size: 14px;
-    color: #333333 !important;
-    background-color: rgba(255, 255, 255, 0.9);
-    border-radius: 4px;
-}
-
-[data-testid="stSelectbox"] div[role="listbox"] > div:hover {
-    background-color: #f0f0f0;
+[data-testid*="st"]:hover {
+    border: 1px solid #ccc; /* Neutral hover border */
 }
 
 /* Headers and Titles */
@@ -118,40 +106,31 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 h1 {
-    font-size: 2.8rem; /* Main title */
+    font-size: 2.8rem;
     font-weight: 700;
     color: #0056b3; /* Deep blue */
 }
 
 h2 {
-    font-size: 2.2rem; /* Subtitles */
+    font-size: 2.2rem;
     color: #333333;
 }
 
 /* Paragraphs and Text */
 p, li, span {
     font-size: 16px;
-    line-height: 1.6; /* Increase line spacing */
+    line-height: 1.6;
     color: #4A4A4A;
 }
 
 /* Inline Code Styling */
 code {
-    background-color: rgba(0, 0, 0, 0.05); /* Subtle background */
-    color: #0056b3; /* Blue for emphasis */
+    background-color: rgba(0, 0, 0, 0.05);
+    color: #0056b3;
     font-family: 'Courier New', Courier, monospace;
     padding: 2px 6px;
     border-radius: 4px;
     font-size: 14px;
-}
-
-/* Inputs Hover Highlight */
-[data-testid*="st"] {
-    transition: all 0.2s ease;
-}
-
-[data-testid*="st"]:hover {
-    border: 1px solid #007BFF; /* Subtle highlight instead of blue shadow */
 }
 
 /* Expandable Section Styling */
