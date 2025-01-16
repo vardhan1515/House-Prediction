@@ -52,9 +52,8 @@ if st.sidebar.button("🔄 Reset All Inputs"):
     # Clear all session state variables
     for key in st.session_state.keys():
         del st.session_state[key]
-    # Refresh the app
-    st.experimental_set_query_params()  # Forces a rerun without error
-
+    # Refresh the app using st.query_params
+    st.query_params.clear()  # Reset query parameters
 
 # Feature Explanation Section
 with st.expander("ℹ️ About the Features", expanded=False):
