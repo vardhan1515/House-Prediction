@@ -16,10 +16,7 @@ feature_names = joblib.load('feature_names.pkl')
 with open("image.png", "rb") as img_file:
     encoded_string = base64.b64encode(img_file.read()).decode()
 
-# Add theme toggle
-theme = st.sidebar.radio("Choose Theme", ["Light Mode", "Dark Mode"])
-
-# Custom CSS for styling with black text
+# Custom CSS for styling
 custom_css = f"""
 <style>
 [data-testid="stAppViewContainer"] {{
@@ -31,8 +28,8 @@ custom_css = f"""
 }}
 
 [data-testid="stSidebar"] {{
-    background-color: rgba(245, 245, 245, 0.95) if theme == "Light Mode" else rgba(40, 40, 40, 0.95);
-    color: black;
+    background-color: rgba(245, 245, 245, 0.95);
+    color: #333333;
     border-radius: 10px;
     padding: 10px;
 }}
@@ -182,16 +179,6 @@ with st.expander("Click to Learn About Key Features"):
         - **Neighborhood**: Location of the property, which significantly influences price.
         """
     )
-    st.markdown("#### Example: Impact of Overall Quality on Predicted Price")
-    quality_values = list(range(1, 11))
-    predicted_prices = [model.predict(pd.DataFrame([{**inputs, 'OverallQual': q}]))[0] for q in quality_values]
-
-    fig, ax = plt.subplots(figsize=(8, 4))
-    sns.barplot(x=quality_values, y=predicted_prices, palette="coolwarm", ax=ax)
-    ax.set_title("Predicted Price vs. Overall Quality")
-    ax.set_xlabel("Overall Quality")
-    ax.set_ylabel("Predicted Price ($)")
-    st.pyplot(fig)
 
 # Show Prediction History
 if show_history and len(st.session_state["history"]) > 0:
