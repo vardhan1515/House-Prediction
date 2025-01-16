@@ -1,111 +1,135 @@
-/* Import Google Fonts */
-@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
-
 /* General App Styling */
 [data-testid="stAppViewContainer"] {
     background-image: url("data:image/png;base64,{background_image}");
     background-size: cover;
     background-position: center;
-    font-family: 'Poppins', sans-serif; /* Modern, clean font */
-    color: #333333 !important; /* Ensure text color is readable */
+    font-family: 'Poppins', sans-serif; /* Modern font */
+    color: #333333; /* Main text color for readability */
+    transition: background-color 0.3s ease-in-out;
 }
 
 /* Sidebar Styling */
 [data-testid="stSidebar"] {
-    background-color: rgba(255, 255, 255, 0.85); /* Increase transparency */
-    border-radius: 10px;
-    padding: 15px;
-    color: #1a1a1a !important; /* Darker font color for better contrast */
-    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1); /* Subtle shadow for depth */
+    background-color: rgba(255, 255, 255, 0.85); /* Light transparency for sidebar */
+    border-radius: 12px;
+    padding: 20px;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2); /* Deep shadow for depth */
 }
 
-/* Sidebar Button Styling */
+[data-testid="stSidebar"] h1, [data-testid="stSidebar"] h2, [data-testid="stSidebar"] h3 {
+    color: #0056b3; /* Deep blue for sidebar headers */
+    font-weight: 600;
+}
+
+[data-testid="stSidebar"] label {
+    color: #0056b3; /* Deep blue for labels in sidebar */
+}
+
+/* Buttons Styling */
 div.stButton > button {
     background-color: #007BFF;
     color: white;
     border: none;
-    padding: 10px 20px;
+    padding: 12px 24px;
     font-size: 16px;
-    font-weight: 500;
-    border-radius: 6px;
+    font-weight: 600;
+    border-radius: 8px;
     cursor: pointer;
-    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.15);
     font-family: 'Poppins', sans-serif;
     transition: all 0.3s ease;
 }
 
 div.stButton > button:hover {
     background-color: #0056b3;
+    box-shadow: 0px 6px 12px rgba(0, 0, 0, 0.25);
 }
 
-/* Input Field Styling */
-[data-testid="stNumberInput"],
-[data-testid="stTextInput"],
+/* Input Fields */
+[data-testid="stNumberInput"], 
+[data-testid="stTextInput"], 
 [data-testid="stSelectbox"] {
-    background-color: #ffffff !important; /* Light background for inputs */
-    border: 1px solid #007BFF !important; /* Blue border for highlight */
-    border-radius: 6px;
-    padding: 8px;
+    background-color: #f9f9f9 !important;
+    border: 1px solid #ddd !important;
+    border-radius: 8px;
+    padding: 10px;
     font-size: 16px;
-    color: #333 !important;
-    box-shadow: inset 0px 1px 3px rgba(0, 0, 0, 0.1); /* Subtle inset shadow */
+    color: #333333 !important;
+    box-shadow: inset 0px 2px 4px rgba(0, 0, 0, 0.1);
     font-family: 'Poppins', sans-serif;
-    transition: border-color 0.3s ease;
+    margin-bottom: 10px;
+    transition: all 0.2s ease;
 }
 
-[data-testid="stNumberInput"]:hover,
-[data-testid="stTextInput"]:hover,
-[data-testid="stSelectbox"]:hover {
-    border-color: #0056b3 !important; /* Darker blue on hover */
+[data-testid="stNumberInput"]:focus, 
+[data-testid="stTextInput"]:focus, 
+[data-testid="stSelectbox"]:focus {
+    border: 1px solid #007BFF !important; /* Highlight border on focus */
+    box-shadow: 0px 0px 6px rgba(0, 123, 255, 0.5); /* Glow effect */
 }
 
 /* Dropdown Styling */
 [data-testid="stSelectbox"] div[role="listbox"] {
     background-color: rgba(255, 255, 255, 0.9);
-    color: black !important;
+    color: #333333 !important;
     border: 1px solid #ddd;
     border-radius: 5px;
-    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
 }
 
-/* Sliders */
-[data-testid="stSlider"] .streamlit-slider {
-    color: #FF5733 !important; /* Custom color for slider track */
+[data-testid="stSelectbox"] div[role="listbox"] > div {
+    padding: 10px;
+    font-size: 14px;
+    color: #333333 !important;
+    background-color: rgba(255, 255, 255, 0.9);
+    border-radius: 4px;
 }
 
-[data-testid="stSlider"] .streamlit-slider .streamlit-slider-thumb {
-    background-color: #FF5733 !important; /* Match slider thumb color */
-    border: 2px solid #FF6F61 !important; /* Slightly brighter border */
+[data-testid="stSelectbox"] div[role="listbox"] > div:hover {
+    background-color: #f0f0f0;
 }
 
-/* Headers and Subheaders */
+/* Headers and Titles */
 h1, h2, h3, h4, h5, h6 {
     font-family: 'Poppins', sans-serif;
-    color: #222;
+    color: #1A1A1A;
+    font-weight: 600;
+    transition: color 0.3s ease-in-out;
 }
 
 h1 {
-    font-size: 2.5rem;
+    font-size: 2.8rem; /* Main title */
     font-weight: 700;
+    color: #0056b3; /* Deep blue */
+    text-shadow: 1px 1px 4px rgba(0, 0, 0, 0.15);
 }
 
 h2 {
-    font-size: 2rem;
-    font-weight: 600;
+    font-size: 2.2rem; /* Subtitles */
+    color: #333333;
 }
 
+h3 {
+    font-size: 1.8rem;
+    font-weight: 500;
+    color: #555555;
+}
+
+/* Paragraphs and Text */
 p, li, span {
     font-size: 16px;
-    color: #333;
-    font-family: 'Poppins', sans-serif;
+    line-height: 1.6; /* Increase line spacing */
+    color: #4A4A4A;
 }
 
-/* Sidebar Section Headers */
-[data-testid="stSidebar"] h2,
-[data-testid="stSidebar"] h3 {
-    color: #333333;
-    font-weight: 600;
-    font-size: 18px;
+/* Inline Code Styling */
+code {
+    background-color: rgba(0, 0, 0, 0.05); /* Subtle background */
+    color: #0056b3; /* Blue for emphasis */
+    font-family: 'Courier New', Courier, monospace;
+    padding: 2px 6px;
+    border-radius: 4px;
+    font-size: 14px;
 }
 
 /* Tooltip Styling */
@@ -113,25 +137,59 @@ p, li, span {
     color: #007BFF !important;
     cursor: pointer;
     font-size: 18px;
+    position: relative;
+    transition: transform 0.2s ease;
+}
+
+[data-testid="stTooltipIcon"]:hover {
+    transform: scale(1.2); /* Subtle scaling effect */
 }
 
 [data-testid="stTooltipIcon"]:hover::after {
     content: attr(aria-label);
-    display: block;
     position: absolute;
-    top: -45px;
+    top: -40px;
     left: 50%;
     transform: translateX(-50%);
-    background-color: rgba(0, 0, 0, 0.95);
+    background-color: rgba(0, 0, 0, 0.85);
     color: #ffffff;
     padding: 8px 12px;
     border-radius: 6px;
     font-size: 14px;
     text-align: center;
-    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.2);
+    z-index: 1000;
+    white-space: nowrap;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
 }
 
-/* Input Alignment Fix */
-[data-testid="stForm"] > div {
-    margin-bottom: 20px;
+/* Expandable Section Styling */
+[data-testid="stExpander"] {
+    background-color: rgba(0, 0, 0, 0.05);
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    padding: 12px;
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+[data-testid="stExpander"] > div:first-child {
+    font-weight: 600;
+    color: #0056b3;
+}
+
+/* Feature Importance Chart Styling */
+div[class*="chart-container"] {
+    margin: 20px 0;
+    padding: 15px;
+    background-color: #ffffff;
+    border-radius: 8px;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+/* Inputs Hover Highlight */
+[data-testid*="st"] {
+    transition: all 0.2s ease;
+}
+
+[data-testid*="st"]:hover {
+    box-shadow: 0px 0px 8px rgba(0, 123, 255, 0.5);
 }
