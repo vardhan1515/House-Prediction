@@ -1,15 +1,13 @@
 /* Import Google Fonts */
-@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Pacifico&family=Poppins:wght@300;400;500;600;700&display=swap');
 
 /* General App Styling */
 [data-testid="stAppViewContainer"] {
     background-image: url("data:image/png;base64,{background_image}");
     background-size: cover;
     background-position: center;
-    font-family: 'Poppins', sans-serif;
+    font-family: 'Pacifico', cursive; /* Apply creative font */
     color: black !important;
-    line-height: 1.6; /* Improve readability */
-    scroll-behavior: smooth; /* Smooth scrolling for better UX */
 }
 
 /* Sidebar Styling */
@@ -17,9 +15,8 @@
     background-color: rgba(255, 255, 255, 0.9);
     color: black !important;
     border-radius: 10px;
-    padding: 20px;
-    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
-    font-family: 'Poppins', sans-serif;
+    padding: 15px;
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
 }
 
 /* Button Styling */
@@ -27,100 +24,38 @@ div.stButton > button {
     background-color: #007BFF;
     color: white;
     border: none;
-    padding: 12px 25px;
+    padding: 10px 20px;
     font-size: 16px;
     font-weight: 500;
-    border-radius: 8px;
+    border-radius: 6px;
     cursor: pointer;
-    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
     font-family: 'Poppins', sans-serif;
     transition: all 0.3s ease;
 }
 
 div.stButton > button:hover {
     background-color: #0056b3;
-    transform: translateY(-2px); /* Add slight hover elevation */
 }
 
-/* Expandable Section Styling */
-[data-testid="stExpander"] {
-    background-color: rgba(0, 0, 0, 0.05);
-    border: 1px solid #ddd;
-    border-radius: 10px;
-    padding: 16px;
-    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
-    transition: all 0.3s ease;
-}
-
-[data-testid="stExpander"] > div:first-child {
-    background-color: rgba(255, 255, 255, 0.9);
-    font-weight: 600;
-    color: #005F73;
-    border-radius: 10px;
-}
-
-/* Input Field Styling */
-[data-testid="stNumberInput"], 
-[data-testid="stTextInput"], 
-[data-testid="stSelectbox"] {
-    background-color: #f9f9f9 !important;
-    border: 1px solid #ddd !important;
-    border-radius: 6px;
-    padding: 10px;
-    font-size: 16px;
-    color: #333 !important;
-    box-shadow: inset 0px 1px 3px rgba(0, 0, 0, 0.1);
-    font-family: 'Poppins', sans-serif;
-    transition: border-color 0.3s ease;
-}
-
-[data-testid="stNumberInput"]:focus, 
-[data-testid="stTextInput"]:focus, 
-[data-testid="stSelectbox"]:focus {
-    border-color: #007BFF !important; /* Highlight border on focus */
-    box-shadow: 0px 0px 4px rgba(0, 123, 255, 0.5); /* Glow effect */
-}
-
-/* Dropdown Styling */
-[data-testid="stSelectbox"] div[role="listbox"] {
-    background-color: rgba(255, 255, 255, 0.9);
-    color: black !important;
-    border: 1px solid #ddd;
-    border-radius: 6px;
-    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
-}
-
-[data-testid="stSelectbox"] div[role="listbox"] > div {
-    padding: 10px;
-    font-size: 14px;
-    font-weight: 400;
-    color: black !important;
-    background-color: rgba(255, 255, 255, 0.9);
-}
-
-[data-testid="stSelectbox"] div[role="listbox"] > div:hover {
-    background-color: #f0f0f0;
-}
-
-/* Tooltip Icon Styling */
+/* Tooltip Styling */
 [data-testid="stTooltipIcon"] {
     color: #007BFF !important;
     cursor: pointer;
     position: relative;
-    font-size: 18px;
+    font-size: 18px; /* Slightly larger */
 }
 
-/* Tooltip Text Styling on Hover */
 [data-testid="stTooltipIcon"]:hover::after {
     content: attr(aria-label); /* Display tooltip text */
     display: block;
     position: absolute;
-    top: -45px;
+    top: -45px; /* Position above the icon */
     left: 50%;
-    transform: translateX(-50%);
+    transform: translateX(-50%); /* Center tooltip horizontally */
     background-color: rgba(0, 0, 0, 0.95);
     color: #ffffff;
-    padding: 10px 12px;
+    padding: 8px 12px;
     border-radius: 6px;
     font-size: 14px;
     font-family: 'Poppins', sans-serif;
@@ -128,42 +63,26 @@ div.stButton > button:hover {
     box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.2);
     z-index: 1000;
     white-space: nowrap;
-    line-height: 1.4;
 }
 
 /* Headers and Subheaders */
 h1, h2, h3, h4, h5, h6 {
-    font-family: 'Poppins', sans-serif;
+    font-family: 'Pacifico', cursive; /* Apply creative font */
     color: #222;
 }
 
 h1 {
     font-size: 2.5rem;
     font-weight: 700;
-    margin-bottom: 20px;
 }
 
 h2 {
     font-size: 2rem;
     font-weight: 600;
-    margin-bottom: 15px;
 }
 
 p, li, span {
     font-size: 16px;
     color: #333;
     font-family: 'Poppins', sans-serif;
-}
-
-/* Subtle Highlight for Input Sections */
-[data-testid="stNumberInput"], 
-[data-testid="stTextInput"], 
-[data-testid="stSelectbox"] {
-    transition: background-color 0.3s ease;
-}
-
-[data-testid="stNumberInput"]:hover, 
-[data-testid="stTextInput"]:hover, 
-[data-testid="stSelectbox"]:hover {
-    background-color: #f1f7ff !important; /* Light blue highlight */
 }
