@@ -71,6 +71,12 @@ with st.expander("ℹ️ About the Features", expanded=False):
     - **SaleCondition**: Condition of the sale, such as "Normal" or "Abnormal."
     """)
 
+# Sidebar Section
+st.sidebar.title("⚙️ Customize Your Property")
+mo_sold = st.sidebar.slider("📅 Month Sold", min_value=1, max_value=12, value=1, help="When was the house sold?")
+yr_sold = st.sidebar.number_input("📅 Year Sold", min_value=2000, max_value=2025, value=2025, help="Year of sale.")
+show_history = st.sidebar.checkbox("📜 Show Prediction History")
+
 # Main Input Section
 st.markdown("### Enter Property Details")
 col1, col2 = st.columns(2)
