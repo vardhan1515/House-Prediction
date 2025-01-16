@@ -19,8 +19,12 @@ with open("styles.css", "r") as css_file:
     st.markdown(f"<style>{css}</style>", unsafe_allow_html=True)
 
 # Load the optimized model and feature names
-model = joblib.load('optimized_house_price_model.pkl')
-feature_names = joblib.load('feature_names.pkl')
+try:
+    model = joblib.load('optimized_house_price_model.pkl')
+    feature_names = joblib.load('feature_names.pkl')
+except Exception as e:
+    st.error("Error loading model or feature names. Please ensure the files are in the correct location.")
+    st.stop()
 
 # Initialize prediction history
 if "history" not in st.session_state:
@@ -54,7 +58,7 @@ if st.sidebar.button("🗑 Clear Prediction History"):
 # Feature Explanation Section
 with st.expander("ℹ️ About the Features", expanded=False):
     st.markdown("""
-    - **MSSubClass**: Identifies the type of dwelling involved in the sale. For example, 20 = 1-story, 1946 & newer.
+    - **MSSubClass**: Numeric identifier for the type of dwelling. For example, 20 = 1-story, 1946 & newer.
     - **LotFrontage**: Linear feet of street connected to the property.
     - **LotArea**: Lot size in square feet.
     - **OverallQual**: Rates the overall material and finish of the house on a scale of 1 (poor) to 10 (excellent).
@@ -64,7 +68,7 @@ with st.expander("ℹ️ About the Features", expanded=False):
     - **HalfBath**: Number of half bathrooms (sink and toilet only) above ground.
     - **BedroomAbvGr**: Number of bedrooms above ground.
     - **GarageArea**: Size of the garage in square feet.
-    - **Neighborhood**: Location within the city.
+    - **Neighborhood**: Location within the city, which can influence price.
     - **SaleCondition**: Condition of the sale, such as "Normal" or "Abnormal."
     """)
 
@@ -92,19 +96,14 @@ with col2:
 st.markdown("### Neighborhood and Sale Details")
 col3, col4 = st.columns(2)
 
+neighborhoods = ['Blueste', 'CollgCr', 'Edwards', 'Gilbert', 'NWAmes', 'OldTown', 'Sawyer', 'Somerst']
+sale_conditions = ['Normal', 'Abnorml', 'AdjLand', 'Alloca', 'Family', 'Partial']
+
 with col3:
-    neighborhood = st.selectbox(
-        "🏘 Neighborhood",
-        ['Blueste', 'CollgCr', 'Edwards', 'Gilbert', 'NWAmes', 'OldTown', 'Sawyer', 'Somerst'],
-        help="Location of the property.",
-    )
+    neighborhood = st.selectbox("🏘 Neighborhood", neighborhoods, help="Location of the property.")
 
 with col4:
-    sale_condition = st.selectbox(
-        "📄 Sale Condition",
-        ['Normal', 'Abnorml', 'AdjLand', 'Alloca', 'Family', 'Partial'],
-        help="Condition under which the sale was made.",
-    )
+    sale_condition = st.selectbox("📄 Sale Condition", sale_conditions, help="Condition under which the sale was made.")
 
 # Encode categorical variables dynamically
 categorical_inputs = {f'Neighborhood_{neighborhood}': 1, f'SaleCondition_{sale_condition}': 1}
@@ -139,6 +138,13 @@ if st.button("🏡 Predict House Price"):
     fig, ax = plt.subplots(figsize=(10, 6))
     sns.barplot(data=importance_df.head(10), x="Importance", y="Feature", palette="viridis")
     ax.set_title("Top 10 Features Influencing Prediction", fontsize=16)
-    ax.set_xlabel("Importance", fontsize=14)
-    ax.set_ylabel("Feature", fontsize=14)
+    ax.set_xlabel("Importance Score", fontsize=14)
+    ax.set_ylabel("Features", fontsize=14)
     st.pyplot(fig)
+
+# Show Prediction History
+if show_history:
+    with st.expander("📜 Prediction History"):
+        for entry in st.session_state["history"]:
+            st.write(f"Inputs: {entry['Inputs']}")
+            st.write(f"Prediction: ${entry['Prediction']:,.2f}")
