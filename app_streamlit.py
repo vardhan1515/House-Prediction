@@ -6,41 +6,49 @@ import seaborn as sns
 import base64
 
 # Set page configuration
-st.set_page_config(page_title="Enhanced House Price Prediction App", page_icon="🏡", layout="wide")
+st.set_page_config(page_title="AI-Powered House Price Predictor", page_icon="🏡", layout="wide")
 
-# Encode the uploaded image as a base64 string for use as a background
+# Load the optimized model and feature names
+model = joblib.load('optimized_house_price_model.pkl')
+feature_names = joblib.load('feature_names.pkl')
+
+# Encode the uploaded image for the background
 with open("image.png", "rb") as img_file:
     encoded_string = base64.b64encode(img_file.read()).decode()
 
-# Custom CSS
-page_bg_img = f'''
+# Custom CSS for styling
+custom_css = f"""
 <style>
 [data-testid="stAppViewContainer"] {{
     background-image: url("data:image/png;base64,{encoded_string}");
     background-size: cover;
     background-position: center;
     font-family: 'Arial', sans-serif;
-    color: #000000;
 }}
 
 [data-testid="stSidebar"] {{
-    background-color: rgba(0, 0, 0, 0.7);
-    color: white;
+    background-color: rgba(255, 255, 255, 0.9);
+    border-radius: 10px;
+    padding: 10px;
+}}
+
+[data-testid="stHeader"] {{
+    background-color: rgba(255, 255, 255, 0.9);
 }}
 
 h1, h2, h3 {{
-    color: #000000;
+    color: black;
     font-weight: bold;
 }}
 
 label {{
-    color: #000000 !important;
+    color: black !important;
     font-size: 14px;
     font-weight: bold;
 }}
 
 .stSlider > div {{
-    color: #000000 !important;
+    color: black !important;
 }}
 
 div.stButton > button {{
@@ -58,36 +66,37 @@ div.stButton > button:hover {{
     transition: all 0.3s ease;
 }}
 </style>
-'''
-st.markdown(page_bg_img, unsafe_allow_html=True)
-
-# Load the optimized model and feature names
-model = joblib.load('optimized_house_price_model.pkl')
-feature_names = joblib.load('feature_names.pkl')
+"""
+st.markdown(custom_css, unsafe_allow_html=True)
 
 # Initialize prediction history
 if "history" not in st.session_state:
     st.session_state["history"] = []
 
 # Header Section
-st.title("🏡 Enhanced House Price Prediction App")
+st.title("🏡 AI-Powered House Price Predictor")
 st.markdown(
     """
-    ## Welcome! 🎉  
-    Harness the power of machine learning to estimate house prices. Perfect for buyers, sellers, and real estate enthusiasts.  
-    - 🛠 Adjust the property details below.  
-    - 🎯 Get real-time predictions.  
-    - 📊 Gain insights into what drives house pricing.  
+    ## Welcome to Your Personalized Real Estate Tool! 🎉  
+    - Estimate property prices with precision using AI.
+    - Explore insights into factors driving property values.
+    - Save and analyze predictions for your needs.
     """
 )
 
 # Sidebar Section
-st.sidebar.title("⚙️ Customize Your Experience")
-mo_sold = st.sidebar.slider("📅 Month Sold", min_value=1, max_value=12, value=6, help="When was the house sold?")
-yr_sold = st.sidebar.number_input("📅 Year Sold", min_value=2000, max_value=2025, value=2020, help="Year of sale.")
+st.sidebar.title("⚙️ Configure Your Settings")
+mo_sold = st.sidebar.slider("📅 Month Sold", min_value=1, max_value=12, value=1, help="When was the house sold?")
+yr_sold = st.sidebar.number_input("📅 Year Sold", min_value=2000, max_value=2025, value=2025, help="Year of sale.")
+show_history = st.sidebar.checkbox("📜 Show Prediction History")
+
+# Reset Button
+if st.sidebar.button("🔄 Reset All Inputs"):
+    st.session_state["history"] = []
+    st.experimental_rerun()
 
 # Main Input Section
-st.markdown("### Property Details")
+st.markdown("### Enter Property Details")
 col1, col2 = st.columns(2)
 
 with col1:
@@ -144,42 +153,29 @@ if st.button("🏡 Predict House Price"):
 
     st.markdown(f"### 🎯 Predicted Price: **${prediction:,.2f}**")
 
-    # Enhanced Feature Importance Visualization
-    st.markdown("### 🔍 Key Factors Affecting the Price")
-    importance_df = pd.DataFrame(
-        {"Feature": feature_names, "Importance": model.feature_importances_}
-    ).sort_values(by="Importance", ascending=False)
-
-    fig, ax = plt.subplots(figsize=(12, 7))
-    sns.barplot(data=importance_df.head(10), x="Importance", y="Feature", palette="coolwarm")
-    ax.set_title("Top 10 Features Influencing Prediction", fontsize=16)
-    ax.set_xlabel("Importance", fontsize=14)
-    ax.set_ylabel("Feature", fontsize=14)
-    plt.grid(axis='x', linestyle='--', alpha=0.7)
-    st.pyplot(fig)
-
-    # Heatmap for Feature Correlation
-    st.markdown("### 🔥 Feature Correlation Heatmap")
-    fig, ax = plt.subplots(figsize=(12, 8))
+    # Advanced Insights Section
+    st.markdown("### 📊 Advanced Insights")
+    # Correlation Heatmap
+    st.markdown("#### 🔥 Feature Correlation Heatmap")
+    importance_df = pd.DataFrame({"Feature": feature_names, "Importance": model.feature_importances_}).sort_values(by="Importance", ascending=False)
+    fig, ax = plt.subplots(figsize=(10, 6))
     sns.heatmap(importance_df.head(10).set_index("Feature").T, annot=True, cmap="coolwarm", cbar=True)
     st.pyplot(fig)
 
-    # Save predictions
-    if st.button("💾 Save Predictions"):
-        df_history = pd.DataFrame(st.session_state["history"])
+    # Distribution Plot
+    st.markdown("#### 📈 Distribution of Predicted Prices")
+    fig, ax = plt.subplots(figsize=(10, 6))
+    sns.histplot(data=pd.DataFrame({"Prediction": [prediction]}), x="Prediction", kde=True, color="blue")
+    ax.set_title("Distribution of Predicted Prices", fontsize=16)
+    st.pyplot(fig)
+
+# Show Prediction History
+if show_history and len(st.session_state["history"]) > 0:
+    st.markdown("### 🕒 Prediction History")
+    df_history = pd.DataFrame(st.session_state["history"])
+    st.dataframe(df_history)
+
+    # Save Predictions
+    if st.button("💾 Save Predictions to CSV"):
         df_history.to_csv("predictions_history.csv", index=False)
         st.success("Prediction history saved successfully!")
-
-# Display Prediction History
-if st.sidebar.checkbox("📜 Show Prediction History"):
-    if len(st.session_state["history"]) > 0:
-        st.markdown("### 🕒 Prediction History")
-        df_history = pd.DataFrame(st.session_state["history"])
-        st.dataframe(df_history)
-    else:
-        st.markdown("No predictions made yet.")
-
-# Reset Button
-if st.sidebar.button("🔄 Reset"):
-    st.session_state["history"] = []
-    st.experimental_rerun()
