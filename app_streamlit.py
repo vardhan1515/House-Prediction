@@ -65,7 +65,7 @@ div.stButton > button:hover {{
 }}
 
 /* Tooltip color correction */
-[data-testid="stTooltipIcon"] > svg {{
+[data-testid="stTooltipIcon"] svg {{
     color: black !important; /* Ensures the tooltip (?) is black */
 }}
 
@@ -80,6 +80,11 @@ button.step-down {{
     background-color: #ADD8E6 !important; /* Light blue for minus */
     color: black !important;
     border-radius: 5px;
+}}
+
+/* Checkbox text color */
+input[type="checkbox"] + span {{
+    color: black !important; /* Change "Show Prediction History" text to black */
 }}
 </style>
 """
