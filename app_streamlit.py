@@ -6,7 +6,7 @@ import seaborn as sns
 import base64
 
 # Set page configuration
-st.set_page_config(page_title="Dark Theme House Price Predictor", page_icon="🏡", layout="wide")
+st.set_page_config(page_title="Enhanced House Price Predictor", page_icon="🏡", layout="wide")
 
 # Load the optimized model and feature names
 model = joblib.load('optimized_house_price_model.pkl')
@@ -16,37 +16,37 @@ feature_names = joblib.load('feature_names.pkl')
 with open("image.png", "rb") as img_file:
     encoded_string = base64.b64encode(img_file.read()).decode()
 
-# Custom CSS for dark theme
-dark_theme_css = f"""
+# Custom CSS for styling with black text
+black_text_css = f"""
 <style>
 [data-testid="stAppViewContainer"] {{
     background-image: url("data:image/png;base64,{encoded_string}");
     background-size: cover;
     background-position: center;
     font-family: 'Arial', sans-serif;
-    color: #ffffff;
+    color: #000000;
 }}
 
 [data-testid="stSidebar"] {{
-    background-color: rgba(20, 20, 20, 0.9);
-    color: white;
+    background-color: rgba(245, 245, 245, 0.95);
+    color: black;
     border-radius: 10px;
     padding: 10px;
 }}
 
 h1, h2, h3 {{
-    color: #ffffff;
+    color: #000000;
     font-weight: bold;
 }}
 
 label {{
-    color: #ffffff !important;
+    color: #000000 !important;
     font-size: 14px;
     font-weight: bold;
 }}
 
 .stSlider > div {{
-    color: #ffffff !important;
+    color: #000000 !important;
 }}
 
 div.stButton > button {{
@@ -65,19 +65,19 @@ div.stButton > button:hover {{
 }}
 </style>
 """
-st.markdown(dark_theme_css, unsafe_allow_html=True)
+st.markdown(black_text_css, unsafe_allow_html=True)
 
 # Initialize prediction history
 if "history" not in st.session_state:
     st.session_state["history"] = []
 
 # Header Section
-st.title("🏡 AI-Powered House Price Predictor")
+st.title("🏡 Enhanced House Price Predictor")
 st.markdown(
     """
     ## Welcome to Your Real Estate Insights Hub 🌟  
     - **Estimate property prices** using AI-based models.  
-    - **Visualize key factors** driving house pricing.  
+    - **Visualize key factors driving house pricing.**  
     - **Customize and save predictions** for further analysis.  
     """
 )
@@ -162,17 +162,6 @@ if st.button("🏡 Predict House Price"):
     ax.set_title("Top 10 Features Influencing Prediction", fontsize=16)
     ax.set_xlabel("Importance", fontsize=14)
     ax.set_ylabel("Feature", fontsize=14)
-    st.pyplot(fig)
-
-    # Scatterplot
-    st.markdown("### 📈 Predicted Price vs Key Feature")
-    key_feature = st.selectbox("Choose a Feature to Compare", list(inputs.keys()))
-    fig, ax = plt.subplots(figsize=(10, 6))
-    ax.scatter(input_data[key_feature], [prediction], c='cyan', label="Prediction")
-    ax.set_title(f"Predicted Price vs {key_feature}", fontsize=16)
-    ax.set_xlabel(key_feature, fontsize=14)
-    ax.set_ylabel("Predicted Price", fontsize=14)
-    plt.legend()
     st.pyplot(fig)
 
 # Show Prediction History
