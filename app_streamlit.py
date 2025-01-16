@@ -3,38 +3,43 @@ import pandas as pd
 import joblib
 import matplotlib.pyplot as plt
 import seaborn as sns
+import base64
 
 # Set page configuration
 st.set_page_config(page_title="House Price Prediction App", page_icon="🏡", layout="wide")
 
-# Custom CSS for enhanced styling
-page_bg_img = '''
+# Encode the uploaded image as a base64 string for use as a background
+with open("image.png", "rb") as img_file:
+    encoded_string = base64.b64encode(img_file.read()).decode()
+
+# Custom CSS for enhanced styling with the background image
+page_bg_img = f'''
 <style>
-[data-testid="stAppViewContainer"] {
-    background-image: url("https://images.unsplash.com/photo-1560185127-6c02d9792858?fit=crop&w=1350&q=80");
+[data-testid="stAppViewContainer"] {{
+    background-image: url("data:image/png;base64,{encoded_string}");
     background-size: cover;
     background-position: center;
     background-attachment: fixed;
     font-family: 'Arial', sans-serif;
     color: white;
-}
+}}
 
-[data-testid="stSidebar"] {
+[data-testid="stSidebar"] {{
     background-color: rgba(0, 0, 0, 0.7);
     color: white;
-}
+}}
 
-[data-testid="stHeader"] {
+[data-testid="stHeader"] {{
     background-color: rgba(0, 0, 0, 0.9);
     color: white;
-}
+}}
 
-h1, h2, h3 {
+h1, h2, h3 {{
     color: #FFD700;
     text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.6);
-}
+}}
 
-div.stButton > button {
+div.stButton > button {{
     background-color: #4CAF50;
     color: white;
     border: none;
@@ -44,19 +49,18 @@ div.stButton > button {
     cursor: pointer;
     border-radius: 10px;
     box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.3);
-}
+}}
 
-div.stButton > button:hover {
+div.stButton > button:hover {{
     background-color: #45a049;
     transform: scale(1.05);
     transition: all 0.3s ease;
-}
-
+}}
 </style>
 '''
 st.markdown(page_bg_img, unsafe_allow_html=True)
 
-# Load model and feature names
+# Load the optimized model and feature names
 model = joblib.load('optimized_house_price_model.pkl')
 feature_names = joblib.load('feature_names.pkl')
 
@@ -71,7 +75,6 @@ st.markdown(
     - 📊 Gain insights into what drives house pricing.  
     """
 )
-st.image("https://images.unsplash.com/photo-1596079890721-0cdd5b09795c", caption="Your Dream House, Your Budget!", use_column_width=True)
 
 # Sidebar Section
 st.sidebar.title("⚙️ Customize Additional Features")
@@ -127,12 +130,13 @@ if st.button("🏡 Predict House Price"):
     prediction = model.predict(input_data)[0]
     st.markdown(f"### 🎯 Predicted Price: **${prediction:,.2f}**")
 
-    # Enhanced Feature Importance Chart
+    # Enhanced Feature Importance Visualization
     st.markdown("### 🔍 Key Factors Affecting the Price")
     importance_df = pd.DataFrame({"Feature": feature_names, "Importance": model.feature_importances_}).sort_values(by="Importance", ascending=False)
-    
+
+    # Violin plot for feature importance
     fig, ax = plt.subplots(figsize=(12, 7))
-    sns.barplot(data=importance_df.head(10), x="Importance", y="Feature", palette="coolwarm")
+    sns.violinplot(data=importance_df.head(10), x="Importance", y="Feature", scale="width", palette="coolwarm")
     ax.set_title("Top 10 Features Influencing Prediction", fontsize=16, color='white')
     ax.set_xlabel("Importance", fontsize=14, color='white')
     ax.set_ylabel("Feature", fontsize=14, color='white')
