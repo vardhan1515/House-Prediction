@@ -6,49 +6,47 @@ import seaborn as sns
 import base64
 
 # Set page configuration
-st.set_page_config(page_title="AI-Powered House Price Predictor", page_icon="🏡", layout="wide")
+st.set_page_config(page_title="Dark Theme House Price Predictor", page_icon="🏡", layout="wide")
 
 # Load the optimized model and feature names
 model = joblib.load('optimized_house_price_model.pkl')
 feature_names = joblib.load('feature_names.pkl')
 
-# Encode the uploaded image for the background
+# Encode the uploaded background image
 with open("image.png", "rb") as img_file:
     encoded_string = base64.b64encode(img_file.read()).decode()
 
-# Custom CSS for styling
-custom_css = f"""
+# Custom CSS for dark theme
+dark_theme_css = f"""
 <style>
 [data-testid="stAppViewContainer"] {{
     background-image: url("data:image/png;base64,{encoded_string}");
     background-size: cover;
     background-position: center;
     font-family: 'Arial', sans-serif;
+    color: #ffffff;
 }}
 
 [data-testid="stSidebar"] {{
-    background-color: rgba(255, 255, 255, 0.9);
+    background-color: rgba(20, 20, 20, 0.9);
+    color: white;
     border-radius: 10px;
     padding: 10px;
 }}
 
-[data-testid="stHeader"] {{
-    background-color: rgba(255, 255, 255, 0.9);
-}}
-
 h1, h2, h3 {{
-    color: black;
+    color: #ffffff;
     font-weight: bold;
 }}
 
 label {{
-    color: black !important;
+    color: #ffffff !important;
     font-size: 14px;
     font-weight: bold;
 }}
 
 .stSlider > div {{
-    color: black !important;
+    color: #ffffff !important;
 }}
 
 div.stButton > button {{
@@ -67,7 +65,7 @@ div.stButton > button:hover {{
 }}
 </style>
 """
-st.markdown(custom_css, unsafe_allow_html=True)
+st.markdown(dark_theme_css, unsafe_allow_html=True)
 
 # Initialize prediction history
 if "history" not in st.session_state:
@@ -77,10 +75,10 @@ if "history" not in st.session_state:
 st.title("🏡 AI-Powered House Price Predictor")
 st.markdown(
     """
-    ## Welcome to Your Personalized Real Estate Tool! 🎉  
-    - Estimate property prices with precision using AI.
-    - Explore insights into factors driving property values.
-    - Save and analyze predictions for your needs.
+    ## Welcome to Your Real Estate Insights Hub 🌟  
+    - **Estimate property prices** using AI-based models.  
+    - **Visualize key factors** driving house pricing.  
+    - **Customize and save predictions** for further analysis.  
     """
 )
 
@@ -153,20 +151,28 @@ if st.button("🏡 Predict House Price"):
 
     st.markdown(f"### 🎯 Predicted Price: **${prediction:,.2f}**")
 
-    # Advanced Insights Section
-    st.markdown("### 📊 Advanced Insights")
-    # Correlation Heatmap
-    st.markdown("#### 🔥 Feature Correlation Heatmap")
-    importance_df = pd.DataFrame({"Feature": feature_names, "Importance": model.feature_importances_}).sort_values(by="Importance", ascending=False)
+    # Top Influential Features
+    st.markdown("### 🔍 Top Influential Features")
+    importance_df = pd.DataFrame(
+        {"Feature": feature_names, "Importance": model.feature_importances_}
+    ).sort_values(by="Importance", ascending=False)
+
     fig, ax = plt.subplots(figsize=(10, 6))
-    sns.heatmap(importance_df.head(10).set_index("Feature").T, annot=True, cmap="coolwarm", cbar=True)
+    sns.barplot(data=importance_df.head(10), x="Importance", y="Feature", palette="viridis")
+    ax.set_title("Top 10 Features Influencing Prediction", fontsize=16)
+    ax.set_xlabel("Importance", fontsize=14)
+    ax.set_ylabel("Feature", fontsize=14)
     st.pyplot(fig)
 
-    # Distribution Plot
-    st.markdown("#### 📈 Distribution of Predicted Prices")
+    # Scatterplot
+    st.markdown("### 📈 Predicted Price vs Key Feature")
+    key_feature = st.selectbox("Choose a Feature to Compare", list(inputs.keys()))
     fig, ax = plt.subplots(figsize=(10, 6))
-    sns.histplot(data=pd.DataFrame({"Prediction": [prediction]}), x="Prediction", kde=True, color="blue")
-    ax.set_title("Distribution of Predicted Prices", fontsize=16)
+    ax.scatter(input_data[key_feature], [prediction], c='cyan', label="Prediction")
+    ax.set_title(f"Predicted Price vs {key_feature}", fontsize=16)
+    ax.set_xlabel(key_feature, fontsize=14)
+    ax.set_ylabel("Predicted Price", fontsize=14)
+    plt.legend()
     st.pyplot(fig)
 
 # Show Prediction History
