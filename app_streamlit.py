@@ -49,11 +49,15 @@ show_history = st.sidebar.checkbox("📜 Show Prediction History")
 
 # Reset and Clear Buttons
 if st.sidebar.button("🔄 Reset All Inputs"):
-    # Clear all session state variables
-    for key in st.session_state.keys():
-        del st.session_state[key]
-    # Refresh the app using st.query_params
-    st.query_params.clear()  # Reset query parameters
+    # Reset all session state variables to their default values
+    st.session_state.clear()  # Clears all session state variables
+    
+    # Optional: Add default values to session state if necessary
+    st.session_state["history"] = []
+    st.session_state["some_other_input"] = "default_value"  # Example for a specific input
+
+    # Force a page rerun
+    st.experimental_rerun()
 
 # Feature Explanation Section
 with st.expander("ℹ️ About the Features", expanded=False):
