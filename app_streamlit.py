@@ -34,10 +34,6 @@ custom_css = f"""
     padding: 10px;
 }}
 
-[data-testid="stMarkdownContainer"] {{
-    color: #333333;
-}}
-
 h1, h2, h3 {{
     color: black;
     font-weight: bold;
@@ -78,8 +74,8 @@ div.stButton > button:hover {{
     font-size: 12px;
 }}
 
-[data-testid="stMarkdownContainer"] > div {{
-    color: black !important;
+svg {{
+    color: #333333 !important; /* Dark icon color for all SVG elements, including the tooltip icon */
 }}
 </style>
 """
