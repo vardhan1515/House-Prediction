@@ -1,33 +1,81 @@
 import streamlit as st
 import pandas as pd
 import joblib
+import matplotlib.pyplot as plt
 
 # Load the optimized model and feature names
 model = joblib.load('optimized_house_price_model.pkl')
 feature_names = joblib.load('feature_names.pkl')  # Load saved feature names
 
-# User input for key features only
-st.title("Simplified House Price Prediction App")
-
-# Key numerical features
-inputs = {
-    'MSSubClass': st.number_input("Enter MSSubClass", value=20.0),
-    'LotFrontage': st.number_input("Enter LotFrontage (e.g., 70)", value=70.0),
-    'LotArea': st.number_input("Enter LotArea (e.g., 8500)", value=8500.0),
-    'OverallQual': st.slider("Overall Quality (1-10)", min_value=1, max_value=10, value=5),
-    'OverallCond': st.slider("Overall Condition (1-10)", min_value=1, max_value=10, value=5),
-    'GrLivArea': st.number_input("Enter Above Ground Living Area (e.g., 1200)", value=1200.0),
-    'GarageArea': st.number_input("Enter Garage Area (e.g., 400)", value=400.0),
+# Custom styles using HTML
+page_bg = """
+<style>
+[data-testid="stAppViewContainer"] {
+    background-color: #f7f3f0;
+    font-family: Arial, sans-serif;
 }
+[data-testid="stHeader"] {
+    background-color: #f7f3f0;
+}
+</style>
+"""
+st.markdown(page_bg, unsafe_allow_html=True)
+
+# Page title and introduction
+st.set_page_config(page_title="House Price Prediction App", page_icon="🏡")
+st.title("🏡 House Price Prediction App")
+st.markdown(
+    """
+    **Welcome!**  
+    This app uses advanced machine learning to predict house prices based on the features you provide.  
+    Adjust the sliders and inputs below, and click **Predict** to get an estimate!  
+    """
+)
+
+# Sidebar for optional features
+st.sidebar.title("🏘 Optional Features")
+st.sidebar.markdown(
+    "You can tweak additional property details here to refine the prediction."
+)
+mo_sold = st.sidebar.slider("Month Sold", min_value=1, max_value=12, value=6, help="Month in which the house was sold.")
+yr_sold = st.sidebar.number_input("Year Sold", min_value=2000, max_value=2025, value=2020, help="Year in which the house was sold.")
+
+# Property features section
+st.markdown("### Core Property Features")
+col1, col2 = st.columns(2)
+
+with col1:
+    inputs = {
+        'MSSubClass': st.number_input("🛠 Building Class (MSSubClass)", value=20.0, help="E.g., 20 = 1-story 1946 & newer."),
+        'LotFrontage': st.number_input("📏 Lot Frontage (in feet)", value=70.0, help="Linear feet of street connected to the property."),
+        'LotArea': st.number_input("📐 Lot Area (sq. ft.)", value=8500.0, help="Total size of the lot in square feet."),
+    }
+
+with col2:
+    inputs['OverallQual'] = st.slider(
+        "🌟 Overall Quality", min_value=1, max_value=10, value=5, 
+        help="Rate the overall quality of the property (1 = Very Poor, 10 = Excellent)."
+    )
+    inputs['OverallCond'] = st.slider(
+        "🔧 Overall Condition", min_value=1, max_value=10, value=5, 
+        help="Rate the overall condition of the property (1 = Very Poor, 10 = Excellent)."
+    )
+    inputs['GrLivArea'] = st.number_input(
+        "📏 Above Ground Living Area (sq. ft.)", value=1200.0, 
+        help="Total square feet of living area above ground."
+    )
 
 # Dropdowns for categorical features
+st.markdown("### Neighborhood and Sale Information")
 neighborhood = st.selectbox(
-    "Select Neighborhood", 
-    ['Blueste', 'CollgCr', 'Edwards', 'Gilbert', 'NWAmes', 'OldTown', 'Sawyer', 'Somerst']
+    "🏘 Neighborhood", 
+    ['Blueste', 'CollgCr', 'Edwards', 'Gilbert', 'NWAmes', 'OldTown', 'Sawyer', 'Somerst'],
+    help="The neighborhood where the property is located."
 )
 sale_condition = st.selectbox(
-    "Select Sale Condition", 
-    ['Normal', 'Abnorml', 'AdjLand', 'Alloca', 'Family', 'Partial']
+    "📄 Sale Condition", 
+    ['Normal', 'Abnorml', 'AdjLand', 'Alloca', 'Family', 'Partial'],
+    help="Condition of the sale."
 )
 
 # Encode categorical variables dynamically
@@ -42,10 +90,29 @@ for col in feature_names:
         # Set defaults for all other features
         inputs[col] = categorical_inputs.get(col, 0)
 
+inputs['MoSold'] = mo_sold
+inputs['YrSold'] = yr_sold
+
 # Convert to DataFrame
 input_data = pd.DataFrame([inputs])[feature_names]
 
-# Predict
-if st.button("Predict"):
+# Predict the house price
+if st.button("🏡 Predict Price"):
     prediction = model.predict(input_data)[0]
-    st.success(f"Predicted House Price: ${prediction:,.2f}")
+    st.markdown(
+        f"""
+        ### 🎯 Predicted House Price:  
+        **${prediction:,.2f}**  
+        """
+    )
+
+    # Feature importance
+    st.markdown("### 🔍 Feature Importance")
+    importance_df = pd.DataFrame(
+        {"Feature": feature_names, "Importance": model.feature_importances_}
+    ).sort_values(by="Importance", ascending=False)
+
+    fig, ax = plt.subplots(figsize=(8, 5))
+    ax.barh(importance_df["Feature"].head(10), importance_df["Importance"].head(10))
+    ax.set_title("Top 10 Features Affecting Prediction")
+    st.pyplot(fig)
