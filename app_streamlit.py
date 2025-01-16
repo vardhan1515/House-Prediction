@@ -34,6 +34,10 @@ custom_css = f"""
     padding: 10px;
 }}
 
+[data-testid="stMarkdownContainer"] {{
+    color: #333333;
+}}
+
 h1, h2, h3 {{
     color: black;
     font-weight: bold;
@@ -62,6 +66,20 @@ div.stButton > button {{
 div.stButton > button:hover {{
     background-color: #45a049;
     transition: all 0.3s ease;
+}}
+
+[data-testid="stArrowIcon"] {{
+    color: black !important;
+}}
+
+[data-testid="tooltip"] {{
+    background-color: #333333 !important;
+    color: white !important;
+    font-size: 12px;
+}}
+
+[data-testid="stMarkdownContainer"] > div {{
+    color: black !important;
 }}
 </style>
 """
