@@ -18,6 +18,7 @@ with open("image.png", "rb") as img_file:
 
 custom_css = f"""
 <style>
+/* Background Styling */
 [data-testid="stAppViewContainer"] {{
     background-image: url("data:image/jpeg;base64,{encoded_string}");
     background-size: cover;
@@ -25,25 +26,41 @@ custom_css = f"""
     font-family: 'Arial', sans-serif;
 }}
 
-/* Sidebar styling */
+/* Sidebar Styling */
 [data-testid="stSidebar"] {{
     background-color: rgba(0, 0, 0, 0.8);
-    color: white !important; /* Ensure sidebar text is white */
+    color: white !important; /* Sidebar text is white */
     border-radius: 10px;
     padding: 10px;
 }}
 
-/* Main content text color */
+/* Main Content Text */
 h1, h2, h3, label, p {{
-    color: black !important; /* Set all main text to black */
+    color: black !important; /* Main content text set to black */
 }}
 
-/* Sliders text */
-.stSlider > div {{
-    color: black !important;
+/* Introductory Section (Text) */
+p {{
+    font-size: 14px;
+    font-weight: 500;
+    color: black !important; /* Ensure intro text is black */
 }}
 
-/* Buttons styling */
+/* Month Sold and Year Sold Styling */
+.stSlider > div, input[type="number"], [data-testid="stNumberInput"] > div {{
+    color: white !important; /* Set text in sliders and inputs to white */
+}}
+
+label {{
+    color: white !important; /* Set labels in sidebar to white */
+}}
+
+/* Tooltip Styling */
+[data-testid="stTooltipIcon"] svg {{
+    color: black !important; /* Tooltip (?) icons are black */
+}}
+
+/* Buttons */
 div.stButton > button {{
     background-color: #008CBA;
     color: white;
@@ -59,27 +76,22 @@ div.stButton > button:hover {{
     transition: all 0.3s ease;
 }}
 
-/* Tooltip icon */
-[data-testid="stTooltipIcon"] svg {{
-    color: black !important; /* Tooltip icon set to black */
-}}
-
-/* Plus/Minus button colors */
+/* Plus/Minus Buttons */
 button.step-up {{
-    background-color: #ADD8E6 !important; /* Light blue for plus */
+    background-color: #ADD8E6 !important; /* Light blue for plus button */
     color: white !important;
     border-radius: 5px;
 }}
 
 button.step-down {{
-    background-color: #ADD8E6 !important; /* Light blue for minus */
+    background-color: #ADD8E6 !important; /* Light blue for minus button */
     color: white !important;
     border-radius: 5px;
 }}
 
-/* Sidebar checkbox and labels */
+/* Sidebar Checkbox Labels */
 input[type="checkbox"] + span {{
-    color: white !important; /* Sidebar text stays white */
+    color: white !important; /* Sidebar checkbox text in white */
 }}
 </style>
 """
