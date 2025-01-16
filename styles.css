@@ -6,21 +6,20 @@
     background-image: url("data:image/png;base64,{background_image}");
     background-size: cover;
     background-position: center;
-    font-family: 'Poppins', sans-serif; /* Use Poppins for a modern look */
-    color: black !important;
+    font-family: 'Poppins', sans-serif; /* Modern, clean font */
+    color: #333333 !important; /* Ensure text color is readable */
 }
 
 /* Sidebar Styling */
 [data-testid="stSidebar"] {
-    background-color: rgba(255, 255, 255, 0.85);
-    color: black !important;
-    border-radius: 12px;
+    background-color: rgba(255, 255, 255, 0.85); /* Increase transparency */
+    border-radius: 10px;
     padding: 15px;
-    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
-    font-family: 'Poppins', sans-serif;
+    color: #1a1a1a !important; /* Darker font color for better contrast */
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1); /* Subtle shadow for depth */
 }
 
-/* Sidebar Buttons Styling */
+/* Sidebar Button Styling */
 div.stButton > button {
     background-color: #007BFF;
     color: white;
@@ -28,9 +27,10 @@ div.stButton > button {
     padding: 10px 20px;
     font-size: 16px;
     font-weight: 500;
-    border-radius: 8px;
+    border-radius: 6px;
     cursor: pointer;
     box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+    font-family: 'Poppins', sans-serif;
     transition: all 0.3s ease;
 }
 
@@ -38,79 +38,47 @@ div.stButton > button:hover {
     background-color: #0056b3;
 }
 
-/* Sidebar Labels and Inputs */
-[data-testid="stSidebar"] h1, 
-[data-testid="stSidebar"] h2, 
-[data-testid="stSidebar"] h3, 
-[data-testid="stSidebar"] h4, 
-[data-testid="stSidebar"] h5 {
-    color: #005F73 !important; /* Dark teal color for headings */
-    font-weight: 600 !important;
-}
-
-[data-testid="stSidebar"] label {
-    font-size: 14px;
-    font-weight: 500;
-    color: #333 !important;
-}
-
 /* Input Field Styling */
-[data-testid="stNumberInput"], 
-[data-testid="stTextInput"], 
+[data-testid="stNumberInput"],
+[data-testid="stTextInput"],
 [data-testid="stSelectbox"] {
-    background-color: black !important; /* Black background for better contrast */
-    border: 2px solid #007BFF !important; /* Blue highlighted border */
-    border-radius: 8px !important; /* Rounded corners for modern look */
-    padding: 10px !important;
-    font-size: 16px !important;
-    color: white !important; /* White text for readability */
-    box-shadow: 0 0 10px rgba(0, 123, 255, 0.5) !important; /* Subtle glow */
+    background-color: #ffffff !important; /* Light background for inputs */
+    border: 1px solid #007BFF !important; /* Blue border for highlight */
+    border-radius: 6px;
+    padding: 8px;
+    font-size: 16px;
+    color: #333 !important;
+    box-shadow: inset 0px 1px 3px rgba(0, 0, 0, 0.1); /* Subtle inset shadow */
     font-family: 'Poppins', sans-serif;
+    transition: border-color 0.3s ease;
 }
 
-/* Input Hover & Focus Effects */
-[data-testid="stNumberInput"]:hover, 
-[data-testid="stTextInput"]:hover, 
+[data-testid="stNumberInput"]:hover,
+[data-testid="stTextInput"]:hover,
 [data-testid="stSelectbox"]:hover {
     border-color: #0056b3 !important; /* Darker blue on hover */
-    box-shadow: 0 0 12px rgba(0, 86, 179, 0.7) !important; /* Glow effect */
 }
 
-[data-testid="stNumberInput"]:focus, 
-[data-testid="stTextInput"]:focus, 
-[data-testid="stSelectbox"]:focus {
-    outline: none !important;
-    border-color: #00BFFF !important; /* Light blue on focus */
-    box-shadow: 0 0 15px rgba(0, 191, 255, 0.9) !important; /* Intense glow */
+/* Dropdown Styling */
+[data-testid="stSelectbox"] div[role="listbox"] {
+    background-color: rgba(255, 255, 255, 0.9);
+    color: black !important;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
 }
 
-/* Tooltip Styling */
-[data-testid="stTooltipIcon"] {
-    color: #007BFF !important; /* Blue for better visibility */
-    cursor: pointer;
-    font-size: 18px; /* Slightly larger for focus */
+/* Sliders */
+[data-testid="stSlider"] .streamlit-slider {
+    color: #FF5733 !important; /* Custom color for slider track */
 }
 
-/* Tooltip Hover Text */
-[data-testid="stTooltipIcon"]:hover::after {
-    content: attr(aria-label); /* Tooltip text */
-    display: block;
-    position: absolute;
-    top: -45px;
-    left: 50%;
-    transform: translateX(-50%);
-    background-color: rgba(0, 0, 0, 0.95); /* Dark background for text */
-    color: #ffffff; /* White text for readability */
-    padding: 8px 12px;
-    border-radius: 6px;
-    font-size: 14px;
-    text-align: center;
-    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.2); /* Subtle shadow */
-    z-index: 1000;
-    white-space: nowrap;
+[data-testid="stSlider"] .streamlit-slider .streamlit-slider-thumb {
+    background-color: #FF5733 !important; /* Match slider thumb color */
+    border: 2px solid #FF6F61 !important; /* Slightly brighter border */
 }
 
-/* Headers and Titles */
+/* Headers and Subheaders */
 h1, h2, h3, h4, h5, h6 {
     font-family: 'Poppins', sans-serif;
     color: #222;
@@ -126,28 +94,44 @@ h2 {
     font-weight: 600;
 }
 
-/* Sidebar Checkbox */
-[data-testid="stSidebar"] .stCheckbox {
+p, li, span {
+    font-size: 16px;
+    color: #333;
+    font-family: 'Poppins', sans-serif;
+}
+
+/* Sidebar Section Headers */
+[data-testid="stSidebar"] h2,
+[data-testid="stSidebar"] h3 {
+    color: #333333;
+    font-weight: 600;
+    font-size: 18px;
+}
+
+/* Tooltip Styling */
+[data-testid="stTooltipIcon"] {
+    color: #007BFF !important;
+    cursor: pointer;
+    font-size: 18px;
+}
+
+[data-testid="stTooltipIcon"]:hover::after {
+    content: attr(aria-label);
+    display: block;
+    position: absolute;
+    top: -45px;
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: rgba(0, 0, 0, 0.95);
+    color: #ffffff;
+    padding: 8px 12px;
+    border-radius: 6px;
     font-size: 14px;
-    font-weight: 500;
-    color: #005F73 !important;
+    text-align: center;
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.2);
 }
 
-/* Align Sidebar Text */
-[data-testid="stSidebar"] label, 
-[data-testid="stSidebar"] input {
-    vertical-align: middle;
-    margin: 0;
-}
-
-/* Adjust Transparency */
-[data-testid="stSidebar"] {
-    background-color: rgba(255, 255, 255, 0.95) !important;
-}
-
-/* Hover Effects for History */
-[data-testid="stSidebar"] div.stCheckbox:hover {
-    background-color: rgba(0, 123, 255, 0.1);
-    border-radius: 5px;
-    transition: all 0.3s ease-in-out;
+/* Input Alignment Fix */
+[data-testid="stForm"] > div {
+    margin-bottom: 20px;
 }
