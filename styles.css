@@ -9,11 +9,11 @@
 
 /* Sidebar Styling */
 [data-testid="stSidebar"] {
-    background-color: rgba(0, 0, 0, 0.7); /* Darker background for sidebar */
+    background-color: rgba(0, 0, 0, 0.7); /* Adjusted transparency for better contrast */
     color: white;
     border-radius: 10px;
     padding: 15px;
-    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.2);
 }
 
 /* Input Field Styling */
@@ -21,7 +21,7 @@
 [data-testid="stTextInput"], 
 [data-testid="stSelectbox"], 
 [data-testid="stSlider"] {
-    background-color: rgba(255, 255, 255, 0.9);
+    background-color: rgba(255, 255, 255, 0.9); /* Increased opacity for better contrast */
     color: black;
     border-radius: 8px;
     font-family: 'Poppins', sans-serif;
@@ -48,7 +48,7 @@ div.stButton > button:hover {
 /* Headers and Subheaders */
 h1, h2, h3, h4, h5, h6 {
     font-family: 'Poppins', sans-serif;
-    color: #ffffff;
+    color: white; /* Updated font color for better visibility */
 }
 
 h1 {
@@ -63,6 +63,17 @@ h2 {
 
 p, li, span {
     font-size: 16px;
-    color: #e6e6e6;
+    color: #ffffff; /* Text color updated for clarity */
     font-family: 'Poppins', sans-serif;
+}
+
+/* Tooltip Styling */
+[data-testid="stTooltipIcon"] {
+    color: white !important; /* Matches with new theme */
+    font-size: 16px;
+}
+
+/* Align Expander */
+[data-testid="stExpander"] {
+    margin: 20px 0; /* Adds better spacing between sections */
 }

@@ -45,7 +45,7 @@ if "history" not in st.session_state:
 
 # Reset and Clear Buttons
 def reset_inputs():
-    st.session_state.clear()  # Clear all session state
+    st.session_state.clear()
     st.session_state.reset_triggered = True
 
 if st.sidebar.button("🔄 Reset All Inputs"):
@@ -68,14 +68,14 @@ st.markdown(
 # Feature Explanation Section
 with st.expander("ℹ️ Key Features and Their Meanings", expanded=False):
     st.markdown("""
-    - **MSSubClass**: Identifies the type of dwelling involved in the sale (e.g., `20 = 1-Story, 1946 & newer`).
-    - **LotFrontage**: Linear feet of street connected to the property.
-    - **LotArea**: Lot size in square feet.
-    - **OverallQual**: Rates the overall material and finish of the house (1 to 10).
-    - **OverallCond**: Rates the overall condition of the house (1 to 10).
-    - **GrLivArea**: Above-ground living area in square feet.
-    - **Neighborhood**: Physical location within Ames city limits (e.g., Blueste, CollgCr).
-    - **SaleCondition**: Condition of the sale (e.g., Normal, Abnorml).
+    - **MSSubClass**: Type of dwelling involved in the sale (e.g., `20 = 1-Story, 1946 & newer`).  
+    - **LotFrontage**: Linear feet of street connected to the property.  
+    - **LotArea**: Lot size in square feet.  
+    - **OverallQual**: Rates the overall material and finish of the house (1 to 10).  
+    - **OverallCond**: Rates the overall condition of the house (1 to 10).  
+    - **GrLivArea**: Above-ground living area in square feet.  
+    - **Neighborhood**: Physical location within Ames city limits.  
+    - **SaleCondition**: Condition of the sale (e.g., Normal, Abnorml).  
     """)
 
 # Sidebar Section
@@ -88,7 +88,6 @@ show_history = st.sidebar.checkbox("📜 Show Prediction History")
 st.markdown("### Enter Property Details")
 col1, col2 = st.columns(2)
 
-# Input fields
 inputs = {}
 with col1:
     inputs['MSSubClass'] = st.selectbox(
@@ -121,14 +120,12 @@ with col4:
 
 categorical_inputs = {f'Neighborhood_{neighborhood}': 1, f'SaleCondition_{sale_condition}': 1}
 
-# Combine inputs
 for col in feature_names:
     if col not in inputs:
         inputs[col] = categorical_inputs.get(col, 0)
 inputs['MoSold'] = mo_sold
 inputs['YrSold'] = yr_sold
 
-# Validate DataFrame Matches Model Input
 input_data = pd.DataFrame([inputs])
 missing_cols = set(feature_names) - set(input_data.columns)
 for col in missing_cols:
@@ -138,15 +135,12 @@ input_data = input_data[feature_names]
 # Predict Price
 if st.button("🏡 Predict House Price"):
     prediction = model.predict(input_data)[0]
-    prediction_price = np.expm1(prediction)  # Reverse log transformation if used
+    prediction_price = np.expm1(prediction)
     st.session_state["history"].append({"Inputs": inputs, "Prediction": prediction_price})
     st.markdown(f"### 🎯 Predicted Price: **${prediction_price:,.2f}**")
 
-    # Feature Importance Chart
     st.markdown("### 🔍 Top Influential Features")
-    importance_df = pd.DataFrame(
-        {"Feature": feature_names, "Importance": model.feature_importances_}
-    ).sort_values(by="Importance", ascending=False)
+    importance_df = pd.DataFrame({"Feature": feature_names, "Importance": model.feature_importances_}).sort_values(by="Importance", ascending=False)
     fig, ax = plt.subplots(figsize=(10, 6))
     sns.barplot(data=importance_df.head(10), x="Importance", y="Feature", palette="viridis")
     ax.set_title("Top 10 Features Influencing Prediction", fontsize=16)
@@ -154,7 +148,6 @@ if st.button("🏡 Predict House Price"):
     ax.set_ylabel("Features", fontsize=14)
     st.pyplot(fig)
 
-# Show Prediction History
 if show_history:
     with st.expander("📜 Prediction History"):
         for entry in st.session_state["history"]:
