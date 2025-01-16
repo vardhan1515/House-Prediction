@@ -62,9 +62,10 @@ div.stButton > button:hover {
 
 /* Tooltip Icon Styling */
 [data-testid="stTooltipIcon"] {
-    color: black !important; /* Ensure the question mark is visible */
+    color: black !important; /* Ensure the question mark icon is visible */
     cursor: pointer;
     position: relative;
+    font-size: 16px;
 }
 
 /* Tooltip Text Styling on Hover */
@@ -75,7 +76,7 @@ div.stButton > button:hover {
     top: -35px; /* Position above the icon */
     left: 50%;
     transform: translateX(-50%); /* Center the tooltip horizontally */
-    background-color: rgba(0, 0, 0, 0.9); /* Dark background for the tooltip */
+    background-color: rgba(0, 0, 0, 0.9); /* Dark background for tooltip */
     color: white; /* White text for readability */
     padding: 6px 10px;
     border-radius: 4px;
@@ -96,8 +97,6 @@ div.stButton > button:hover {
     border-color: transparent transparent rgba(0, 0, 0, 0.9) transparent; /* Arrow pointing up */
     z-index: 999;
 }
-
-
 
 /* Markdown Text Styling */
 h1, h2, h3, h4, h5, h6, p, li, span {
