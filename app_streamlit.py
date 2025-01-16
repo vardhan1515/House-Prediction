@@ -6,7 +6,7 @@ import seaborn as sns
 import base64
 
 # Set page configuration
-st.set_page_config(page_title="Enhanced House Price Predictor", page_icon="🏡", layout="wide")
+st.set_page_config(page_title="House Price Predictor", page_icon="🏡", layout="wide")
 
 # Load the optimized model and feature names
 model = joblib.load('optimized_house_price_model.pkl')
@@ -19,105 +19,55 @@ with open("image.png", "rb") as img_file:
 # Add theme toggle
 theme = st.sidebar.radio("Choose Theme", ["Light Mode", "Dark Mode"])
 
-# Custom CSS for styling based on theme
-if theme == "Dark Mode":
-    custom_css = f"""
-    <style>
-    [data-testid="stAppViewContainer"] {{
-        background-image: url("data:image/png;base64,{encoded_string}");
-        background-size: cover;
-        background-position: center;
-        font-family: 'Arial', sans-serif;
-        color: #FFFFFF;
-    }}
+# Custom CSS for styling with black text
+custom_css = f"""
+<style>
+[data-testid="stAppViewContainer"] {{
+    background-image: url("data:image/png;base64,{encoded_string}");
+    background-size: cover;
+    background-position: center;
+    font-family: 'Arial', sans-serif;
+    color: #000000;
+}}
 
-    [data-testid="stSidebar"] {{
-        background-color: rgba(40, 40, 40, 0.95);
-        color: white;
-        border-radius: 10px;
-        padding: 10px;
-    }}
+[data-testid="stSidebar"] {{
+    background-color: rgba(245, 245, 245, 0.95) if theme == "Light Mode" else rgba(40, 40, 40, 0.95);
+    color: black;
+    border-radius: 10px;
+    padding: 10px;
+}}
 
-    h1, h2, h3 {{
-        color: white;
-        font-weight: bold;
-    }}
+h1, h2, h3 {{
+    color: black;
+    font-weight: bold;
+}}
 
-    label {{
-        color: white !important;
-        font-size: 14px;
-        font-weight: bold;
-    }}
+label {{
+    color: black !important;
+    font-size: 14px;
+    font-weight: bold;
+}}
 
-    .stSlider > div {{
-        color: white !important;
-    }}
+.stSlider > div {{
+    color: black !important;
+}}
 
-    div.stButton > button {{
-        background-color: #4CAF50;
-        color: white;
-        border: none;
-        padding: 10px 20px;
-        font-size: 16px;
-        cursor: pointer;
-        border-radius: 10px;
-    }}
+div.stButton > button {{
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    font-size: 16px;
+    cursor: pointer;
+    border-radius: 10px;
+}}
 
-    div.stButton > button:hover {{
-        background-color: #45a049;
-        transition: all 0.3s ease;
-    }}
-    </style>
-    """
-else:
-    custom_css = f"""
-    <style>
-    [data-testid="stAppViewContainer"] {{
-        background-image: url("data:image/png;base64,{encoded_string}");
-        background-size: cover;
-        background-position: center;
-        font-family: 'Arial', sans-serif;
-        color: #000000;
-    }}
-
-    [data-testid="stSidebar"] {{
-        background-color: rgba(245, 245, 245, 0.95);
-        color: black;
-        border-radius: 10px;
-        padding: 10px;
-    }}
-
-    h1, h2, h3 {{
-        color: black;
-        font-weight: bold;
-    }}
-
-    label {{
-        color: black !important;
-        font-size: 14px;
-        font-weight: bold;
-    }}
-
-    .stSlider > div {{
-        color: black !important;
-    }}
-
-    div.stButton > button {{
-        background-color: #4CAF50;
-        color: white;
-        border: none;
-        padding: 10px 20px;
-        font-size: 16px;
-        cursor: pointer;
-        border-radius: 10px;
-    }}
-
-    div.stButton > button:hover {{
-        background-color: #45a049;
-        transition: all 0.3s ease;
-    }}
-    </style>
-    """
+div.stButton > button:hover {{
+    background-color: #45a049;
+    transition: all 0.3s ease;
+}}
+</style>
+"""
 st.markdown(custom_css, unsafe_allow_html=True)
 
 # Initialize prediction history
@@ -131,7 +81,7 @@ st.markdown(
     ## Your Real Estate Hub for Intelligent Predictions 🌟  
     - **Accurately estimate property prices** using AI-based models.  
     - **Customize property details** to fine-tune predictions.  
-    - **Explore feature explanations** to understand influencing factors.  
+    - **Visualize how features impact price predictions.**  
     """
 )
 
@@ -207,18 +157,41 @@ if st.button("🏡 Predict House Price"):
 
     st.markdown(f"### 🎯 Predicted Price: **${prediction:,.2f}**")
 
+    # Feature Importance Chart
+    st.markdown("### 🔍 Top Influential Features")
+    importance_df = pd.DataFrame(
+        {"Feature": feature_names, "Importance": model.feature_importances_}
+    ).sort_values(by="Importance", ascending=False)
+
+    fig, ax = plt.subplots(figsize=(10, 6))
+    sns.barplot(data=importance_df.head(10), x="Importance", y="Feature", palette="viridis")
+    ax.set_title("Top 10 Features Influencing Prediction", fontsize=16)
+    ax.set_xlabel("Importance", fontsize=14)
+    ax.set_ylabel("Feature", fontsize=14)
+    st.pyplot(fig)
+
 # Feature Explanation Section
 st.markdown("### 🔍 Feature Explanation")
 with st.expander("Click to Learn About Key Features"):
     st.markdown(
         """
-        - **Overall Quality**: Rates the overall material and finish of the house.
+        - **Overall Quality**: Rates the overall material and finish of the house (Range: 1-10).
         - **Above Ground Living Area**: Total square feet of living area above ground.
-        - **Garage Area**: The size of the garage in square feet.
+        - **Garage Area**: Size of the garage in square feet.
         - **Lot Area**: Total size of the lot in square feet.
-        - **Neighborhood**: The physical location of the house in Ames, Iowa.
+        - **Neighborhood**: Location of the property, which significantly influences price.
         """
     )
+    st.markdown("#### Example: Impact of Overall Quality on Predicted Price")
+    quality_values = list(range(1, 11))
+    predicted_prices = [model.predict(pd.DataFrame([{**inputs, 'OverallQual': q}]))[0] for q in quality_values]
+
+    fig, ax = plt.subplots(figsize=(8, 4))
+    sns.barplot(x=quality_values, y=predicted_prices, palette="coolwarm", ax=ax)
+    ax.set_title("Predicted Price vs. Overall Quality")
+    ax.set_xlabel("Overall Quality")
+    ax.set_ylabel("Predicted Price ($)")
+    st.pyplot(fig)
 
 # Show Prediction History
 if show_history and len(st.session_state["history"]) > 0:
