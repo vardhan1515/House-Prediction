@@ -35,15 +35,15 @@ custom_css = f"""
 }}
 
 /* Main Content Text */
-h1, h2, h3, label, p {{
-    color: black !important; /* Main content text set to black */
+h1, h2, h3, label {{
+    color: black !important; /* Main content headings and labels set to black */
 }}
 
 /* Introductory Section (Text) */
-p {{
+p, ul > li {{
     font-size: 14px;
     font-weight: 500;
-    color: black !important; /* Ensure intro text is black */
+    color: black !important; /* Ensure intro text and bullet points are black */
 }}
 
 /* Month Sold and Year Sold Styling */
