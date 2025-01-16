@@ -16,14 +16,13 @@ feature_names = joblib.load('feature_names.pkl')
 with open("image.png", "rb") as img_file:
     encoded_string = base64.b64encode(img_file.read()).decode()
 
-# Custom CSS for styling
+# CSS to set all property detail labels to black
 custom_css = f"""
 <style>
 [data-testid="stAppViewContainer"] {{
     background-image: url("data:image/jpeg;base64,{encoded_string}");
     background-size: cover;
     background-position: center;
-    color: #333333;
     font-family: 'Arial', sans-serif;
 }}
 
@@ -40,13 +39,13 @@ h1, h2, h3 {{
 }}
 
 label {{
-    color: #FFFFFF !important;
+    color: #000000 !important; /* Set all property detail labels to black */
     font-size: 14px;
     font-weight: bold;
 }}
 
 .stSlider > div {{
-    color: #FFFFFF !important;
+    color: #000000 !important;
 }}
 
 div.stButton > button {{
@@ -66,7 +65,7 @@ div.stButton > button:hover {{
 
 /* Tooltip color correction */
 [data-testid="stTooltipIcon"] svg {{
-    color: #FFFFFF !important; /* Ensures the tooltip (?) is black */
+    color: #000000 !important; /* Ensures the tooltip (?) is black */
 }}
 
 /* Plus/Minus button color correction */
@@ -84,11 +83,12 @@ button.step-down {{
 
 /* Checkbox text color */
 input[type="checkbox"] + span {{
-    color: #FFFFFF !important; /* Change "Show Prediction History" text to white */
+    color: #000000 !important; /* Change "Show Prediction History" text to black */
 }}
 </style>
 """
 st.markdown(custom_css, unsafe_allow_html=True)
+
 
 # Initialize prediction history
 if "history" not in st.session_state:
