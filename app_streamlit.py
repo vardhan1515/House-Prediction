@@ -18,12 +18,14 @@ with open("styles.css", "r") as css_file:
     css = css_file.read().replace("{background_image}", st.session_state["background_image"])
     st.markdown(f"<style>{css}</style>", unsafe_allow_html=True)
 
-# Load the optimized model and feature names
+# Load the optimized model, feature names, and imputers
 try:
-    model = joblib.load('optimized_house_price_model.pkl')
+    model = joblib.load('lightgbm_house_price_model.pkl')
     feature_names = joblib.load('feature_names.pkl')
-except Exception:
-    st.error("Error loading model or feature names. Ensure the required files are available.")
+    numerical_imputer = joblib.load('numerical_imputer.pkl')
+    categorical_imputer = joblib.load('categorical_imputer.pkl')
+except Exception as e:
+    st.error("Error loading required files. Ensure the model, feature names, and imputers are available.")
     st.stop()
 
 # Initialize session state
@@ -57,18 +59,16 @@ st.markdown(
 # Feature Explanation Section
 with st.expander("ℹ️ About the Features", expanded=False):
     st.markdown("""
-    - **MSSubClass**: Numeric identifier for the type of dwelling. For example, 20 = 1-story, 1946 & newer.
-    - **LotFrontage**: Linear feet of street connected to the property.
-    - **LotArea**: Lot size in square feet.
-    - **OverallQual**: Rates the overall material and finish of the house on a scale of 1 (poor) to 10 (excellent).
-    - **OverallCond**: Rates the overall condition of the house on a scale of 1 (poor) to 10 (excellent).
-    - **GrLivArea**: Above-ground (living) area in square feet.
-    - **FullBath**: Number of full bathrooms (with a sink, toilet, and shower/tub) above ground.
-    - **HalfBath**: Number of half bathrooms (sink and toilet only) above ground.
-    - **BedroomAbvGr**: Number of bedrooms above ground.
-    - **GarageArea**: Size of the garage in square feet.
-    - **Neighborhood**: Location within the city, which can influence price.
-    - **SaleCondition**: Condition of the sale, such as "Normal" or "Abnormal."
+    ### **Key Features and Their Meanings**
+    - **MSSubClass**: Identifies the type of dwelling involved in the sale.  
+      - Example: `20` = 1-Story, 1946 & newer; `30` = 1-Story, 1945 & older.  
+    - **MSZoning**: General zoning classification (e.g., RL = Residential Low Density).  
+    - **LotFrontage**: Linear feet of street connected to the property.  
+    - **OverallQual**: Rates the overall material and finish of the house (1 to 10).  
+    - **OverallCond**: Rates the overall condition of the house (1 to 10).  
+    - **GrLivArea**: Above-ground living area in square feet.  
+    - **Neighborhood**: Physical location within Ames city limits (e.g., `Blueste`, `CollgCr`).  
+    - **SaleCondition**: Condition of the sale (e.g., `Normal`, `Abnorml`).  
     """)
 
 # Sidebar Section
@@ -84,7 +84,11 @@ col1, col2 = st.columns(2)
 # Input fields
 inputs = {}
 with col1:
-    inputs['MSSubClass'] = st.number_input("🏠 Building Class (MSSubClass)", value=20.0, help="E.g., 20 = 1-story, 1946 & newer.")
+    inputs['MSSubClass'] = st.selectbox(
+        "🏠 Building Class (MSSubClass)",
+        [20, 30, 40, 45, 50, 60, 70, 75, 80, 85, 90, 120, 150, 160, 180, 190],
+        help="Type of dwelling involved in the sale."
+    )
     inputs['LotFrontage'] = st.number_input("📏 Lot Frontage (ft)", value=70.0, help="Length of the street connected to the property.")
     inputs['LotArea'] = st.number_input("📐 Lot Area (sq. ft.)", value=8500.0, help="Total property area in square feet.")
     inputs['BedroomAbvGr'] = st.number_input("🛌 Bedrooms Above Ground", value=3, help="Number of bedrooms above ground.")
@@ -127,8 +131,9 @@ input_data = input_data[feature_names]
 # Predict Price
 if st.button("🏡 Predict House Price"):
     prediction = model.predict(input_data)[0]
-    st.session_state["history"].append({"Inputs": inputs, "Prediction": prediction})
-    st.markdown(f"### 🎯 Predicted Price: **${prediction:,.2f}**")
+    prediction_price = np.expm1(prediction)  # Reverse log transformation if used
+    st.session_state["history"].append({"Inputs": inputs, "Prediction": prediction_price})
+    st.markdown(f"### 🎯 Predicted Price: **${prediction_price:,.2f}**")
 
     # Feature Importance Chart
     st.markdown("### 🔍 Top Influential Features")
