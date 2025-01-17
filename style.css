@@ -1,0 +1,59 @@
+<style>
+/* Set background image */
+[data-testid="stAppViewContainer"] {
+    background-image: url('image.png');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+}
+
+/* Style title and headers */
+h1, h2, h3 {
+    font-family: 'Arial', sans-serif;
+    color: #4A4A8A; /* Soft purple */
+}
+
+/* Style body text */
+body, p, label {
+    font-family: 'Verdana', sans-serif;
+    color: #2A2A5A; /* Darker shade */
+}
+
+/* Style buttons */
+button {
+    background-color: #6C63FF; /* Vibrant purple */
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    font-size: 16px;
+}
+
+button:hover {
+    background-color: #5848D9; /* Slightly darker purple */
+}
+
+/* Style tables */
+table {
+    border-collapse: collapse;
+    width: 100%;
+    color: #2A2A5A;
+    font-size: 14px;
+    text-align: left;
+}
+
+table th {
+    background-color: #6C63FF;
+    color: white;
+    padding: 10px;
+}
+
+table td {
+    padding: 10px;
+}
+
+/* Add some padding to the main container */
+[data-testid="stAppViewContainer"] > div {
+    padding: 20px;
+}
+</style>

@@ -1,142 +1,148 @@
 import streamlit as st
 import pandas as pd
-import joblib
-import base64
 import numpy as np
-import matplotlib.pyplot as plt
-import seaborn as sns
+import joblib
 
-# Set page configuration
-st.set_page_config(page_title="AI-Powered House Price Predictor", page_icon="🏡", layout="wide")
+# Function to load external CSS
+def load_css(file_name):
+    with open(file_name, 'r') as f:
+        css = f.read()
+    st.markdown(f'<style>{css}</style>', unsafe_allow_html=True)
 
-# Load and encode background image
-def load_background_image(image_path):
-    """
-    Load and encode the background image to Base64.
-    """
-    try:
-        with open(image_path, "rb") as img_file:
-            return base64.b64encode(img_file.read()).decode()
-    except FileNotFoundError:
-        st.error(f"Background image '{image_path}' not found. Please ensure it exists in the app directory.")
-        st.stop()
-
-# Load and apply CSS
-def apply_css(css_path, background_image):
-    """
-    Load CSS file and replace the placeholder with the Base64 background image.
-    """
-    try:
-        with open(css_path, "r") as css_file:
-            css_content = css_file.read().replace("{background_image}", background_image)
-            st.markdown(f"<style>{css_content}</style>", unsafe_allow_html=True)
-    except FileNotFoundError:
-        st.error(f"CSS file '{css_path}' not found. Please ensure it exists in the app directory.")
-        st.stop()
-
-# Main logic
-background_image_base64 = load_background_image("image.png")  # Path to your image
-apply_css("styles.css", background_image_base64)  # Path to your CSS file
-
-# Load the model, feature names, and imputers
-try:
+# Load saved artifacts
+@st.cache_resource
+def load_model_artifacts():
     model = joblib.load('lightgbm_house_price_model.pkl')
-    feature_names = joblib.load('feature_names.pkl')
     numerical_imputer = joblib.load('numerical_imputer.pkl')
     categorical_imputer = joblib.load('categorical_imputer.pkl')
-except Exception as e:
-    st.error("Error loading required files. Ensure the model, feature names, and imputers are available.")
-    st.stop()
+    feature_names = joblib.load('feature_names.pkl')
+    return model, numerical_imputer, categorical_imputer, feature_names
 
-# Initialize session state
-if "reset_triggered" not in st.session_state:
-    st.session_state.reset_triggered = False
-if "history" not in st.session_state:
-    st.session_state["history"] = []
+# Add custom features to the dataset
+def add_custom_features(data):
+    if 'TotalBsmtSF' in data.columns and 'LotArea' in data.columns:
+        data['TotalBsmtSF_LotArea'] = data['TotalBsmtSF'] / (data['LotArea'] + 1e-5)
+    if 'GrLivArea' in data.columns and 'OverallQual' in data.columns:
+        data['GrLivArea_OverallQual'] = data['GrLivArea'] * data['OverallQual']
+    if 'GarageArea' in data.columns and 'GrLivArea' in data.columns:
+        data['GarageArea_GrLivArea'] = data['GarageArea'] / (data['GrLivArea'] + 1e-5)
+    if 'YearBuilt' in data.columns and 'YrSold' in data.columns:
+        data['AgeAtSale'] = data['YrSold'] - data['YearBuilt']
+    if 'YearRemodAdd' in data.columns and 'YrSold' in data.columns:
+        data['YearsSinceRemodel'] = data['YrSold'] - data['YearRemodAdd']
+    if 'TotalBsmtSF' in data.columns and '1stFlrSF' in data.columns and '2ndFlrSF' in data.columns:
+        data['TotalSF'] = data['TotalBsmtSF'] + data['1stFlrSF'] + data['2ndFlrSF']
+    return data
 
-# Reset and Clear Buttons
-def reset_inputs():
-    st.session_state.clear()
-    st.session_state.reset_triggered = True
+# Preprocess data for prediction
+def preprocess_data(data, numerical_imputer, categorical_imputer, feature_names):
+    if 'Id' in data.columns:
+        ids = data['Id']
+        data.drop(['Id'], axis=1, inplace=True)
+    else:
+        ids = None
 
-if st.sidebar.button("🔄 Reset All Inputs"):
-    reset_inputs()
+    numerical_cols = data.select_dtypes(include=['float64', 'int64']).columns
+    categorical_cols = data.select_dtypes(include=['object']).columns
 
-if st.sidebar.button("🗑 Clear Prediction History"):
-    st.session_state["history"] = []
+    data[numerical_cols] = numerical_imputer.transform(data[numerical_cols])
+    data[categorical_cols] = categorical_imputer.transform(data[categorical_cols])
 
-# Header Section
-st.title("🏡 AI-Powered House Price Predictor")
-st.markdown(
-    """
-    ## Your Real Estate Insights Hub 🌟  
-    - **Accurately estimate property prices** using AI-powered algorithms.  
-    - **Customize property details** for precise predictions.  
-    - **Visualize key factors driving price estimates.**  
-    """
-)
+    data = pd.get_dummies(data, drop_first=True)
 
-# Feature Explanation Section
-with st.expander("ℹ️ Key Features and Their Meanings", expanded=False):
-    st.markdown("""...""")  # Truncated for brevity. Add your feature explanations here.
+    for col in set(feature_names) - set(data.columns):
+        data[col] = 0
 
-# Sidebar Section
-st.sidebar.title("⚙️ Customize Your Property")
-mo_sold = st.sidebar.slider("📅 Month Sold", min_value=1, max_value=12, value=1, help="When was the house sold?")
-yr_sold = st.sidebar.number_input("📅 Year Sold", min_value=2000, max_value=2025, value=2025, help="Year of sale.")
-show_history = st.sidebar.checkbox("📜 Show Prediction History")
+    data = data[feature_names]
+    return data, ids
 
-# Main Input Section
-st.markdown("### Enter Property Details")
-col1, col2 = st.columns(2)
+# Get dataset description for variables
+def get_variable_description(var_name):
+    descriptions = {
+        "MSSubClass": "Identifies the type of dwelling involved in the sale.",
+        "MSZoning": "Identifies the general zoning classification of the sale.",
+        "LotFrontage": "Linear feet of street connected to property.",
+        "LotArea": "Lot size in square feet.",
+        "Street": "Type of road access to property.",
+        "Alley": "Type of alley access to property.",
+        "LotShape": "General shape of property.",
+        "LandContour": "Flatness of the property.",
+        "Utilities": "Type of utilities available.",
+        "LotConfig": "Lot configuration.",
+        "LandSlope": "Slope of property.",
+        "Neighborhood": "Physical locations within Ames city limits.",
+        "Condition1": "Proximity to various conditions.",
+        "Condition2": "Proximity to various conditions (if more than one is present).",
+        "BldgType": "Type of dwelling.",
+        "HouseStyle": "Style of dwelling.",
+        "OverallQual": "Rates the overall material and finish of the house.",
+        "OverallCond": "Rates the overall condition of the house.",
+        "YearBuilt": "Original construction date.",
+        "YearRemodAdd": "Remodel date (same as construction date if no remodeling or additions).",
+        "RoofStyle": "Type of roof.",
+        "RoofMatl": "Roof material.",
+        "Exterior1st": "Exterior covering on house.",
+        "Exterior2nd": "Exterior covering on house (if more than one material).",
+        "MasVnrType": "Masonry veneer type.",
+        "MasVnrArea": "Masonry veneer area in square feet.",
+        "ExterQual": "Evaluates the quality of the material on the exterior.",
+        "ExterCond": "Evaluates the present condition of the material on the exterior.",
+        "Foundation": "Type of foundation.",
+        "TotalBsmtSF": "Total square feet of basement area.",
+        "GrLivArea": "Above grade (ground) living area square feet.",
+    }
+    return descriptions.get(var_name, "No description available.")
 
-# Input fields
-inputs = {}
-with col1:
-    inputs['MSSubClass'] = st.selectbox("🏠 Building Class (MSSubClass)", [...], help="Type of dwelling.")
-    inputs['LotFrontage'] = st.number_input("📏 Lot Frontage (ft)", value=70.0)
-    inputs['LotArea'] = st.number_input("📐 Lot Area (sq. ft.)", value=8500.0)
-    inputs['BedroomAbvGr'] = st.number_input("🛌 Bedrooms Above Ground", value=3)
-    inputs['GarageArea'] = st.number_input("🚗 Garage Area (sq. ft.)", value=400.0)
+# Load the CSS file
+load_css('style.css')
 
-with col2:
-    inputs['OverallQual'] = st.slider("🌟 Overall Quality", min_value=1, max_value=10, value=5)
-    inputs['OverallCond'] = st.slider("🔧 Overall Condition", min_value=1, max_value=10, value=5)
-    inputs['GrLivArea'] = st.number_input("📏 Above Ground Living Area (sq. ft.)", value=1200.0)
-    inputs['FullBath'] = st.number_input("🛁 Full Bathrooms", value=2)
-    inputs['HalfBath'] = st.number_input("🚻 Half Bathrooms", value=1)
+# Streamlit app
+st.title("House Price Prediction App")
 
-# Neighborhood and Sale Information
-col3, col4 = st.columns(2)
-neighborhoods = ['Blueste', 'CollgCr', 'Edwards', 'Gilbert', 'NWAmes', 'OldTown', 'Sawyer', 'Somerst']
-sale_conditions = ['Normal', 'Abnorml', 'AdjLand', 'Alloca', 'Family', 'Partial']
+st.write("Upload a CSV file containing house features to get predicted sale prices.")
 
-with col3:
-    neighborhood = st.selectbox("🏘 Neighborhood", neighborhoods)
-with col4:
-    sale_condition = st.selectbox("📄 Sale Condition", sale_conditions)
+# Display dataset description
+if st.checkbox("Show Dataset Description"):
+    for column in [
+        "MSSubClass", "MSZoning", "LotFrontage", "LotArea", "Street",
+        "Alley", "LotShape", "LandContour", "Utilities", "LotConfig",
+        "LandSlope", "Neighborhood", "Condition1", "Condition2",
+        "BldgType", "HouseStyle", "OverallQual", "OverallCond", "YearBuilt",
+        "YearRemodAdd", "RoofStyle", "RoofMatl", "Exterior1st",
+        "Exterior2nd", "MasVnrType", "MasVnrArea", "ExterQual",
+        "ExterCond", "Foundation", "TotalBsmtSF", "GrLivArea"
+    ]:
+        st.write(f"**{column}:** {get_variable_description(column)}")
 
-categorical_inputs = {f'Neighborhood_{neighborhood}': 1, f'SaleCondition_{sale_condition}': 1}
+# File upload
+uploaded_file = st.file_uploader("Choose a CSV file", type=["csv"])
 
-# Combine inputs
-for col in feature_names:
-    inputs[col] = categorical_inputs.get(col, 0)
-inputs['MoSold'] = mo_sold
-inputs['YrSold'] = yr_sold
-
-# Validate DataFrame Matches Model Input
-input_data = pd.DataFrame([inputs])
-missing_cols = set(feature_names) - set(input_data.columns)
-for col in missing_cols:
-    input_data[col] = 0
-input_data = input_data[feature_names]
-
-# Predict Price
-if st.button("🏡 Predict House Price"):
+if uploaded_file is not None:
     try:
-        prediction = model.predict(input_data)[0]
-        prediction_price = np.expm1(prediction)
-        st.markdown(f"### 🎯 Predicted Price: **${prediction_price:,.2f}**")
-    except Exception as e:
-        st.error(f"Prediction failed: {str(e)}")
+        # Read uploaded file
+        data = pd.read_csv(uploaded_file)
+        st.write("Uploaded Data:", data.head())
 
+        # Load model and preprocessing artifacts
+        model, numerical_imputer, categorical_imputer, feature_names = load_model_artifacts()
+
+        # Add custom features
+        data = add_custom_features(data)
+
+        # Preprocess data
+        preprocessed_data, ids = preprocess_data(data, numerical_imputer, categorical_imputer, feature_names)
+
+        # Make predictions
+        predictions = np.expm1(model.predict(preprocessed_data))
+
+        # Display results
+        result = pd.DataFrame({"Id": ids, "PredictedSalePrice": predictions})
+        st.write("Predicted Sale Prices:")
+        st.dataframe(result)
+
+        # Download link
+        csv = result.to_csv(index=False)
+        st.download_button(label="Download Predictions", data=csv, file_name="house_price_predictions.csv", mime="text/csv")
+
+    except Exception as e:
+        st.error(f"An error occurred: {e}")
