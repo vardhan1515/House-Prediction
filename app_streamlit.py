@@ -36,12 +36,6 @@ def add_custom_features(data):
 
 # Preprocess data for prediction
 def preprocess_data(data, numerical_imputer, categorical_imputer, feature_names):
-    if 'Id' in data.columns:
-        ids = data['Id']
-        data.drop(['Id'], axis=1, inplace=True)
-    else:
-        ids = None
-
     numerical_cols = data.select_dtypes(include=['float64', 'int64']).columns
     categorical_cols = data.select_dtypes(include=['object']).columns
 
@@ -54,44 +48,7 @@ def preprocess_data(data, numerical_imputer, categorical_imputer, feature_names)
         data[col] = 0
 
     data = data[feature_names]
-    return data, ids
-
-# Get dataset description for variables
-def get_variable_description(var_name):
-    descriptions = {
-        "MSSubClass": "Identifies the type of dwelling involved in the sale.",
-        "MSZoning": "Identifies the general zoning classification of the sale.",
-        "LotFrontage": "Linear feet of street connected to property.",
-        "LotArea": "Lot size in square feet.",
-        "Street": "Type of road access to property.",
-        "Alley": "Type of alley access to property.",
-        "LotShape": "General shape of property.",
-        "LandContour": "Flatness of the property.",
-        "Utilities": "Type of utilities available.",
-        "LotConfig": "Lot configuration.",
-        "LandSlope": "Slope of property.",
-        "Neighborhood": "Physical locations within Ames city limits.",
-        "Condition1": "Proximity to various conditions.",
-        "Condition2": "Proximity to various conditions (if more than one is present).",
-        "BldgType": "Type of dwelling.",
-        "HouseStyle": "Style of dwelling.",
-        "OverallQual": "Rates the overall material and finish of the house.",
-        "OverallCond": "Rates the overall condition of the house.",
-        "YearBuilt": "Original construction date.",
-        "YearRemodAdd": "Remodel date (same as construction date if no remodeling or additions).",
-        "RoofStyle": "Type of roof.",
-        "RoofMatl": "Roof material.",
-        "Exterior1st": "Exterior covering on house.",
-        "Exterior2nd": "Exterior covering on house (if more than one material).",
-        "MasVnrType": "Masonry veneer type.",
-        "MasVnrArea": "Masonry veneer area in square feet.",
-        "ExterQual": "Evaluates the quality of the material on the exterior.",
-        "ExterCond": "Evaluates the present condition of the material on the exterior.",
-        "Foundation": "Type of foundation.",
-        "TotalBsmtSF": "Total square feet of basement area.",
-        "GrLivArea": "Above grade (ground) living area square feet.",
-    }
-    return descriptions.get(var_name, "No description available.")
+    return data
 
 # Load the CSS file
 load_css('style.css')
@@ -99,50 +56,45 @@ load_css('style.css')
 # Streamlit app
 st.title("House Price Prediction App")
 
-st.write("Upload a CSV file containing house features to get predicted sale prices.")
+st.write("Input house details below to predict the sale price:")
 
-# Display dataset description
-if st.checkbox("Show Dataset Description"):
-    for column in [
-        "MSSubClass", "MSZoning", "LotFrontage", "LotArea", "Street",
-        "Alley", "LotShape", "LandContour", "Utilities", "LotConfig",
-        "LandSlope", "Neighborhood", "Condition1", "Condition2",
-        "BldgType", "HouseStyle", "OverallQual", "OverallCond", "YearBuilt",
-        "YearRemodAdd", "RoofStyle", "RoofMatl", "Exterior1st",
-        "Exterior2nd", "MasVnrType", "MasVnrArea", "ExterQual",
-        "ExterCond", "Foundation", "TotalBsmtSF", "GrLivArea"
-    ]:
-        st.write(f"**{column}:** {get_variable_description(column)}")
+# Input form for single house features
+with st.form("prediction_form"):
+    OverallQual = st.slider("Overall Quality (1-10)", min_value=1, max_value=10, value=5)
+    GrLivArea = st.number_input("Above grade (ground) living area (in sq ft)", value=1500)
+    TotalBsmtSF = st.number_input("Total basement area (in sq ft)", value=1000)
+    GarageArea = st.number_input("Garage area (in sq ft)", value=500)
+    YearBuilt = st.number_input("Year Built", min_value=1800, max_value=2023, value=2000)
+    YearRemodAdd = st.number_input("Year Remodeled", min_value=1800, max_value=2023, value=2010)
+    LotArea = st.number_input("Lot Area (in sq ft)", value=8000)
+    YrSold = st.number_input("Year Sold", min_value=2000, max_value=2023, value=2023)
+    submit_button = st.form_submit_button("Predict Sale Price")
 
-# File upload
-uploaded_file = st.file_uploader("Choose a CSV file", type=["csv"])
+# Handle form submission
+if submit_button:
+    # Create a DataFrame for the input data
+    input_data = pd.DataFrame({
+        "OverallQual": [OverallQual],
+        "GrLivArea": [GrLivArea],
+        "TotalBsmtSF": [TotalBsmtSF],
+        "GarageArea": [GarageArea],
+        "YearBuilt": [YearBuilt],
+        "YearRemodAdd": [YearRemodAdd],
+        "LotArea": [LotArea],
+        "YrSold": [YrSold],
+    })
 
-if uploaded_file is not None:
-    try:
-        # Read uploaded file
-        data = pd.read_csv(uploaded_file)
-        st.write("Uploaded Data:", data.head())
+    # Load model and preprocessing artifacts
+    model, numerical_imputer, categorical_imputer, feature_names = load_model_artifacts()
 
-        # Load model and preprocessing artifacts
-        model, numerical_imputer, categorical_imputer, feature_names = load_model_artifacts()
+    # Add custom features
+    input_data = add_custom_features(input_data)
 
-        # Add custom features
-        data = add_custom_features(data)
+    # Preprocess data
+    preprocessed_data = preprocess_data(input_data, numerical_imputer, categorical_imputer, feature_names)
 
-        # Preprocess data
-        preprocessed_data, ids = preprocess_data(data, numerical_imputer, categorical_imputer, feature_names)
+    # Make predictions
+    prediction = np.expm1(model.predict(preprocessed_data))[0]
 
-        # Make predictions
-        predictions = np.expm1(model.predict(preprocessed_data))
-
-        # Display results
-        result = pd.DataFrame({"Id": ids, "PredictedSalePrice": predictions})
-        st.write("Predicted Sale Prices:")
-        st.dataframe(result)
-
-        # Download link
-        csv = result.to_csv(index=False)
-        st.download_button(label="Download Predictions", data=csv, file_name="house_price_predictions.csv", mime="text/csv")
-
-    except Exception as e:
-        st.error(f"An error occurred: {e}")
+    # Display the prediction
+    st.write(f"### Predicted Sale Price: ${prediction:,.2f}")
