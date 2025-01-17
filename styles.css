@@ -5,7 +5,63 @@
     background-position: center;
     font-family: 'Roboto', sans-serif;
     color: #1a1a1a; /* Dark grey text for readability */
-    background-color: #ffffff; /* White background */
+    background-color: rgba(255, 255, 255, 0.9); /* White with slight transparency */
+}
+
+/* Sidebar Styling */
+[data-testid="stSidebar"] {
+    background-color: rgba(242, 242, 242, 0.85); /* Light grey with transparency */
+    color: #000000; /* Black text for clarity */
+    border-radius: 10px;
+    padding: 15px;
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.2); /* Subtle shadow */
+}
+
+/* Input Fields Styling */
+[data-testid="stNumberInput"], 
+[data-testid="stTextInput"], 
+[data-testid="stSelectbox"] {
+    background-color: rgba(255, 255, 255, 0.9) !important; /* White with slight transparency */
+    border: 1px solid rgba(153, 153, 153, 0.8) !important; /* Subtle grey border */
+    border-radius: 8px;
+    padding: 10px;
+    font-size: 16px;
+    color: #000000 !important; /* Black text */
+    font-family: 'Roboto', sans-serif;
+    margin-bottom: 10px;
+}
+
+/* Buttons */
+div.stButton > button {
+    background-color: rgba(0, 51, 204, 0.9); /* Deep blue with slight transparency */
+    color: #ffffff; /* White text for readability */
+    border: none;
+    padding: 12px 24px; /* Adjusted padding for better size */
+    font-size: 16px;
+    font-weight: 600;
+    border-radius: 8px; /* Rounded corners */
+    cursor: pointer;
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.2); /* Subtle shadow for depth */
+    font-family: 'Roboto', sans-serif;
+    display: flex;
+    align-items: center; /* Center align text and icons */
+    justify-content: center; /* Center align text and icons */
+    gap: 8px; /* Add spacing between icon and text */
+    transition: all 0.3s ease;
+}
+
+div.stButton > button:hover {
+    background-color: rgba(0, 32, 128, 0.9); /* Slightly darker blue on hover */
+    color: #ffffff; /* Ensure text remains white on hover */
+    transform: scale(1.02); /* Slight zoom effect on hover */
+    box-shadow: 0px 6px 8px rgba(0, 0, 0, 0.3); /* Enhanced shadow on hover */
+}
+
+/* Button Icon Styling */
+div.stButton > button > svg {
+    fill: #ffffff; /* White color for icons */
+    width: 18px; /* Adjust icon size */
+    height: 18px;
 }
 
 /* Tooltip Icon Styling */
@@ -23,7 +79,7 @@
     top: -40px; /* Position above the icon */
     left: 50%;
     transform: translateX(-50%);
-    background-color: #000000; /* Black tooltip background */
+    background-color: rgba(0, 0, 0, 0.9); /* Black tooltip background */
     color: #ffffff; /* White text for contrast */
     padding: 8px 12px;
     border-radius: 6px; /* Rounded corners */
@@ -42,20 +98,6 @@
 [data-testid="stTooltipIcon"]:hover::after {
     visibility: visible;
     opacity: 1;
-}
-
-/* Input Fields Styling */
-[data-testid="stNumberInput"], 
-[data-testid="stTextInput"], 
-[data-testid="stSelectbox"] {
-    background-color: #f9f9f9 !important; /* Light grey input fields */
-    border: 1px solid #999999 !important; /* Subtle dark grey border */
-    border-radius: 8px;
-    padding: 10px;
-    font-size: 16px;
-    color: #000000 !important; /* Black text */
-    font-family: 'Roboto', sans-serif;
-    margin-bottom: 10px;
 }
 
 /* Headers and Titles */
@@ -85,7 +127,7 @@ p, li, span {
 
 /* Inline Code Styling */
 [data-testid="stMarkdownContainer"] code {
-    background-color: #f2f2f2; /* Light grey background for inline code */
+    background-color: rgba(242, 242, 242, 0.9); /* Light grey with transparency */
     color: #1a1a1a; /* Dark grey text */
     padding: 2px 4px;
     border-radius: 4px;
@@ -95,66 +137,18 @@ p, li, span {
     display: inline-block; /* Consistent spacing */
 }
 
-/* Sidebar Styling */
-[data-testid="stSidebar"] {
-    background-color: #f2f2f2; /* Light grey for sidebar */
-    color: #000000; /* Black text for clarity */
-    border-radius: 10px;
-    padding: 15px;
-    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.2); /* Subtle shadow */
-}
-
-/* Buttons */
-div.stButton > button {
-    background-color: #0033cc; /* Deep blue for buttons */
-    color: #ffffff; /* White text for readability */
-    border: none;
-    padding: 12px 24px; /* Adjusted padding for better size */
-    font-size: 16px;
-    font-weight: 600;
-    border-radius: 8px; /* Rounded corners */
-    cursor: pointer;
-    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.2); /* Subtle shadow for depth */
-    font-family: 'Roboto', sans-serif;
-    display: flex;
-    align-items: center; /* Center align text and icons */
-    justify-content: center; /* Center align text and icons */
-    gap: 8px; /* Add spacing between icon and text */
-    transition: all 0.3s ease;
-}
-
-div.stButton > button:hover {
-    background-color: #002080; /* Slightly darker blue on hover */
-    color: #ffffff; /* Ensure text remains white on hover */
-    transform: scale(1.02); /* Slight zoom effect on hover */
-    box-shadow: 0px 6px 8px rgba(0, 0, 0, 0.3); /* Enhanced shadow on hover */
-}
-
-/* Button Icon Styling */
-div.stButton > button > svg {
-    fill: #ffffff; /* White color for icons */
-    width: 18px; /* Adjust icon size */
-    height: 18px;
-}
-
 /* Expandable Section Styling */
 [data-testid="stExpander"] {
-    background-color: #f9f9f9; /* Light grey background */
-    border: 1px solid #999999; /* Subtle border */
+    background-color: rgba(249, 249, 249, 0.9); /* Light grey with slight transparency */
+    border: 1px solid rgba(153, 153, 153, 0.8); /* Subtle border */
     border-radius: 10px;
     padding: 12px;
     box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.2);
 }
 
 [data-testid="stExpander"] > div:first-child {
-    background-color: #f2f2f2; /* Light grey for header */
+    background-color: rgba(242, 242, 242, 0.85); /* Transparent light grey for header */
     font-weight: 600;
     color: #0033cc; /* Deep blue for expandable section headers */
     border-radius: 10px;
-}
-
-/* Tooltips */
-[data-testid="stTooltip"] {
-    color: #ffffff; /* White text */
-    background-color: #000000; /* Black tooltip background */
 }
