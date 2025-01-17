@@ -9,23 +9,34 @@ import seaborn as sns
 # Set page configuration
 st.set_page_config(page_title="AI-Powered House Price Predictor", page_icon="🏡", layout="wide")
 
-# Load background image and encode it
-if "background_image" not in st.session_state:
+# Load and encode background image
+def load_background_image(image_path):
+    """
+    Load and encode the background image to Base64.
+    """
     try:
-        with open("image.png", "rb") as img_file:
-            st.session_state["background_image"] = base64.b64encode(img_file.read()).decode()
+        with open(image_path, "rb") as img_file:
+            return base64.b64encode(img_file.read()).decode()
     except FileNotFoundError:
-        st.error("Background image not found. Please ensure 'image.png' exists in the app directory.")
+        st.error(f"Background image '{image_path}' not found. Please ensure it exists in the app directory.")
         st.stop()
 
-# Link the external CSS
-try:
-    with open("styles.css", "r") as css_file:
-        css = css_file.read().replace("{background_image}", st.session_state["background_image"])
-        st.markdown(f"<style>{css}</style>", unsafe_allow_html=True)
-except FileNotFoundError:
-    st.error("CSS file not found. Please ensure 'styles.css' exists in the app directory.")
-    st.stop()
+# Load and apply CSS
+def apply_css(css_path, background_image):
+    """
+    Load CSS file and replace the placeholder with the Base64 background image.
+    """
+    try:
+        with open(css_path, "r") as css_file:
+            css_content = css_file.read().replace("{background_image}", background_image)
+            st.markdown(f"<style>{css_content}</style>", unsafe_allow_html=True)
+    except FileNotFoundError:
+        st.error(f"CSS file '{css_path}' not found. Please ensure it exists in the app directory.")
+        st.stop()
+
+# Main logic
+background_image_base64 = load_background_image("image.png")  # Path to your image
+apply_css("styles.css", background_image_base64)  # Path to your CSS file
 
 # Load the model, feature names, and imputers
 try:
