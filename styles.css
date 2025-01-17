@@ -1,158 +1,110 @@
-/* General App Styling */
-[data-testid="stAppViewContainer"] {
-    background-image: url("data:image/png;base64,{background_image}");
-    background-size: cover;
-    background-position: center;
-    font-family: 'Poppins', sans-serif;
+/* Global Settings */
+body {
+    margin: 0;
+    padding: 0;
+    font-family: 'Roboto', Arial, sans-serif;
     color: #333333;
+    background-image: url('data:image/png;base64,{background_image}');
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-position: center;
 }
 
-/* Sidebar Styling */
-[data-testid="stSidebar"] {
-    background-color: rgba(255, 255, 255, 0.95); /* Light transparency */
-    border-radius: 12px;
-    padding: 20px;
-    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
-}
-
-/* Buttons Styling */
-div.stButton > button {
-    background-color: #007BFF;
-    color: white;
-    border: none;
-    padding: 12px 24px;
-    font-size: 16px;
-    font-weight: 600;
-    border-radius: 8px;
-    cursor: pointer;
-    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.15);
-    font-family: 'Poppins', sans-serif;
-}
-
-div.stButton > button:active {
-    background-color: #0056b3;
-    box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
-}
-
-/* Input Fields */
-[data-testid="stNumberInput"], 
-[data-testid="stTextInput"], 
-[data-testid="stSelectbox"] {
-    background-color: #f9f9f9 !important;
-    border: 1px solid #ddd !important;
-    border-radius: 8px;
-    padding: 10px;
-    font-size: 16px;
-    color: #333333 !important;
-    font-family: 'Poppins', sans-serif;
-    margin-bottom: 10px;
-}
-
-/* Tooltip Icon Styling */
-[data-testid="stTooltipIcon"] {
-    color: #000000 !important; /* Black color for better visibility */
-    font-size: 18px; /* Slightly larger size for focus */
-    position: relative;
-    cursor: help; /* Indicates it’s a tooltip */
-}
-
-/* Tooltip Text Styling */
-[data-testid="stTooltipIcon"]::after {
-    content: attr(aria-label);
-    position: absolute;
-    top: -40px; /* Adjust position above the icon */
-    left: 50%;
-    transform: translateX(-50%);
-    background-color: rgba(0, 0, 0, 0.95); /* Dark background for contrast */
-    color: #ffffff; /* White text for readability */
-    padding: 8px 12px;
-    border-radius: 6px; /* Rounded corners */
-    font-size: 14px;
-    font-family: 'Poppins', sans-serif;
+/* Streamlit Title */
+h1, h2, h3 {
+    color: #444;
     text-align: center;
-    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2); /* Subtle shadow */
-    visibility: hidden; /* Hidden by default */
-    opacity: 0; /* Transparent by default */
-    transition: opacity 0.2s ease, visibility 0.2s ease; /* Smooth appearance */
-    z-index: 1000; /* Ensure it appears on top */
-    white-space: nowrap; /* Prevent text wrapping */
+    font-weight: 700;
+    text-shadow: 1px 1px 2px #ffffff;
 }
 
-/* Show tooltip on hover */
-[data-testid="stTooltipIcon"]:hover::after {
-    visibility: visible; /* Make tooltip visible */
-    opacity: 1; /* Make tooltip opaque */
+/* Sidebar */
+.css-1y4p8pa.e13qjvis0 {
+    background-color: #f8f9fa;
+    box-shadow: 2px 0px 5px rgba(0, 0, 0, 0.1);
 }
 
-/* General App Styling */
-[data-testid="stAppViewContainer"] {
-    background-image: url("data:image/png;base64,{background_image}");
-    background-size: cover;
-    background-position: center;
-    font-family: 'Poppins', sans-serif;
-    color: #333333;
+.css-1v3fvcr.e13qjvis0 {
+    border-radius: 15px;
+    margin-bottom: 15px;
+    background-color: #ffffff;
+    box-shadow: 1px 1px 8px rgba(0, 0, 0, 0.1);
 }
 
-/* Input Fields Styling */
-[data-testid="stNumberInput"], 
-[data-testid="stTextInput"], 
-[data-testid="stSelectbox"] {
-    background-color: #f9f9f9 !important;
-    border: 1px solid #ddd !important;
-    border-radius: 8px;
-    padding: 10px;
-    font-size: 16px;
-    color: #333333 !important;
-    font-family: 'Poppins', sans-serif;
+/* Buttons */
+button {
+    background-color: #007bff;
+    color: #ffffff;
+    border: none;
+    border-radius: 5px;
+    padding: 10px 20px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+button:hover {
+    background-color: #0056b3;
+}
+
+/* Inputs */
+input, select, textarea {
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    padding: 8px 10px;
+    font-size: 14px;
+    background-color: #f9f9f9;
+    width: 100%;
     margin-bottom: 10px;
 }
 
-/* Headers and Titles */
-h1, h2, h3, h4, h5, h6 {
-    font-family: 'Poppins', sans-serif;
-    color: #1A1A1A;
-    font-weight: 600;
+input:focus, select:focus, textarea:focus {
+    outline: none;
+    border-color: #007bff;
+    box-shadow: 0px 0px 5px rgba(0, 123, 255, 0.5);
 }
 
-h1 {
-    font-size: 2.8rem;
-    font-weight: 700;
-    color: #0056b3;
+/* Tables */
+table {
+    width: 100%;
+    border-collapse: collapse;
 }
 
-h2 {
-    font-size: 2.2rem;
-    color: #333333;
-}
-
-/* Paragraphs and Text */
-p, li, span {
-    font-size: 16px;
-    line-height: 1.6;
-    color: #4A4A4A;
-}
-
-
-/* Inline Code Styling */
-code {
-    background-color: rgba(0, 0, 0, 0.05);
-    color: #0056b3;
-    font-family: 'Courier New', Courier, monospace;
-    padding: 2px 6px;
-    border-radius: 4px;
-    font-size: 14px;
-}
-
-/* Expandable Section Styling */
-[data-testid="stExpander"] {
-    background-color: rgba(0, 0, 0, 0.05);
+th, td {
     border: 1px solid #ddd;
-    border-radius: 8px;
-    padding: 12px;
-    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+    padding: 10px;
+    text-align: left;
 }
 
-[data-testid="stExpander"] > div:first-child {
-    font-weight: 600;
-    color: #0056b3;
+th {
+    background-color: #f1f1f1;
+    color: #333333;
+    font-weight: bold;
+}
+
+tr:nth-child(even) {
+    background-color: #f9f9f9;
+}
+
+/* Footer */
+footer {
+    text-align: center;
+    font-size: 12px;
+    color: #666666;
+    margin-top: 20px;
+}
+
+/* Adjust Expander */
+.css-1cpxqw2 {
+    border-radius: 10px;
+    background-color: #ffffff;
+    box-shadow: 2px 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+/* Charts */
+.css-1ubppl.e1fqkh3o2 {
+    border-radius: 10px;
+    padding: 10px;
+    background-color: #ffffff;
+    box-shadow: 1px 1px 10px rgba(0, 0, 0, 0.1);
 }
