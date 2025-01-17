@@ -77,15 +77,10 @@
     white-space: nowrap; /* Prevent text wrapping */
 }
 
-/* Show Tooltip on Hover */
-[data-testid="tooltip-trigger"]:hover::after {
-    visibility: visible; /* Show tooltip */
-    opacity: 1; /* Fully opaque */
-}
 
 /* Tooltip Text Selection Styling */
 [data-testid="tooltip-trigger"]::after::selection {
-    background-color: #444444; /* Match tooltip background */
+    background-color: #e4dcdc; /* Match tooltip background */
     color: #ffffff; /* Keep text white */
 }
 
