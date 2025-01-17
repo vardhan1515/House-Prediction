@@ -156,3 +156,20 @@ p, li, span {
     box-shadow: 0px 1px 3px rgba(0, 0, 0, 0.1); /* Subtle shadow for depth */
     display: inline-block; /* Consistent spacing */
 }
+
+/* Expander Section Styling */
+[data-testid="stExpander"] {
+    background-color: rgba(255, 255, 255, 0.7); /* White with 70% opacity for transparency */
+    border: 1px solid rgba(200, 200, 200, 0.6); /* Subtle border with transparency */
+    border-radius: 10px; /* Rounded corners for a clean look */
+    padding: 12px;
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.2); /* Subtle shadow for depth */
+}
+
+/* Expander Header Styling */
+[data-testid="stExpander"] > div:first-child {
+    background-color: rgba(242, 242, 242, 0.7); /* Light grey with transparency */
+    font-weight: 600;
+    color: #000000; /* Black text for the header */
+    border-radius: 10px;
+}
