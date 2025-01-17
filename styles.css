@@ -24,7 +24,7 @@
     background-color: rgba(255, 255, 255, 0.2) !important; /* White with slight transparency */
     border: 1px solid rgba(153, 153, 153, 0.6) !important; /* Subtle grey border */
     border-radius: 8px;
-    padding: 10px;
+    padding: 16px;
     font-size: 16px;
     color: #000000 !important; /* Black text */
     font-family: 'Roboto', sans-serif;
@@ -111,6 +111,10 @@ div.stButton > button > svg {
     font-weight: 600;
     color: #000000; /* Black text for the header */
     border-radius: 10px;
+}
+
+[data-testid="stSlider"] > div:nth-child(2){
+    margin: 17px;
 }
 
 /* Headers and Titles */
