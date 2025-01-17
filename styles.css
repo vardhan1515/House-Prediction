@@ -48,7 +48,7 @@
 }
 
 /* Tooltip Icon Styling */
-[data-testid="stTooltipIcon"] {
+[data-testid="tooltip-trigger"] {
     color: #000000 !important; /* Black question mark icon */
     font-size: 18px; /* Slightly larger for visibility */
     cursor: help; /* Indicates interactivity */
@@ -56,33 +56,34 @@
 }
 
 /* Tooltip Text Styling */
-[data-testid="stTooltipIcon"]::after {
+[data-testid="tooltip-trigger"]::after {
     content: attr(aria-label);
     position: absolute;
-    top: -50px; /* Position slightly higher above the icon */
+    top: -50px; /* Position the tooltip above the icon */
     left: 50%;
     transform: translateX(-50%);
-    background-color: #444444; /* Darker grey for tooltip background */
-    color: #ffffff; /* White text for contrast */
-    padding: 10px 14px; /* Added padding for spacing */
+    background-color: #222222; /* Dark grey for tooltip background */
+    color: #ffffff; /* White text for better contrast */
+    padding: 10px 14px; /* Add padding for spacing */
     border-radius: 8px; /* Rounded corners for modern look */
     font-size: 14px;
-    font-weight: 500; /* Slightly bolder text for readability */
+    font-weight: 600; /* Bold text for readability */
     font-family: 'Roboto', sans-serif;
     text-align: center;
     box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.3); /* Subtle shadow for depth */
     visibility: hidden; /* Hidden by default */
     opacity: 0; /* Fully transparent by default */
-    transition: opacity 0.2s ease, visibility 0.2s ease; /* Smooth appearance */
-    z-index: 1000; /* Ensure tooltip appears above other elements */
+    transition: opacity 0.3s ease, visibility 0.3s ease; /* Smooth appearance */
+    z-index: 1000; /* Ensure the tooltip appears above other elements */
     white-space: nowrap; /* Prevent text wrapping */
 }
 
 /* Show Tooltip on Hover */
-[data-testid="stTooltipIcon"]:hover::after {
+[data-testid="tooltip-trigger"]:hover::after {
     visibility: visible; /* Make tooltip visible */
     opacity: 1; /* Fully opaque on hover */
 }
+
 
 /* Buttons */
 div.stButton > button {
