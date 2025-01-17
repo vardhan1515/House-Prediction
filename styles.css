@@ -21,7 +21,7 @@
 [data-testid="stNumberInput"], 
 [data-testid="stTextInput"], 
 [data-testid="stSelectbox"] {
-    background-color: rgba(255, 255, 255, 0.9) !important; /* White with slight transparency */
+    background-color: rgba(255, 255, 255, 0.2) !important; /* White with slight transparency */
     border: 1px solid rgba(153, 153, 153, 0.6) !important; /* Subtle grey border */
     border-radius: 8px;
     padding: 10px;
@@ -135,7 +135,8 @@ h2 {
 p, li, span {
     font-size: 16px;
     line-height: 1.6;
-    color: #1a1a1a; /* Dark grey text for readability */
+    color: #333;
+    font-weight: 600;
 }
 
 /* Inline Code Styling */
