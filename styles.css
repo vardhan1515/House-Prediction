@@ -1,6 +1,6 @@
 /* Tooltip Icon Styling */
 [data-testid="stTooltipIcon"] {
-    color: #ffffff !important; /* White color for dark theme */
+    color: #333333 !important; /* Black color for the icon */
     font-size: 18px; /* Slightly larger size for focus */
     position: relative;
     cursor: help; /* Indicates it’s a tooltip */
@@ -13,14 +13,14 @@
     top: -40px; /* Adjust position above the icon */
     left: 50%;
     transform: translateX(-50%);
-    background-color: rgba(255, 255, 255, 0.95); /* Light background for contrast */
-    color: #000000; /* Black text for readability */
+    background-color: rgba(0, 0, 0, 0.95); /* Black background for contrast */
+    color: #ffffff; /* White text for readability */
     padding: 8px 12px;
     border-radius: 6px; /* Rounded corners */
     font-size: 14px;
     font-family: 'Roboto', sans-serif; /* Sleek font */
     text-align: center;
-    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2); /* Subtle shadow */
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.3); /* Subtle shadow */
     visibility: hidden; /* Hidden by default */
     opacity: 0; /* Transparent by default */
     transition: opacity 0.2s ease, visibility 0.2s ease; /* Smooth appearance */
@@ -40,20 +40,20 @@
     background-size: cover;
     background-position: center;
     font-family: 'Roboto', sans-serif; /* Use Roboto for a sleek look */
-    color: #e0e0e0; /* Light text for contrast on dark backgrounds */
-    background-color: #121212; /* Dark background */
+    color: #000000; /* Black text for contrast */
+    background-color: #f5f5f5; /* Light background for a clean look */
 }
 
 /* Input Fields Styling */
 [data-testid="stNumberInput"], 
 [data-testid="stTextInput"], 
 [data-testid="stSelectbox"] {
-    background-color: #1e1e1e !important; /* Dark input fields */
-    border: 1px solid #444444 !important; /* Subtle border for separation */
+    background-color: #ffffff !important; /* White input fields */
+    border: 1px solid #cccccc !important; /* Subtle border for separation */
     border-radius: 8px;
     padding: 10px;
     font-size: 16px;
-    color: #e0e0e0 !important; /* Light text */
+    color: #333333 !important; /* Dark text */
     font-family: 'Roboto', sans-serif;
     margin-bottom: 10px;
 }
@@ -61,32 +61,32 @@
 /* Headers and Titles */
 h1, h2, h3, h4, h5, h6 {
     font-family: 'Roboto', sans-serif;
-    color: #e0e0e0;
+    color: #333333;
     font-weight: 600;
 }
 
 h1 {
     font-size: 2.8rem;
     font-weight: 700;
-    color: #4caf50; /* Green for a modern look */
+    color: #0073e6; /* Vibrant blue for main header */
 }
 
 h2 {
     font-size: 2.2rem;
-    color: #e0e0e0;
+    color: #333333;
 }
 
 /* Paragraphs and Text */
 p, li, span {
     font-size: 16px;
     line-height: 1.6;
-    color: #bdbdbd; /* Slightly lighter text for paragraphs */
+    color: #333333; /* Black text for better readability */
 }
 
 /* Sidebar Styling */
 [data-testid="stSidebar"] {
-    background-color: #1e1e1e; /* Dark background */
-    color: #e0e0e0; /* Light text */
+    background-color: #f0f0f0; /* Light background */
+    color: #333333; /* Dark text */
     border-radius: 10px;
     padding: 15px;
     box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.2);
@@ -94,7 +94,7 @@ p, li, span {
 
 /* Buttons */
 div.stButton > button {
-    background-color: #4caf50; /* Green for contrast */
+    background-color: #0073e6; /* Vibrant blue for contrast */
     color: #ffffff;
     border: none;
     padding: 10px 20px;
@@ -108,21 +108,27 @@ div.stButton > button {
 }
 
 div.stButton > button:hover {
-    background-color: #388e3c; /* Slightly darker green on hover */
+    background-color: #005bb5; /* Darker blue on hover */
 }
 
 /* Expandable Section Styling */
 [data-testid="stExpander"] {
-    background-color: #1e1e1e; /* Match sidebar */
-    border: 1px solid #444444; /* Subtle border for separation */
+    background-color: #ffffff; /* White background */
+    border: 1px solid #cccccc; /* Subtle border */
     border-radius: 10px;
     padding: 12px;
     box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.2);
 }
 
 [data-testid="stExpander"] > div:first-child {
-    background-color: #1e1e1e;
+    background-color: #f0f0f0; /* Match sidebar */
     font-weight: 600;
-    color: #4caf50;
+    color: #0073e6; /* Blue for expandable section header */
     border-radius: 10px;
+}
+
+/* Tooltips */
+[data-testid="stTooltip"] {
+    color: #ffffff;
+    background-color: #000000;
 }
