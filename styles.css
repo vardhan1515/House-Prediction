@@ -48,7 +48,7 @@
 [data-testid="stNumberInput"], 
 [data-testid="stTextInput"], 
 [data-testid="stSelectbox"] {
-    background-color: #ffffff !important; /* White input fields */
+    background-color: #f0f0f0 !important; /* Light grey input fields */
     border: 1px solid #cccccc !important; /* Subtle border for separation */
     border-radius: 8px;
     padding: 10px;
@@ -85,7 +85,7 @@ p, li, span {
 
 /* Sidebar Styling */
 [data-testid="stSidebar"] {
-    background-color: #f0f0f0; /* Light background */
+    background-color: #e8e8e8; /* Light grey background */
     color: #333333; /* Dark text */
     border-radius: 10px;
     padding: 15px;
@@ -113,7 +113,7 @@ div.stButton > button:hover {
 
 /* Expandable Section Styling */
 [data-testid="stExpander"] {
-    background-color: #ffffff; /* White background */
+    background-color: #f0f0f0; /* Light grey background */
     border: 1px solid #cccccc; /* Subtle border */
     border-radius: 10px;
     padding: 12px;
@@ -121,7 +121,7 @@ div.stButton > button:hover {
 }
 
 [data-testid="stExpander"] > div:first-child {
-    background-color: #f0f0f0; /* Match sidebar */
+    background-color: #e8e8e8; /* Light grey to match sidebar */
     font-weight: 600;
     color: #0073e6; /* Blue for expandable section header */
     border-radius: 10px;
