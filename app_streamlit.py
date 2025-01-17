@@ -84,34 +84,30 @@ col1, col2 = st.columns(2)
 
 # Input fields
 inputs = {}
+# Updated Input Fields Without Tooltips
 with col1:
     inputs['MSSubClass'] = st.selectbox(
         "🏠 Building Class (MSSubClass)",
-        [20, 30, 40, 45, 50, 60, 70, 75, 80, 85, 90, 120, 150, 160, 180, 190],
-        help="Type of dwelling involved in the sale."
+        [20, 30, 40, 45, 50, 60, 70, 75, 80, 85, 90, 120, 150, 160, 180, 190]
     )
-    inputs['LotFrontage'] = st.number_input("📏 Lot Frontage (ft)", value=70.0, help="Length of the street connected to the property.")
-    inputs['LotArea'] = st.number_input("📐 Lot Area (sq. ft.)", value=8500.0, help="Total property area in square feet.")
-    inputs['BedroomAbvGr'] = st.number_input("🛌 Bedrooms Above Ground", value=3, help="Number of bedrooms above ground.")
-    inputs['GarageArea'] = st.number_input("🚗 Garage Area (sq. ft.)", value=400.0, help="Total area of the garage.")
+    inputs['LotFrontage'] = st.number_input("📏 Lot Frontage (ft)", value=70.0)
+    inputs['LotArea'] = st.number_input("📐 Lot Area (sq. ft.)", value=8500.0)
+    inputs['BedroomAbvGr'] = st.number_input("🛌 Bedrooms Above Ground", value=3)
+    inputs['GarageArea'] = st.number_input("🚗 Garage Area (sq. ft.)", value=400.0)
 
 with col2:
-    inputs['OverallQual'] = st.slider("🌟 Overall Quality", min_value=1, max_value=10, value=5, help="1 = Very Poor, 10 = Excellent.")
-    inputs['OverallCond'] = st.slider("🔧 Overall Condition", min_value=1, max_value=10, value=5, help="1 = Very Poor, 10 = Excellent.")
-    inputs['GrLivArea'] = st.number_input("📏 Above Ground Living Area (sq. ft.)", value=1200.0, help="Living area above ground.")
-    inputs['FullBath'] = st.number_input("🛁 Full Bathrooms", value=2, help="Number of full bathrooms.")
-    inputs['HalfBath'] = st.number_input("🚻 Half Bathrooms", value=1, help="Number of half bathrooms.")
+    inputs['OverallQual'] = st.slider("🌟 Overall Quality", min_value=1, max_value=10, value=5)
+    inputs['OverallCond'] = st.slider("🔧 Overall Condition", min_value=1, max_value=10, value=5)
+    inputs['GrLivArea'] = st.number_input("📏 Above Ground Living Area (sq. ft.)", value=1200.0)
+    inputs['FullBath'] = st.number_input("🛁 Full Bathrooms", value=2)
+    inputs['HalfBath'] = st.number_input("🚻 Half Bathrooms", value=1)
 
-# Neighborhood and Sale Information
-st.markdown("### Neighborhood and Sale Details")
-col3, col4 = st.columns(2)
-neighborhoods = ['Blueste', 'CollgCr', 'Edwards', 'Gilbert', 'NWAmes', 'OldTown', 'Sawyer', 'Somerst']
-sale_conditions = ['Normal', 'Abnorml', 'AdjLand', 'Alloca', 'Family', 'Partial']
-
+# Updated Neighborhood and Sale Information Without Tooltips
 with col3:
-    neighborhood = st.selectbox("🏘 Neighborhood", neighborhoods, help="Location of the property.")
+    neighborhood = st.selectbox("🏘 Neighborhood", neighborhoods)
 with col4:
-    sale_condition = st.selectbox("📄 Sale Condition", sale_conditions, help="Condition under which the sale was made.")
+    sale_condition = st.selectbox("📄 Sale Condition", sale_conditions)
+
 
 categorical_inputs = {f'Neighborhood_{neighborhood}': 1, f'SaleCondition_{sale_condition}': 1}
 
