@@ -47,44 +47,6 @@
     margin-bottom: 10px;
 }
 
-/* Tooltip Icon Styling */
-[data-testid="tooltip-trigger"] {
-    color: #000000 !important; /* Black question mark icon for visibility */
-    font-size: 18px; /* Slightly larger for emphasis */
-    cursor: help; /* Indicates interactivity */
-    position: relative;
-}
-
-/* Tooltip Text Styling */
-[data-testid="tooltip-trigger"]::after {
-    content: attr(aria-label);
-    position: absolute;
-    top: -45px; /* Adjusted tooltip position slightly higher */
-    left: 50%;
-    transform: translateX(-50%);
-    background-color: #333333; /* Dark grey background for tooltip */
-    color: #ffffff; /* White text for readability */
-    padding: 8px 12px; /* Add spacing for better text visibility */
-    border-radius: 6px; /* Rounded corners for a modern look */
-    font-size: 14px;
-    font-family: 'Roboto', sans-serif; /* Sleek and modern font */
-    text-align: center;
-    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.4); /* Subtle shadow for depth */
-    visibility: hidden; /* Hidden by default */
-    opacity: 0; /* Fully transparent by default */
-    transition: opacity 0.2s ease, visibility 0.2s ease; /* Smooth appearance */
-    z-index: 1000; /* Ensure tooltip is on top */
-    white-space: nowrap; /* Prevent text wrapping */
-}
-
-
-/* Tooltip Text Selection Styling */
-[data-testid="tooltip-trigger"]::after::selection {
-    background-color: #e4dcdc; /* Match tooltip background */
-    color: #ffffff; /* Keep text white */
-}
-
-
 
 /* Buttons */
 div.stButton > button {
