@@ -3,30 +3,14 @@
     background-image: url("data:image/png;base64,{background_image}");
     background-size: cover;
     background-position: center;
-    font-family: 'Roboto', sans-serif, Arial, sans-serif;
+    font-family: 'Roboto', sans-serif;
     color: #1a1a1a; /* Dark grey text for readability */
-    background-color: rgba(255, 255, 255, 0.9); /* White with slight transparency */
-}
-
-/* Section Styling (e.g., "About the Features") */
-[data-testid="stExpander"] {
-    background-color: rgba(249, 249, 249, 0.7); /* Increased transparency for sections */
-    border: 1px solid rgba(153, 153, 153, 0.6); /* Subtle border */
-    border-radius: 10px;
-    padding: 12px;
-    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
-}
-
-[data-testid="stExpander"] > div:first-child {
-    background-color: rgba(242, 242, 242, 0.7); /* Transparent light grey for header */
-    font-weight: 600;
-    color: #003366; /* Slightly darker blue for text */
-    border-radius: 10px;
+    background-color: rgba(255, 255, 255, 0.9); /* Subtle transparency */
 }
 
 /* Sidebar Styling */
 [data-testid="stSidebar"] {
-    background-color: rgba(242, 242, 242, 0.85); /* Light grey with transparency */
+    background-color: rgba(242, 242, 242, 0.8); /* Light grey with transparency */
     color: #000000; /* Black text for clarity */
     border-radius: 10px;
     padding: 15px;
@@ -38,69 +22,27 @@
 [data-testid="stTextInput"], 
 [data-testid="stSelectbox"] {
     background-color: rgba(255, 255, 255, 0.9) !important; /* White with slight transparency */
-    border: 1px solid rgba(153, 153, 153, 0.8) !important; /* Subtle grey border */
+    border: 1px solid rgba(153, 153, 153, 0.6) !important; /* Subtle grey border */
     border-radius: 8px;
     padding: 10px;
     font-size: 16px;
     color: #000000 !important; /* Black text */
-    font-family: 'Roboto', sans-serif, Arial, sans-serif;
+    font-family: 'Roboto', sans-serif;
     margin-bottom: 10px;
 }
 
-/* Tooltip Icon Styling */
-[data-testid="tooltip-trigger"] {
-    color: #000000 !important; /* Black question mark icon for visibility */
-    font-size: 18px; /* Slightly larger for emphasis */
-    cursor: help; /* Indicates interactivity */
-    position: relative;
-}
-
-/* Tooltip Text Styling */
-[data-testid="tooltip-trigger"]::after {
-    content: attr(aria-label);
-    position: absolute;
-    top: -50px; /* Position the tooltip above the icon */
-    left: 50%;
-    transform: translateX(-50%);
-    background-color: #333333; /* Dark grey background for tooltip */
-    color: #ffffff !important; /* White text for readability */
-    padding: 10px 14px; /* Add padding for better spacing */
-    border-radius: 6px; /* Rounded corners for modern look */
-    font-size: 14px;
-    font-family: 'Roboto', sans-serif; /* Sleek and modern font */
-    text-align: center;
-    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.4); /* Subtle shadow for depth */
-    visibility: hidden; /* Hidden by default */
-    opacity: 0; /* Fully transparent by default */
-    transition: opacity 0.2s ease, visibility 0.2s ease, color 0.2s ease; /* Smooth appearance */
-    z-index: 1000; /* Ensure tooltip appears above other elements */
-    white-space: nowrap; /* Prevent text wrapping */
-}
-
-/* Show Tooltip on Hover */
-[data-testid="tooltip-trigger"]:hover::after {
-    visibility: visible; /* Show tooltip */
-    opacity: 1; /* Fully opaque */
-    color: #ffffff !important; /* White text on hover */
-}
-
-
 /* Buttons */
 div.stButton > button {
-    background-color: rgba(100, 149, 237, 0.9); /* Lighter blue for buttons (Cornflower Blue) */
+    background-color: rgba(100, 149, 237, 0.9); /* Cornflower Blue for buttons */
     color: #ffffff !important; /* White text for readability */
     border: none;
-    padding: 14px 28px; /* Increased padding for better size */
+    padding: 14px 28px; /* Adjusted padding for better size */
     font-size: 16px;
-    font-weight: 800; /* Increased thickness of the text */
+    font-weight: bold; /* Bold text for buttons */
     border-radius: 8px; /* Rounded corners */
     cursor: pointer;
     box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.2); /* Subtle shadow for depth */
-    font-family: 'Roboto', sans-serif, Arial, sans-serif;
-    display: flex;
-    align-items: center; /* Center align text and icons */
-    justify-content: center; /* Center align text and icons */
-    gap: 8px; /* Add spacing between icon and text */
+    font-family: 'Roboto', sans-serif;
     transition: all 0.3s ease;
 }
 
@@ -118,11 +60,62 @@ div.stButton > button > svg {
     height: 18px;
 }
 
+/* Tooltip Icon Styling */
+[data-testid="tooltip-trigger"] {
+    color: #000000 !important; /* Black question mark icon for visibility */
+    font-size: 18px; /* Slightly larger for emphasis */
+    cursor: help; /* Indicates interactivity */
+    position: relative;
+}
 
+/* Tooltip Text Styling */
+[data-testid="tooltip-trigger"]::after {
+    content: attr(aria-label);
+    position: absolute;
+    top: -50px; /* Position the tooltip above the icon */
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: rgba(51, 51, 51, 0.95); /* Dark grey background for tooltip */
+    color: #ffffff; /* White text for readability */
+    padding: 10px 14px; /* Add padding for better spacing */
+    border-radius: 6px; /* Rounded corners for modern look */
+    font-size: 14px;
+    font-family: 'Roboto', sans-serif; /* Sleek and modern font */
+    text-align: center;
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.4); /* Subtle shadow for depth */
+    visibility: hidden; /* Hidden by default */
+    opacity: 0; /* Fully transparent by default */
+    transition: opacity 0.2s ease, visibility 0.2s ease; /* Smooth appearance */
+    z-index: 1000; /* Ensure tooltip appears above other elements */
+    white-space: nowrap; /* Prevent text wrapping */
+}
+
+/* Show Tooltip on Hover */
+[data-testid="tooltip-trigger"]:hover::after {
+    visibility: visible; /* Show tooltip */
+    opacity: 1; /* Fully opaque */
+}
+
+/* Expander Section Styling */
+[data-testid="stExpander"] {
+    background-color: rgba(255, 255, 255, 0.6); /* White with 60% transparency */
+    border: 1px solid rgba(200, 200, 200, 0.6); /* Subtle border with transparency */
+    border-radius: 10px; /* Rounded corners for a clean look */
+    padding: 12px;
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.2); /* Subtle shadow for depth */
+}
+
+/* Expander Header Styling */
+[data-testid="stExpander"] > div:first-child {
+    background-color: rgba(242, 242, 242, 0.5); /* Light grey with transparency */
+    font-weight: 600;
+    color: #000000; /* Black text for the header */
+    border-radius: 10px;
+}
 
 /* Headers and Titles */
 h1, h2, h3, h4, h5, h6 {
-    font-family: 'Roboto', sans-serif, Arial, sans-serif;
+    font-family: 'Roboto', sans-serif;
     color: #000000; /* Black text */
     font-weight: 600;
 }
@@ -155,21 +148,4 @@ p, li, span {
     font-family: 'Roboto Mono', monospace; /* Monospace font */
     box-shadow: 0px 1px 3px rgba(0, 0, 0, 0.1); /* Subtle shadow for depth */
     display: inline-block; /* Consistent spacing */
-}
-
-/* Expander Section Styling */
-[data-testid="stExpander"] {
-    background-color: rgba(255, 255, 255, 0.7); /* White with 70% opacity for transparency */
-    border: 1px solid rgba(200, 200, 200, 0.6); /* Subtle border with transparency */
-    border-radius: 10px; /* Rounded corners for a clean look */
-    padding: 12px;
-    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.2); /* Subtle shadow for depth */
-}
-
-/* Expander Header Styling */
-[data-testid="stExpander"] > div:first-child {
-    background-color: rgba(242, 242, 242, 0.7); /* Light grey with transparency */
-    font-weight: 600;
-    color: #000000; /* Black text for the header */
-    border-radius: 10px;
 }
