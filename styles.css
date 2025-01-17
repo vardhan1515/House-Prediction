@@ -1,6 +1,6 @@
 /* Tooltip Icon Styling */
 [data-testid="stTooltipIcon"] {
-    color: #000000 !important; /* Black color for better visibility */
+    color: #ffffff !important; /* White color for dark theme */
     font-size: 18px; /* Slightly larger size for focus */
     position: relative;
     cursor: help; /* Indicates it’s a tooltip */
@@ -13,12 +13,12 @@
     top: -40px; /* Adjust position above the icon */
     left: 50%;
     transform: translateX(-50%);
-    background-color: rgba(0, 0, 0, 0.95); /* Dark background for contrast */
-    color: #ffffff; /* White text for readability */
+    background-color: rgba(255, 255, 255, 0.95); /* Light background for contrast */
+    color: #000000; /* Black text for readability */
     padding: 8px 12px;
     border-radius: 6px; /* Rounded corners */
     font-size: 14px;
-    font-family: 'Poppins', sans-serif;
+    font-family: 'Roboto', sans-serif; /* Sleek font */
     text-align: center;
     box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2); /* Subtle shadow */
     visibility: hidden; /* Hidden by default */
@@ -39,45 +39,90 @@
     background-image: url("data:image/png;base64,{background_image}");
     background-size: cover;
     background-position: center;
-    font-family: 'Poppins', sans-serif;
-    color: #333333;
+    font-family: 'Roboto', sans-serif; /* Use Roboto for a sleek look */
+    color: #e0e0e0; /* Light text for contrast on dark backgrounds */
+    background-color: #121212; /* Dark background */
 }
 
 /* Input Fields Styling */
 [data-testid="stNumberInput"], 
 [data-testid="stTextInput"], 
 [data-testid="stSelectbox"] {
-    background-color: #f9f9f9 !important;
-    border: 1px solid #ddd !important;
+    background-color: #1e1e1e !important; /* Dark input fields */
+    border: 1px solid #444444 !important; /* Subtle border for separation */
     border-radius: 8px;
     padding: 10px;
     font-size: 16px;
-    color: #333333 !important;
-    font-family: 'Poppins', sans-serif;
+    color: #e0e0e0 !important; /* Light text */
+    font-family: 'Roboto', sans-serif;
     margin-bottom: 10px;
 }
 
 /* Headers and Titles */
 h1, h2, h3, h4, h5, h6 {
-    font-family: 'Poppins', sans-serif;
-    color: #1A1A1A;
+    font-family: 'Roboto', sans-serif;
+    color: #e0e0e0;
     font-weight: 600;
 }
 
 h1 {
     font-size: 2.8rem;
     font-weight: 700;
-    color: #0056b3;
+    color: #4caf50; /* Green for a modern look */
 }
 
 h2 {
     font-size: 2.2rem;
-    color: #333333;
+    color: #e0e0e0;
 }
 
 /* Paragraphs and Text */
 p, li, span {
     font-size: 16px;
     line-height: 1.6;
-    color: #4A4A4A;
+    color: #bdbdbd; /* Slightly lighter text for paragraphs */
+}
+
+/* Sidebar Styling */
+[data-testid="stSidebar"] {
+    background-color: #1e1e1e; /* Dark background */
+    color: #e0e0e0; /* Light text */
+    border-radius: 10px;
+    padding: 15px;
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.2);
+}
+
+/* Buttons */
+div.stButton > button {
+    background-color: #4caf50; /* Green for contrast */
+    color: #ffffff;
+    border: none;
+    padding: 10px 20px;
+    font-size: 16px;
+    font-weight: 500;
+    border-radius: 6px;
+    cursor: pointer;
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.2);
+    font-family: 'Roboto', sans-serif;
+    transition: all 0.3s ease;
+}
+
+div.stButton > button:hover {
+    background-color: #388e3c; /* Slightly darker green on hover */
+}
+
+/* Expandable Section Styling */
+[data-testid="stExpander"] {
+    background-color: #1e1e1e; /* Match sidebar */
+    border: 1px solid #444444; /* Subtle border for separation */
+    border-radius: 10px;
+    padding: 12px;
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.2);
+}
+
+[data-testid="stExpander"] > div:first-child {
+    background-color: #1e1e1e;
+    font-weight: 600;
+    color: #4caf50;
+    border-radius: 10px;
 }
