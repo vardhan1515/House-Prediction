@@ -1,5 +1,6 @@
 import streamlit as st
 import pandas as pd
+import numpy as np  # Added this import for np.expm1
 import joblib
 import base64
 import matplotlib.pyplot as plt
