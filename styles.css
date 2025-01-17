@@ -1,50 +1,37 @@
-/* Inline Code Styling */
-code {
-    background-color: #f2f2f2; /* Light grey background */
-    color: #1a1a1a; /* Dark grey text for readability */
-    padding: 2px 4px; /* Small padding for better spacing */
-    border-radius: 4px; /* Rounded corners */
-    font-size: 14px; /* Slightly smaller text */
-    font-family: 'Roboto Mono', monospace; /* Monospace font for clarity */
-    box-shadow: 0px 1px 3px rgba(0, 0, 0, 0.1); /* Subtle shadow for depth */
-}
-
-
-
 /* Tooltip Icon Styling */
 [data-testid="stTooltipIcon"] {
-    color: #000000 !important; /* Black color for the icon */
-    font-size: 18px; /* Slightly larger size for focus */
+    color: #000000 !important; /* Black icon for contrast */
+    font-size: 18px; /* Slightly larger for emphasis */
     position: relative;
-    cursor: help; /* Indicates it’s a tooltip */
+    cursor: help; /* Indicates interactivity */
 }
 
 /* Tooltip Text Styling */
 [data-testid="stTooltipIcon"]::after {
     content: attr(aria-label);
     position: absolute;
-    top: -40px; /* Adjust position above the icon */
+    top: -40px; /* Position above the icon */
     left: 50%;
     transform: translateX(-50%);
-    background-color: rgba(0, 0, 0, 0.9); /* Darker black background */
+    background-color: rgba(0, 0, 0, 0.9); /* Black background for strong contrast */
     color: #ffffff; /* White text for readability */
     padding: 8px 12px;
     border-radius: 6px; /* Rounded corners */
     font-size: 14px;
-    font-family: 'Roboto', sans-serif; /* Sleek font */
+    font-family: 'Roboto', sans-serif;
     text-align: center;
     box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.3); /* Subtle shadow */
-    visibility: hidden; /* Hidden by default */
-    opacity: 0; /* Transparent by default */
+    visibility: hidden;
+    opacity: 0;
     transition: opacity 0.2s ease, visibility 0.2s ease; /* Smooth appearance */
-    z-index: 1000; /* Ensure it appears on top */
+    z-index: 1000;
     white-space: nowrap; /* Prevent text wrapping */
 }
 
 /* Show tooltip on hover */
 [data-testid="stTooltipIcon"]:hover::after {
-    visibility: visible; /* Make tooltip visible */
-    opacity: 1; /* Make tooltip opaque */
+    visibility: visible;
+    opacity: 1;
 }
 
 /* General App Styling */
@@ -52,8 +39,8 @@ code {
     background-image: url("data:image/png;base64,{background_image}");
     background-size: cover;
     background-position: center;
-    font-family: 'Roboto', sans-serif; /* Use Roboto for a sleek look */
-    color: #1a1a1a; /* Very dark grey text for contrast */
+    font-family: 'Roboto', sans-serif;
+    color: #1a1a1a; /* Dark grey text for readability */
     background-color: #ffffff; /* White background */
 }
 
@@ -62,11 +49,11 @@ code {
 [data-testid="stTextInput"], 
 [data-testid="stSelectbox"] {
     background-color: #f9f9f9 !important; /* Light grey input fields */
-    border: 1px solid #999999 !important; /* Darker grey border for visibility */
+    border: 1px solid #999999 !important; /* Subtle dark grey border */
     border-radius: 8px;
     padding: 10px;
     font-size: 16px;
-    color: #000000 !important; /* Black text for clarity */
+    color: #000000 !important; /* Black text */
     font-family: 'Roboto', sans-serif;
     margin-bottom: 10px;
 }
@@ -74,41 +61,53 @@ code {
 /* Headers and Titles */
 h1, h2, h3, h4, h5, h6 {
     font-family: 'Roboto', sans-serif;
-    color: #000000; /* Black text for better readability */
+    color: #000000; /* Black text */
     font-weight: 600;
 }
 
 h1 {
     font-size: 2.8rem;
     font-weight: 700;
-    color: #0033cc; /* Deep blue for main header */
+    color: #0033cc; /* Deep blue for main headers */
 }
 
 h2 {
     font-size: 2.2rem;
-    color: #000000; /* Black for subheaders */
+    color: #000000;
 }
 
 /* Paragraphs and Text */
 p, li, span {
     font-size: 16px;
     line-height: 1.6;
-    color: #1a1a1a; /* Very dark grey text for better readability */
+    color: #1a1a1a; /* Dark grey text for readability */
+}
+
+/* Inline Code Styling */
+[data-testid="stMarkdownContainer"] code {
+    background-color: #f2f2f2; /* Light grey background for inline code */
+    color: #1a1a1a; /* Dark grey text */
+    padding: 2px 4px;
+    border-radius: 4px;
+    font-size: 14px;
+    font-family: 'Roboto Mono', monospace; /* Monospace font */
+    box-shadow: 0px 1px 3px rgba(0, 0, 0, 0.1); /* Subtle shadow for depth */
+    display: inline-block; /* Consistent spacing */
 }
 
 /* Sidebar Styling */
 [data-testid="stSidebar"] {
-    background-color: #f2f2f2; /* Light grey background */
-    color: #000000; /* Black text */
+    background-color: #f2f2f2; /* Light grey for sidebar */
+    color: #000000; /* Black text for clarity */
     border-radius: 10px;
     padding: 15px;
-    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.2);
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.2); /* Subtle shadow */
 }
 
 /* Buttons */
 div.stButton > button {
     background-color: #0033cc; /* Deep blue for buttons */
-    color: #ffffff; /* White text for visibility */
+    color: #ffffff; /* White text for readability */
     border: none;
     padding: 10px 20px;
     font-size: 16px;
@@ -121,22 +120,22 @@ div.stButton > button {
 }
 
 div.stButton > button:hover {
-    background-color: #002080; /* Even darker blue on hover */
+    background-color: #002080; /* Slightly darker blue on hover */
 }
 
 /* Expandable Section Styling */
 [data-testid="stExpander"] {
     background-color: #f9f9f9; /* Light grey background */
-    border: 1px solid #999999; /* Darker grey border for contrast */
+    border: 1px solid #999999; /* Subtle border */
     border-radius: 10px;
     padding: 12px;
     box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.2);
 }
 
 [data-testid="stExpander"] > div:first-child {
-    background-color: #f2f2f2; /* Light grey to match sidebar */
+    background-color: #f2f2f2; /* Light grey for header */
     font-weight: 600;
-    color: #0033cc; /* Deep blue for expandable section header */
+    color: #0033cc; /* Deep blue for expandable section headers */
     border-radius: 10px;
 }
 
