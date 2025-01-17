@@ -1,6 +1,6 @@
 /* Tooltip Icon Styling (Question Mark) */
 [data-testid="stTooltipIcon"] {
-    color: #000000 !important; /* Black icon for visibility */
+    color: #050404 !important; /* Black icon for visibility */
     font-size: 18px; /* Slightly larger size */
     position: relative;
     cursor: help; /* Indicates interactivity */
