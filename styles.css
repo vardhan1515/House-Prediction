@@ -1,6 +1,6 @@
 /* Tooltip Icon Styling */
 [data-testid="stTooltipIcon"] {
-    color: #333333 !important; /* Black color for the icon */
+    color: #000000 !important; /* Black color for the icon */
     font-size: 18px; /* Slightly larger size for focus */
     position: relative;
     cursor: help; /* Indicates it’s a tooltip */
@@ -13,7 +13,7 @@
     top: -40px; /* Adjust position above the icon */
     left: 50%;
     transform: translateX(-50%);
-    background-color: rgba(0, 0, 0, 0.95); /* Black background for contrast */
+    background-color: rgba(0, 0, 0, 0.9); /* Darker black background */
     color: #ffffff; /* White text for readability */
     padding: 8px 12px;
     border-radius: 6px; /* Rounded corners */
@@ -40,20 +40,20 @@
     background-size: cover;
     background-position: center;
     font-family: 'Roboto', sans-serif; /* Use Roboto for a sleek look */
-    color: #000000; /* Black text for contrast */
-    background-color: #f5f5f5; /* Light background for a clean look */
+    color: #1a1a1a; /* Very dark grey text for contrast */
+    background-color: #ffffff; /* White background */
 }
 
 /* Input Fields Styling */
 [data-testid="stNumberInput"], 
 [data-testid="stTextInput"], 
 [data-testid="stSelectbox"] {
-    background-color: #f0f0f0 !important; /* Light grey input fields */
-    border: 1px solid #cccccc !important; /* Subtle border for separation */
+    background-color: #f9f9f9 !important; /* Light grey input fields */
+    border: 1px solid #999999 !important; /* Darker grey border for visibility */
     border-radius: 8px;
     padding: 10px;
     font-size: 16px;
-    color: #333333 !important; /* Dark text */
+    color: #000000 !important; /* Black text for clarity */
     font-family: 'Roboto', sans-serif;
     margin-bottom: 10px;
 }
@@ -61,32 +61,32 @@
 /* Headers and Titles */
 h1, h2, h3, h4, h5, h6 {
     font-family: 'Roboto', sans-serif;
-    color: #333333;
+    color: #000000; /* Black text for better readability */
     font-weight: 600;
 }
 
 h1 {
     font-size: 2.8rem;
     font-weight: 700;
-    color: #0073e6; /* Vibrant blue for main header */
+    color: #0033cc; /* Deep blue for main header */
 }
 
 h2 {
     font-size: 2.2rem;
-    color: #333333;
+    color: #000000; /* Black for subheaders */
 }
 
 /* Paragraphs and Text */
 p, li, span {
     font-size: 16px;
     line-height: 1.6;
-    color: #333333; /* Black text for better readability */
+    color: #1a1a1a; /* Very dark grey text for better readability */
 }
 
 /* Sidebar Styling */
 [data-testid="stSidebar"] {
-    background-color: #e8e8e8; /* Light grey background */
-    color: #333333; /* Dark text */
+    background-color: #f2f2f2; /* Light grey background */
+    color: #000000; /* Black text */
     border-radius: 10px;
     padding: 15px;
     box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.2);
@@ -94,8 +94,8 @@ p, li, span {
 
 /* Buttons */
 div.stButton > button {
-    background-color: #0073e6; /* Vibrant blue for contrast */
-    color: #ffffff;
+    background-color: #0033cc; /* Deep blue for buttons */
+    color: #ffffff; /* White text for visibility */
     border: none;
     padding: 10px 20px;
     font-size: 16px;
@@ -108,27 +108,27 @@ div.stButton > button {
 }
 
 div.stButton > button:hover {
-    background-color: #005bb5; /* Darker blue on hover */
+    background-color: #002080; /* Even darker blue on hover */
 }
 
 /* Expandable Section Styling */
 [data-testid="stExpander"] {
-    background-color: #f0f0f0; /* Light grey background */
-    border: 1px solid #cccccc; /* Subtle border */
+    background-color: #f9f9f9; /* Light grey background */
+    border: 1px solid #999999; /* Darker grey border for contrast */
     border-radius: 10px;
     padding: 12px;
     box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.2);
 }
 
 [data-testid="stExpander"] > div:first-child {
-    background-color: #e8e8e8; /* Light grey to match sidebar */
+    background-color: #f2f2f2; /* Light grey to match sidebar */
     font-weight: 600;
-    color: #0073e6; /* Blue for expandable section header */
+    color: #0033cc; /* Deep blue for expandable section header */
     border-radius: 10px;
 }
 
 /* Tooltips */
 [data-testid="stTooltip"] {
-    color: #ffffff;
-    background-color: #000000;
+    color: #ffffff; /* White text */
+    background-color: #000000; /* Black tooltip background */
 }
