@@ -1,3 +1,16 @@
+/* Inline Code Styling */
+code {
+    background-color: #f2f2f2; /* Light grey background */
+    color: #1a1a1a; /* Dark grey text for readability */
+    padding: 2px 4px; /* Small padding for better spacing */
+    border-radius: 4px; /* Rounded corners */
+    font-size: 14px; /* Slightly smaller text */
+    font-family: 'Roboto Mono', monospace; /* Monospace font for clarity */
+    box-shadow: 0px 1px 3px rgba(0, 0, 0, 0.1); /* Subtle shadow for depth */
+}
+
+
+
 /* Tooltip Icon Styling */
 [data-testid="stTooltipIcon"] {
     color: #000000 !important; /* Black color for the icon */
