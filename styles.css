@@ -82,10 +82,10 @@ div.stButton > button > svg {
 
 /* Tooltip Icon Styling */
 [data-testid="stTooltipIcon"] {
-    color: #000000 !important; /* Black icon for visibility */
-    font-size: 18px; /* Slightly larger for emphasis */
-    position: relative;
+    color: #000000 !important; /* Black question mark icon */
+    font-size: 18px; /* Slightly larger for visibility */
     cursor: help; /* Indicates interactivity */
+    position: relative;
 }
 
 /* Tooltip Text Styling */
@@ -95,26 +95,27 @@ div.stButton > button > svg {
     top: -40px; /* Position above the icon */
     left: 50%;
     transform: translateX(-50%);
-    background-color: rgba(0, 0, 0, 0.9); /* Black tooltip background */
-    color: #ffffff; /* White text for contrast */
+    background-color: #333333; /* Dark grey background for contrast */
+    color: #ffffff; /* White text for readability */
     padding: 8px 12px;
     border-radius: 6px; /* Rounded corners */
     font-size: 14px;
     font-family: 'Roboto', sans-serif;
     text-align: center;
-    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.3); /* Subtle shadow */
-    visibility: hidden;
-    opacity: 0;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.3); /* Subtle shadow for depth */
+    visibility: hidden; /* Hidden by default */
+    opacity: 0; /* Fully transparent by default */
     transition: opacity 0.2s ease, visibility 0.2s ease; /* Smooth appearance */
-    z-index: 1000;
+    z-index: 1000; /* Ensure tooltip appears above other elements */
     white-space: nowrap; /* Prevent text wrapping */
 }
 
-/* Show tooltip on hover */
+/* Show Tooltip on Hover */
 [data-testid="stTooltipIcon"]:hover::after {
-    visibility: visible;
-    opacity: 1;
+    visibility: visible; /* Make tooltip visible */
+    opacity: 1; /* Fully opaque on hover */
 }
+
 
 /* Headers and Titles */
 h1, h2, h3, h4, h5, h6 {
