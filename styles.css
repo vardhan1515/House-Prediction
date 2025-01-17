@@ -1,8 +1,7 @@
-
-/* Tooltip Icon Styling */
+/* Tooltip Icon Styling (Question Mark) */
 [data-testid="stTooltipIcon"] {
-    color: #000000 !important; /* Black icon for contrast */
-    font-size: 18px; /* Slightly larger for emphasis */
+    color: #000000 !important; /* Black icon for visibility */
+    font-size: 18px; /* Slightly larger size */
     position: relative;
     cursor: help; /* Indicates interactivity */
 }
@@ -14,8 +13,8 @@
     top: -40px; /* Position above the icon */
     left: 50%;
     transform: translateX(-50%);
-    background-color: rgba(0, 0, 0, 0.9); /* Black background for strong contrast */
-    color: #ffffff; /* White text for readability */
+    background-color: #000000; /* Black tooltip background */
+    color: #ffffff; /* White text for contrast */
     padding: 8px 12px;
     border-radius: 6px; /* Rounded corners */
     font-size: 14px;
@@ -110,10 +109,10 @@ div.stButton > button {
     background-color: #0033cc; /* Deep blue for buttons */
     color: #ffffff; /* White text for readability */
     border: none;
-    padding: 10px 20px;
+    padding: 12px 24px; /* Adjusted padding for better size */
     font-size: 16px;
-    font-weight: 500;
-    border-radius: 6px;
+    font-weight: 600;
+    border-radius: 8px; /* Rounded corners */
     cursor: pointer;
     box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.2);
     font-family: 'Roboto', sans-serif;
@@ -122,6 +121,8 @@ div.stButton > button {
 
 div.stButton > button:hover {
     background-color: #002080; /* Slightly darker blue on hover */
+    color: #f0f0f0; /* Light grey text for better contrast */
+    transform: scale(1.02); /* Slight zoom effect on hover */
 }
 
 /* Expandable Section Styling */
