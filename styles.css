@@ -47,39 +47,6 @@
     margin-bottom: 10px;
 }
 
-/* Buttons */
-div.stButton > button {
-    background-color: rgba(100, 149, 237, 0.9); /* Lighter blue for buttons (Cornflower Blue) */
-    color: #ffffff !important; /* White text for readability */
-    border: none;
-    padding: 12px 24px; /* Adjusted padding for better size */
-    font-size: 16px;
-    font-weight: 600;
-    border-radius: 8px; /* Rounded corners */
-    cursor: pointer;
-    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.2); /* Subtle shadow for depth */
-    font-family: 'Roboto', sans-serif;
-    display: flex;
-    align-items: center; /* Center align text and icons */
-    justify-content: center; /* Center align text and icons */
-    gap: 8px; /* Add spacing between icon and text */
-    transition: all 0.3s ease;
-}
-
-div.stButton > button:hover {
-    background-color: rgba(70, 130, 180, 0.9); /* Slightly darker blue on hover (Steel Blue) */
-    color: #ffffff !important; /* Ensure text remains white on hover */
-    transform: scale(1.02); /* Slight zoom effect on hover */
-    box-shadow: 0px 6px 8px rgba(0, 0, 0, 0.3); /* Enhanced shadow on hover */
-}
-
-/* Button Icon Styling */
-div.stButton > button > svg {
-    fill: #ffffff; /* White color for icons */
-    width: 18px; /* Adjust icon size */
-    height: 18px;
-}
-
 /* Tooltip Icon Styling */
 [data-testid="stTooltipIcon"] {
     color: #000000 !important; /* Black question mark icon */
@@ -92,14 +59,15 @@ div.stButton > button > svg {
 [data-testid="stTooltipIcon"]::after {
     content: attr(aria-label);
     position: absolute;
-    top: -40px; /* Position above the icon */
+    top: -50px; /* Position slightly higher above the icon */
     left: 50%;
     transform: translateX(-50%);
-    background-color: #333333; /* Dark grey background for contrast */
-    color: #ffffff; /* White text for readability */
-    padding: 8px 12px;
-    border-radius: 6px; /* Rounded corners */
+    background-color: #444444; /* Darker grey for tooltip background */
+    color: #ffffff; /* White text for contrast */
+    padding: 10px 14px; /* Added padding for spacing */
+    border-radius: 8px; /* Rounded corners for modern look */
     font-size: 14px;
+    font-weight: 500; /* Slightly bolder text for readability */
     font-family: 'Roboto', sans-serif;
     text-align: center;
     box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.3); /* Subtle shadow for depth */
@@ -114,6 +82,39 @@ div.stButton > button > svg {
 [data-testid="stTooltipIcon"]:hover::after {
     visibility: visible; /* Make tooltip visible */
     opacity: 1; /* Fully opaque on hover */
+}
+
+/* Buttons */
+div.stButton > button {
+    background-color: rgba(100, 149, 237, 0.9); /* Lighter blue for buttons (Cornflower Blue) */
+    color: #ffffff !important; /* White text for readability */
+    border: none;
+    padding: 14px 28px; /* Increased padding for better size */
+    font-size: 16px;
+    font-weight: bold; /* Bold text for buttons */
+    border-radius: 8px; /* Rounded corners */
+    cursor: pointer;
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.2); /* Subtle shadow for depth */
+    font-family: 'Roboto', sans-serif;
+    display: flex;
+    align-items: center; /* Center align text and icons */
+    justify-content: center; /* Center align text and icons */
+    gap: 8px; /* Add spacing between icon and text */
+    transition: all 0.3s ease;
+}
+
+div.stButton > button:hover {
+    background-color: rgba(70, 130, 180, 0.9); /* Slightly darker blue on hover (Steel Blue) */
+    color: #ffffff !important; /* Ensure text remains white on hover */
+    transform: scale(1.05); /* Slight zoom effect on hover */
+    box-shadow: 0px 6px 8px rgba(0, 0, 0, 0.3); /* Enhanced shadow on hover */
+}
+
+/* Button Icon Styling */
+div.stButton > button > svg {
+    fill: #ffffff; /* White color for icons */
+    width: 18px; /* Adjust icon size */
+    height: 18px;
 }
 
 
