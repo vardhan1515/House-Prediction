@@ -34,7 +34,7 @@
 /* Buttons */
 div.stButton > button {
     background-color: rgba(0, 51, 204, 0.9); /* Deep blue with slight transparency */
-    color: #ffffff; /* White text for readability */
+    color: #ffffff !important; /* White text for readability */
     border: none;
     padding: 12px 24px; /* Adjusted padding for better size */
     font-size: 16px;
@@ -52,7 +52,7 @@ div.stButton > button {
 
 div.stButton > button:hover {
     background-color: rgba(0, 32, 128, 0.9); /* Slightly darker blue on hover */
-    color: #ffffff; /* Ensure text remains white on hover */
+    color: #ffffff !important; /* Ensure text remains white on hover */
     transform: scale(1.02); /* Slight zoom effect on hover */
     box-shadow: 0px 6px 8px rgba(0, 0, 0, 0.3); /* Enhanced shadow on hover */
 }
