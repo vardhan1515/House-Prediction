@@ -1,7 +1,17 @@
-/* Tooltip Icon Styling (Question Mark) */
+/* General App Styling */
+[data-testid="stAppViewContainer"] {
+    background-image: url("data:image/png;base64,{background_image}");
+    background-size: cover;
+    background-position: center;
+    font-family: 'Roboto', sans-serif;
+    color: #1a1a1a; /* Dark grey text for readability */
+    background-color: #ffffff; /* White background */
+}
+
+/* Tooltip Icon Styling */
 [data-testid="stTooltipIcon"] {
-    color: #050404 !important; /* Black icon for visibility */
-    font-size: 18px; /* Slightly larger size */
+    color: #000000 !important; /* Black icon for visibility */
+    font-size: 18px; /* Slightly larger for emphasis */
     position: relative;
     cursor: help; /* Indicates interactivity */
 }
@@ -32,16 +42,6 @@
 [data-testid="stTooltipIcon"]:hover::after {
     visibility: visible;
     opacity: 1;
-}
-
-/* General App Styling */
-[data-testid="stAppViewContainer"] {
-    background-image: url("data:image/png;base64,{background_image}");
-    background-size: cover;
-    background-position: center;
-    font-family: 'Roboto', sans-serif;
-    color: #1a1a1a; /* Dark grey text for readability */
-    background-color: #ffffff; /* White background */
 }
 
 /* Input Fields Styling */
@@ -136,7 +136,6 @@ div.stButton > button > svg {
     width: 18px; /* Adjust icon size */
     height: 18px;
 }
-
 
 /* Expandable Section Styling */
 [data-testid="stExpander"] {
