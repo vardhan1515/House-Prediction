@@ -1,6 +1,6 @@
 import streamlit as st
 import pandas as pd
-import numpy as np  # Added this import for np.expm1
+import numpy as np  # Added for np.expm1
 import joblib
 import base64
 import matplotlib.pyplot as plt
@@ -74,17 +74,20 @@ with st.expander("ℹ️ About the Features", expanded=False):
 
 # Sidebar Section
 st.sidebar.title("⚙️ Customize Your Property")
-mo_sold = st.sidebar.slider("📅 Month Sold", min_value=1, max_value=12, value=1, help="When was the house sold?")
-yr_sold = st.sidebar.number_input("📅 Year Sold", min_value=2000, max_value=2025, value=2025, help="Year of sale.")
+mo_sold = st.sidebar.slider("📅 Month Sold", min_value=1, max_value=12, value=1)
+yr_sold = st.sidebar.number_input("📅 Year Sold", min_value=2000, max_value=2025, value=2025)
 show_history = st.sidebar.checkbox("📜 Show Prediction History")
 
 # Main Input Section
 st.markdown("### Enter Property Details")
 col1, col2 = st.columns(2)
 
+# Define possible options for neighborhoods and sale conditions
+neighborhoods = ['Blueste', 'CollgCr', 'Edwards', 'Gilbert', 'NWAmes', 'OldTown', 'Sawyer', 'Somerst']
+sale_conditions = ['Normal', 'Abnorml', 'AdjLand', 'Alloca', 'Family', 'Partial']
+
 # Input fields
 inputs = {}
-# Updated Input Fields Without Tooltips
 with col1:
     inputs['MSSubClass'] = st.selectbox(
         "🏠 Building Class (MSSubClass)",
@@ -102,12 +105,14 @@ with col2:
     inputs['FullBath'] = st.number_input("🛁 Full Bathrooms", value=2)
     inputs['HalfBath'] = st.number_input("🚻 Half Bathrooms", value=1)
 
-# Updated Neighborhood and Sale Information Without Tooltips
+# Neighborhood and Sale Information
+st.markdown("### Neighborhood and Sale Details")
+col3, col4 = st.columns(2)
+
 with col3:
     neighborhood = st.selectbox("🏘 Neighborhood", neighborhoods)
 with col4:
     sale_condition = st.selectbox("📄 Sale Condition", sale_conditions)
-
 
 categorical_inputs = {f'Neighborhood_{neighborhood}': 1, f'SaleCondition_{sale_condition}': 1}
 
