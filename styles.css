@@ -3,7 +3,7 @@
     background-image: url("data:image/png;base64,{background_image}");
     background-size: cover;
     background-position: center;
-    font-family: 'Roboto', sans-serif;
+    font-family: 'Roboto', sans-serif, Arial, sans-serif;
     color: #1a1a1a; /* Dark grey text for readability */
     background-color: rgba(255, 255, 255, 0.9); /* White with slight transparency */
 }
@@ -43,7 +43,7 @@
     padding: 10px;
     font-size: 16px;
     color: #000000 !important; /* Black text */
-    font-family: 'Roboto', sans-serif;
+    font-family: 'Roboto', sans-serif, Arial, sans-serif;
     margin-bottom: 10px;
 }
 
@@ -59,7 +59,7 @@ div.stButton > button {
     border-radius: 8px; /* Rounded corners */
     cursor: pointer;
     box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.2); /* Subtle shadow for depth */
-    font-family: 'Roboto', sans-serif;
+    font-family: 'Roboto', sans-serif, Arial, sans-serif;
     display: flex;
     align-items: center; /* Center align text and icons */
     justify-content: center; /* Center align text and icons */
@@ -85,7 +85,7 @@ div.stButton > button > svg {
 
 /* Headers and Titles */
 h1, h2, h3, h4, h5, h6 {
-    font-family: 'Roboto', sans-serif;
+    font-family: 'Roboto', sans-serif, Arial, sans-serif;
     color: #000000; /* Black text */
     font-weight: 600;
 }
